@@ -21,7 +21,6 @@
 		// file config database
 		$file_db_config = "../core/config/databases.yml";
 		$parsed = $array = Spyc::YAMLLoad($file_db_config);
-		echo "dns:".$parsed['all']['doctrine']['param']['dsn'];
 		$db_info = strstr($parsed['all']['doctrine']['param']['dsn'],'dbname');
 		$db_info_array = explode(';', $db_info);
 		$db_name = explode("=",$db_info_array[0])[1];
