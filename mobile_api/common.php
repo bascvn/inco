@@ -3,6 +3,7 @@
 	 define("IMAGE_URL",      "assets/");
 	
 	require_once('Spyc.php');// import for read file config database
+	require_once('../core/lib/PasswordHash.php');
 	 
    
 	//======================================================================================
@@ -44,6 +45,68 @@
 
         mysqli_close($con);
     }
+     //=========================== get user=========================================
+     function get_user($con,$email,$password){
+     	
+     	$sql = "SELECT * FROM `users` WHERE `users`.`email` = '$email' AND `users`.`active` = 1";
+        if ($result=mysqli_query($con,$sql)){
+	     	if (mysqli_num_rows($result) > 0) {
+	     		 while($row = mysqli_fetch_assoc($result)) {
+	     		 	$hasher = new PasswordHash(11, false);
+	     		 	if($hasher->CheckPassword($password,$row['password'])){
+	     		 		return  $row;
+	     		 	}
+	     		 	
+	    		}	
+	     	}
+	     	  mysqli_free_result($result);
+	     }
+     	return null;
+     }
+     function insert_tokens($user_id,$tokens,$device_id,$device_type,$con){
+     	$id = get_device_id($device_id,$device_type,$con);
+
+     	if($id == 0){
+     		create_new_tokens($user_id,$tokens,$device_id,$device_type,$con);
+     	}else{
+     		update_new_token($id,$user_id,$tokens,$device_id,$device_type,$con);
+     		
+     	}
+     }
+     function update_new_token($id,$user_id,$tokens,$device_id,$device_type,$con){
+     	$time = date("Y-m-d H:i:s"); 
+     	$sql = "UPDATE  `mobile_tokens`
+     			SET `user_id` = '$user_id' , 
+     				`device_id` = '$device_id',
+     				 `device_type` = '$device_type',
+     				  `token` = '$tokens',
+     				  `create_time` = '$time',
+     				   `last_access` = '$time'
+     			WHERE `id` ='$id'";
+     	$result=mysqli_query($con,$sql);
+     	return 0;
+     }
+     function create_new_tokens($user_id,$tokens,$device_id,$device_type,$con){
+     	$time = date("Y-m-d H:i:s"); 
+     	$sql = "INSERT INTO `mobile_tokens` (`user_id`, `device_id`, `device_type`, `token`, `create_time`, `last_access`) 
+     	VALUES ('$user_id', '$device_id', '$device_type', '$tokens', '$time', '$time')";
+     	$result=mysqli_query($con,$sql);
+	    return 0;
+
+     }
+     function get_device_id($device_id,$device_type,$con){
+     	$sql = "SELECT * FROM `mobile_tokens` WHERE `mobile_tokens`.`device_id` = '$device_id' AND `mobile_tokens`.`device_type` = '$device_type'";
+
+        if ($result=mysqli_query($con,$sql)){
+	     	if (mysqli_num_rows($result) > 0) {
+	     		 while($row = mysqli_fetch_assoc($result)) {
+	     		 	return $row['id'];
+	    		}	
+	     	}
+	     	  mysqli_free_result($result);
+	     }
+	     return 0;
+     }
     
 	
 ?>

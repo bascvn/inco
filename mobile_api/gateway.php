@@ -13,8 +13,8 @@ if(isset($_GET['controller']))
 
 	//passed APIs
 	if( 
-		(strcmp($url[0],'customer')==0 && strcmp($url[1],'check_login')==0) //customer.check_login
-		||(strcmp($url[0],'customer')==0 && strcmp($url[1],'forgot_password')==0) //customer.forgot_password
+		(strcmp($url[0],'auth')==0 && strcmp($url[1],'login')==0) //customer.check_login
+		
 	)
 	{
 		//$url=explode('.',$_GET['controller']);
