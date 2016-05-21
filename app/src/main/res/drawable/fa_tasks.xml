@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1792dp"
+    android:height="1792dp"
+    android:viewportWidth="1792"
+    android:tint="@color/common_signin_btn_dark_text_default"
+    android:viewportHeight="1792">
+    <group
+        android:rotation="180"
+        android:name="rotationGroup"
+        android:pivotX="896"
+        android:pivotY="896"
+        >
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M1024 128h640v128h-640v-128zM640 640h1024v128h-1024v-128zM1280
+1152h384v128h-384v-128zM1792 320v-256q0 -26 -19 -45t-45 -19h-1664q-26 0 -45
+19t-19 45v256q0 26 19 45t45 19h1664q26 0 45 -19t19 -45zM1792 832v-256q0 -26 -19
+-45t-45 -19h-1664q-26 0 -45 19 t-19 45v256q0 26 19 45t45 19h1664q26 0 45 -19t19
+-45zM1792 1344v-256q0 -26 -19 -45t-45 -19h-1664q-26 0 -45 19t-19 45v256q0 26 19
+45t45 19h1664q26 0 45 -19t19 -45z" />
+    </group>
+</vector>
