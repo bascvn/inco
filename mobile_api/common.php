@@ -107,6 +107,10 @@
 	     }
 	     return 0;
      }
+     function detete_token($token,$con){
+ 		$sql = "DELETE FROM `mobile_tokens` WHERE `mobile_tokens`.`token` = '$token'";
+ 		$result=mysqli_query($con,$sql);
+     }
     
 	
 ?>

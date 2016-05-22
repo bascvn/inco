@@ -75,12 +75,27 @@ function login()
 }
 
 
-function forgot_password()
+function logout()
 {
-    $db     = cm_connect();
+    
 	//doing the logic
+	$token = "";
+	$response = new Response();
+	if(isset($_POST['token'])){
+		$token = $_POST['token'];
+	}
+	if(is_string_empty($token) ){
+		$response->set_statsus(STATUS_ERROR);
+		$response->error_code = E_C_MISS_PARAMETER;
+		$response->error_mess = E_M_MISS_PARAMETER;
+		echo json_encode($response);
+		return;
+	}
+	$db     = cm_connect();
+	detete_token($token,$db);
 	cm_close_connect($db);
-	echo '{"status":200,"message":"ok","data":""}';
+	$response->set_statsus(STATUS_SUCCESS);
+	echo json_encode($response);
 }
 
 ?>

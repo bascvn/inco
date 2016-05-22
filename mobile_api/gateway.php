@@ -13,7 +13,7 @@ if(isset($_GET['controller']))
 
 	//passed APIs
 	if( 
-		(strcmp($url[0],'auth')==0 && strcmp($url[1],'login')==0) //customer.check_login
+		(strcmp($url[0],'auth')==0) //customer.check_login
 		
 	)
 	{
