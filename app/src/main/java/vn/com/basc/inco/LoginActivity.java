@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,15 +30,36 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import vn.com.basc.inco.MainActivity;
+import vn.com.basc.inco.common.Globals;
+import vn.com.basc.inco.common.INCOResponse;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -66,6 +89,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private EditText mComnayView;
+    private LinearLayout mContent;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -78,6 +103,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mComnayView = (EditText) findViewById(R.id.company);
+        mContent = (LinearLayout) findViewById(R.id.main_login);
+
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -157,17 +185,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
-
+        mComnayView.setError(null);
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String company = mComnayView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -189,6 +215,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mEmailView;
             cancel = true;
         }
+        if(TextUtils.isEmpty(company)){
+            mComnayView.setError(getString(R.string.error_field_required));
+            focusView = mComnayView;
+            cancel = true;
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -197,9 +228,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            ((MyApplication)getApplication()).saveCompanyAddress(company);
+             showProgress(true);
+             String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            loginAction(email,password,android_id);
         }
     }
 
@@ -403,6 +436,77 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+    public void loginAction(final String email,final String password,final String device_id){
+        Log.d("response","loginAction");
+      //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        String url = ((MyApplication)getApplication()).getUrlApi(Globals.API_LOGIN);
+        Log.d("response","url:"+url );
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))){
+                        mPasswordView.setError(getString(R.string.error_password));
+                        showProgress(false);
+                    }else{
+
+                        JSONObject data = new JSONObject(obj.getString(INCOResponse.DATA_TAG));
+                        String token = data.getString(INCOResponse.TOKEN_TAG);
+                        MyApplication app = (MyApplication) getApplication();
+                        app.saveTokenAccess(token);
+                        String user = data.getString(INCOResponse.USER_TAG);
+                        app.saveUserInfo(user);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    Snackbar.make(mContent, R.string.error_server, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    showProgress(false);
+                    return;
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              /*  NetworkResponse response = error.networkResponse;
+                error.hashCode();
+                Log.d("response",String.valueOf(response.statusCode));
+                if(response != null && response.data != null){
+                    Log.d("response",String.valueOf(response.statusCode));
+                    switch(response.statusCode){
+
+                        case 400:
+
+                            break;
+                    }
+                    //Additional cases
+                }*/
+
+                Snackbar.make(mContent, error.toString(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                showProgress(false);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(Globals.LOGIN_EMAIL,email);
+                params.put(Globals.LOGIN_PASS,password);
+                params.put(Globals.LOGIN_DEVICE_ID, device_id);
+                params.put(Globals.LOGIN_DEVICE_TYPE, Globals.ANDROID_DEVICE);
+                return params;
+            }
+        };
+       /* int socketTimeout = 10000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);*/
+       // queue.add(request);
+       MyApplication.getInstance().addToRequestQueue(request);
     }
 }
 

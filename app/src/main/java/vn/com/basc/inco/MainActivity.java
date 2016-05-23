@@ -13,16 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.android.volley.toolbox.NetworkImageView;
+import com.google.gson.Gson;
 
 import vn.com.basc.inco.ProjectFragment.OnListFragmentInteractionListener;
 import vn.com.basc.inco.TaskFragment.OnTaskListFragmentInteractionListener;
 import vn.com.basc.inco.model.TaskContent;
 import vn.com.basc.inco.model.ProjectContent;
-
+import vn.com.basc.inco.model.User;
+import vn.com.basc.inco.network.CustomVolleyRequest;
+import com.android.volley.toolbox.ImageLoader;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnListFragmentInteractionListener,OnTaskListFragmentInteractionListener {
-
+    private NetworkImageView imageUserAvatar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +44,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.navigation_drawer_menu_project);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,6 +55,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         setNavItemCount(R.id.nav_camera, 10);
+
+        TextView mUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
+        TextView mUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserEmail);
+        imageUserAvatar  = (NetworkImageView) navigationView.getHeaderView(0).findViewById(R.id.imageUserAvatar);
+        imageUserAvatar.setDefaultImageResId(R.mipmap.ic_account_circle_white_48dp);
+        MyApplication myApplication = (MyApplication) getApplication();
+        User user = myApplication.getUserInfo();
+        if(user != null && user.getName()!= null){
+            mUserName.setText(user.getName());
+        }
+        if(user != null && user.getEmail()!= null){
+            mUserEmail.setText(user.getEmail());
+        }
+        if(user != null && user.getPhoto()!= null && user.getPhoto().length()>0){
+            loadAvatarImage(user.getPhoto());
+        }
     }
 
     @Override
@@ -145,5 +160,13 @@ public class MainActivity extends AppCompatActivity
     public void onTaskListFragmentInteraction(TaskContent.TaskItem item) {
         Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
         startActivity(intent);
+    }
+    private void loadAvatarImage(String avatar){
+        String url = ((MyApplication)getApplication()).getAvatarUrl(avatar);
+        ImageLoader  imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
+                .getImageLoader();
+        imageLoader.get(url, ImageLoader.getImageListener(imageUserAvatar,
+                R.mipmap.ic_account_circle_white_48dp, R.mipmap.ic_account_circle_white_48dp));
+        imageUserAvatar.setImageUrl(url, imageLoader);
     }
 }
