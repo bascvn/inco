@@ -52,7 +52,7 @@ function login()
 		$response->error_code = E_C_MISS_PARAMETER;
 		$response->error_mess = E_M_MISS_PARAMETER;
 		echo json_encode($response);
-		return;
+		exit();
 	}
     $db     = cm_connect();
 	$user = get_user($db,$email,$password);
@@ -72,6 +72,7 @@ function login()
 	}
 	//doing the logic
 	cm_close_connect($db);
+	exit();
 }
 
 
