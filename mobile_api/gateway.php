@@ -24,13 +24,11 @@ if(isset($_GET['controller']))
 
 
 	//handle access token for some APIs
-	if(isset($_POST['AccessToken']))
+	if(isset($_POST['token']))
 	{	 
 		//echo "OK";
 		$url=explode('.',$_GET['controller']);
 		require_once 'api/' . $url[0] .'.php';    
-		return;
-		
 		return;
 	}
 }
