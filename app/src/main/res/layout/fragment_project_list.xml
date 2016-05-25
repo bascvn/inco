@@ -14,4 +14,4 @@
     android:clipToPadding="false"
     app:layoutManager="LinearLayoutManager"
     tools:context="vn.com.basc.inco.ProjectFragment"
-    tools:listitem="@layout/fragment_project2" />
+    tools:listitem="@layout/project_item" />

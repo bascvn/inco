@@ -2,10 +2,9 @@ package vn.com.basc.inco;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,27 +12,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.google.gson.Gson;
 
 import vn.com.basc.inco.ProjectFragment.OnListFragmentInteractionListener;
 import vn.com.basc.inco.TaskFragment.OnTaskListFragmentInteractionListener;
+import vn.com.basc.inco.model.ProjectItem;
 import vn.com.basc.inco.model.TaskContent;
-import vn.com.basc.inco.model.ProjectContent;
 import vn.com.basc.inco.model.User;
 import vn.com.basc.inco.network.CustomVolleyRequest;
 import com.android.volley.toolbox.ImageLoader;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnListFragmentInteractionListener,OnTaskListFragmentInteractionListener {
     private NetworkImageView imageUserAvatar;
+    private FrameLayout mFrameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mFrameLayout  = (android.widget.FrameLayout) findViewById(R.id.fragment_container);
         ProjectFragment fragment =  ProjectFragment.newInstance(1);
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(ProjectContent.ProjectItem item) {
+    public void onListFragmentInteraction(ProjectItem item) {
         Intent intent = new Intent(MainActivity.this, ProjectActivity.class);
         // EditText editText = (EditText) findViewById(R.id.edit_message);
         //String message = editText.getText().toString();
@@ -168,5 +167,9 @@ public class MainActivity extends AppCompatActivity
         imageLoader.get(url, ImageLoader.getImageListener(imageUserAvatar,
                 R.mipmap.ic_account_circle_white_48dp, R.mipmap.ic_account_circle_white_48dp));
         imageUserAvatar.setImageUrl(url, imageLoader);
+    }
+    public void showSnackbarError(String error){
+        Snackbar.make(mFrameLayout,error, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }

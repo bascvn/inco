@@ -39,7 +39,7 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
       //  holder.mIdView.setText(mValues.get(position).id);
-        //holder.mContentView.setText(mValues.get(position).content);
+        //holder.mNameView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<MyTaskRecycl
             mView = view;
             mCardView = (CardView) view.findViewById(R.id.cv);
             mIdView = (TextView) mCardView.findViewById(R.id.task_name);
-            mContentView = (TextView) mCardView.findViewById(R.id.txtTitle2);
+            mContentView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }
 
         @Override

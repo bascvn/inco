@@ -118,6 +118,7 @@ public class MyApplication extends Application {
             editor.commit();
         }
         public void saveTokenAccess(String token){
+            Log.d("saveUserInfo" ,token);
             SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString(TOKEN_ACCESS, token);
@@ -126,7 +127,9 @@ public class MyApplication extends Application {
         }
         public String  getTokenAccess(){
             SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
-            return settings.getString(TOKEN_ACCESS,"");
+            String token = settings.getString(TOKEN_ACCESS,"");
+            Log.d("saveUserInfo" ,token);
+            return token;
         }
 
         public void saveUserInfo(String user){
