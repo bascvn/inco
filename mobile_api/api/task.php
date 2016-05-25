@@ -32,6 +32,7 @@ function get_list()
 	$offset = "";
 	$limit = "";
 	$search = "";
+	$projects_id = "";
 	if(isset($_POST['offset'])){
 		$offset = $_POST['offset'];
 	}
@@ -41,6 +42,10 @@ function get_list()
 	if(isset($_POST['search'])){
 		$search = $_POST['search'];
 	}
+	if(isset($_POST['projects_id'])){
+		$projects_id = $_POST['projects_id'];
+	}
+
 	$response = new Response();
 	// check parameter
 	if(is_string_empty($token)|| is_string_empty($offset) ||is_string_empty($limit)){
@@ -57,7 +62,7 @@ function get_list()
 		$response->error_code = ResponseMess::E_M_PERMISSION;
 		echo json_encode($response);
 	}else{
-		$projects = get_list_project($user['user_id'],$user['allow_manage_projects'],$search,$offset,$limit,$db);
+		$projects = get_list_task($user['user_id'],$user['allow_manage_tasks'],$projects_id,$search,$offset,$limit,$db);
 		$response->status = ResponseCode::STATUS_SUCCESS;
 		$response->data = $projects;
 		echo json_encode($response);

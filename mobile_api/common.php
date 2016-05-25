@@ -125,15 +125,17 @@
 	     }
 	     return null;
      }
-      function get_list_project($user_id,$access_control,$offset,$limit,$con){
+      function get_list_project($user_id,$access_control,$search,$offset,$limit,$con){
      	$main_sql ="SELECT projects.id,projects.name, projects_status.name AS status,projects_types.name AS type,
-     	projects.created_by, projects.created_at FROM `projects` LEFT JOIN  projects_status ON projects.projects_status_id = projects_status.id LEFT JOIN projects_types ON projects.projects_types_id = projects_types.id LEFT JOIN users ON projects.created_by = users.id ";
+     	users.name AS created_by, DATE_FORMAT(projects.created_at,'%m-%d-%Y')  AS created_at FROM `projects` LEFT JOIN  projects_status ON projects.projects_status_id = projects_status.id LEFT JOIN projects_types ON projects.projects_types_id = projects_types.id LEFT JOIN users ON projects.created_by = users.id ";
      	if($access_control == UserAccess::VIEW_OWN_ONLY){
-     		$main_sql .="WHERE find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id ";
+     		$main_sql .="WHERE (find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id) AND projects.name LIKE '%$search%' ";
+     	}else{
+     		$main_sql .="WHERE projects.name LIKE '%$search%' ";
      	}
+     	
      	$projects=array();
      	$main_sql .= "ORDER BY projects.name LIMIT $limit OFFSET $offset";
-
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {
@@ -146,7 +148,43 @@
 	     }
 	     return $projects;
      }
+     function get_list_task($user_id,$access_control,$project_id,$search,$offset,$limit,$con){
+     	$main_sql ="SELECT 
+     		tasks.id AS id,
+     		tasks.name AS name,
+     		projects.name AS projects,
+     		tasks_priority.name AS tasks_priority,
+     		users.name AS assigned_to,
+     		tasks_status.name AS tasks_status
+     		 FROM tasks 
+     		LEFT JOIN projects ON tasks.projects_id = projects.id 
+     		LEFT JOIN tasks_priority ON tasks.tasks_type_id=tasks_priority.id 
+     		LEFT JOIN users ON tasks.assigned_to=users.id 
+     		LEFT JOIN users AS users2 ON tasks.created_by=users2.id 
+     		LEFT JOIN tasks_status oN tasks.tasks_status_id = tasks_status.id ";
+     	if($access_control == UserAccess::VIEW_OWN_ONLY){
+     		$main_sql .="WHERE ( tasks.assigned_to  = $user_id OR tasks.created_by = $user_id) AND projects.name LIKE '%$search%' ";
+     	}else{
+     		$main_sql .="WHERE projects.name LIKE '%$search%' ";
+     	}
+     	if(strlen($project_id)>0){
+     		$main_sql .="AND tasks.projects_id = $project_id ";
+     	} 	
+    
+     	$projects=array();
+     	$main_sql .= "ORDER BY tasks.name LIMIT $limit OFFSET $offset";
+     	 if ($result=mysqli_query($con,$main_sql)){
+	     	if (mysqli_num_rows($result) > 0) {
+	     		 while($row = mysqli_fetch_assoc($result)) {
 
+	     		 	array_push($projects,$row);
+	     		 	
+	    		}	
+	     	}
+	     	  mysqli_free_result($result);
+	     }
+	     return $projects;
+     }
 
     
 ?>
