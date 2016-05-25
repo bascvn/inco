@@ -457,6 +457,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         String token = data.getString(INCOResponse.TOKEN_TAG);
                         MyApplication app = (MyApplication) getApplication();
                         app.saveTokenAccess(token);
+                        showProgress(false);
                         String user = data.getString(INCOResponse.USER_TAG);
                         app.saveUserInfo(user);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

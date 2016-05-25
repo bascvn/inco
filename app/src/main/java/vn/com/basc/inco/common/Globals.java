@@ -17,7 +17,7 @@ public class Globals {
     public static String TOKEN_PARAMETER;
     public static String OFFSET_PARAMETER;
     public static String LIMIT_PARAMETER;
-
+    public static String SEARCH_PARAMETER;
 
     static {
         PROTOCOL = "http://";
@@ -30,5 +30,6 @@ public class Globals {
         TOKEN_PARAMETER = "token";
         OFFSET_PARAMETER = "offset";
         LIMIT_PARAMETER = "limit";
+        SEARCH_PARAMETER ="search";
     }
 }

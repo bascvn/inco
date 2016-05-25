@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import java.util.List;
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    private final static int FADE_DURATION = 1000; // in milliseconds
     private final List<Item> mValues;
     private final OnListFragmentInteractionListener mListener;
     private static int ITEM =0;
@@ -74,6 +75,7 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     }
                 }
             });
+            setFadeAnimation(projectViewHolder.mView);
         }
     }
 
@@ -116,5 +118,10 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             super(itemView);
             progressBar = (ProgressBar) itemView.findViewById(R.id.footer);
         }
+    }
+    private void setFadeAnimation(View view) {
+       /* AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);*/
     }
 }
