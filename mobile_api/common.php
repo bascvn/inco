@@ -127,13 +127,13 @@
      }
       function get_list_project($user_id,$access_control,$offset,$limit,$con){
      	$main_sql ="SELECT projects.id,projects.name, projects_status.name AS status,projects_types.name AS type,
-     	projects.created_by, projects.created_at FROM `projects` LEFT JOIN  projects_status ON projects.projects_status_id = projects_status.id LEFT JOIN projects_types ON projects.projects_types_id = projects_types.id LEFT JOIN users ON projects.created_by = users.id ";
+     	users.name AS created_by, DATE_FORMAT(projects.created_at,'%m-%d-%Y')  AS created_at FROM `projects` LEFT JOIN  projects_status ON projects.projects_status_id = projects_status.id LEFT JOIN projects_types ON projects.projects_types_id = projects_types.id LEFT JOIN users ON projects.created_by = users.id ";
      	if($access_control == UserAccess::VIEW_OWN_ONLY){
      		$main_sql .="WHERE find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id ";
      	}
+     	
      	$projects=array();
      	$main_sql .= "ORDER BY projects.name LIMIT $limit OFFSET $offset";
-
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {
