@@ -62,7 +62,7 @@ function get_list()
 		$response->error_code = ResponseMess::E_M_PERMISSION;
 		echo json_encode($response);
 	}else{
-		$projects = get_list_task($user,$projects_id,$search,$offset,$limit,$db);
+		$projects = get_list_discussions($user,$projects_id,$search,$offset,$limit,$db);
 		$response->status = ResponseCode::STATUS_SUCCESS;
 		$response->data = $projects;
 		echo json_encode($response);
