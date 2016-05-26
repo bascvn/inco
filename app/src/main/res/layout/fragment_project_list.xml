@@ -21,7 +21,7 @@
     android:dividerHeight="10.0sp"
     android:clipToPadding="false"
     app:layoutManager="LinearLayoutManager"
-    tools:context="vn.com.basc.inco.ProjectFragment"
+    tools:context=".fragment.ProjectFragment"
     tools:listitem="@layout/project_item" />
     <include
         layout="@layout/empty_state"

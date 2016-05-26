@@ -19,10 +19,21 @@ public class Globals {
     public static String LIMIT_PARAMETER;
     public static String SEARCH_PARAMETER;
 
+    public static String API_TASK_LIST;
+    public static String PROJECT_ID_PARAMETER;
+    public static  String ID_EXTRA = "ID_EXTRA";
+    public static  String MESS_EXTRA = "MESS_EXTRA";
+
+
+    public static String API_TICKET_LIST;
+    public static String API_DISCUSSION_LIST;
     static {
         PROTOCOL = "http://";
         API_LOGIN = "inco/mobile_api/gateway.php?controller=auth.login";
         API_PROJECT_LIST = "inco/mobile_api/gateway.php?controller=project.get_list";
+        API_TASK_LIST = "inco/mobile_api/gateway.php?controller=task.get_list";
+        API_TICKET_LIST = "inco/mobile_api/gateway.php?controller=tickets.get_list";
+        API_DISCUSSION_LIST = "inco/mobile_api/gateway.php?controller=discussions.get_list";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";
@@ -31,5 +42,6 @@ public class Globals {
         OFFSET_PARAMETER = "offset";
         LIMIT_PARAMETER = "limit";
         SEARCH_PARAMETER ="search";
+        PROJECT_ID_PARAMETER ="projects_id";
     }
 }

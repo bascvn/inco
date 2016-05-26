@@ -20,9 +20,17 @@ import android.widget.TextView;
 
 import android.support.design.widget.TabLayout;
 
-import vn.com.basc.inco.model.TaskContent;
+import vn.com.basc.inco.common.Globals;
+import vn.com.basc.inco.fragment.DiscussionFragment;
+import vn.com.basc.inco.fragment.TaskFragment;
+import vn.com.basc.inco.fragment.TaskFragment.OnListTaskFragmentInteractionListener;
+import vn.com.basc.inco.fragment.TicketFragment;
+import vn.com.basc.inco.model.DiscussionItem;
+import vn.com.basc.inco.model.TaskItem;
+import vn.com.basc.inco.model.TicketItem;
 
-public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,TaskFragment.OnTaskListFragmentInteractionListener {
+public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
+        OnListTaskFragmentInteractionListener,TicketFragment.OnListTicketragmentInteractionListener,DiscussionFragment.OnListDiscussionFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,6 +47,8 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
      */
     private ViewPager mViewPager;
     private TabLayout tabLayout;
+    private String id;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +74,28 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
+
+        id = getIntent().getStringExtra(Globals.ID_EXTRA);
+        name = getIntent().getStringExtra(Globals.MESS_EXTRA);
+        getSupportActionBar().setTitle(name);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                TabLayout.Tab tab = tabLayout.getTabAt(mViewPager.getCurrentItem());
+                tab.select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
       fab.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -99,6 +131,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -118,7 +151,18 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     }
 
     @Override
-    public void onTaskListFragmentInteraction(TaskContent.TaskItem item) {
+    public void  onListTaskFragmentInteraction(TaskItem item) {
+
+
+    }
+
+    @Override
+    public void onListTicketFragmentInteraction(TicketItem item) {
+
+    }
+
+    @Override
+    public void onListDiscussionFragmentInteraction(DiscussionItem item) {
 
     }
 
@@ -138,9 +182,11 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if(position == 0){
-                return TaskFragment.newInstance(1);
+                return TaskFragment.newInstance(1,id);
+            }else if(position == 1){
+                return TicketFragment.newInstance(1,id);
             }
-            return PlaceholderFragment.newInstance(position + 1);
+            return DiscussionFragment.newInstance(1,id);
         }
 
         @Override

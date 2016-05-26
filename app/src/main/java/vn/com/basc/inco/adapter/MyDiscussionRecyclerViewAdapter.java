@@ -8,26 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import vn.com.basc.inco.fragment.ProjectFragment.OnListFragmentInteractionListener;
+import java.util.List;
+
 import vn.com.basc.inco.R;
+import vn.com.basc.inco.fragment.TaskFragment.OnListTaskFragmentInteractionListener;
+import vn.com.basc.inco.fragment.DiscussionFragment.OnListDiscussionFragmentInteractionListener;
+import vn.com.basc.inco.model.DiscussionItem;
 import vn.com.basc.inco.model.Footer;
 import vn.com.basc.inco.model.Item;
 import vn.com.basc.inco.model.ProjectItem;
-
-import java.util.List;
+import vn.com.basc.inco.model.TicketItem;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link ProjectItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link OnListTaskFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyDiscussionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int FADE_DURATION = 1000; // in milliseconds
     private final List<Item> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnListDiscussionFragmentInteractionListener mListener;
     private static int ITEM =0;
     private static int FOOTER = 1;
-    public MyProjectRecyclerViewAdapter(List<Item> items, OnListFragmentInteractionListener listener) {
+    public MyDiscussionRecyclerViewAdapter(List<Item> items, OnListDiscussionFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,8 +39,8 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public RecyclerView.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == ITEM) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.project_item, parent, false);
-            return new ProjectViewHolder(view);
+                    .inflate(R.layout.discussion_item, parent, false);
+            return new DiscussionViewHolder(view);
         }
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.progress_footer, parent, false);
@@ -46,7 +49,7 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemViewType(int position) {
-        if (mValues.get(position) instanceof ProjectItem) {
+        if (mValues.get(position) instanceof DiscussionItem) {
             return ITEM;
         } else if (mValues.get(position) instanceof Footer) {
             return FOOTER;
@@ -57,24 +60,24 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ProjectViewHolder) {
-            final ProjectViewHolder projectViewHolder = (ProjectViewHolder) holder;
-            projectViewHolder.mItem = (ProjectItem) mValues.get(position);
-            projectViewHolder.mIdView.setText(projectViewHolder.mItem.id);
-            projectViewHolder.mNameView.setText(projectViewHolder.mItem.name);
-            projectViewHolder.mCreateBy.setText(projectViewHolder.mItem.created_by);
-            projectViewHolder.mCreateAt.setText(projectViewHolder.mItem.created_at);
-            projectViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+        if (holder instanceof DiscussionViewHolder) {
+            final DiscussionViewHolder  discussionViewHolder  = (DiscussionViewHolder) holder;
+            discussionViewHolder.mItem = (DiscussionItem) mValues.get(position);
+            discussionViewHolder.mDiscussionNameView.setText(discussionViewHolder.mItem.name);
+            discussionViewHolder.mProjectNameView.setText(discussionViewHolder.mItem.projects);
+            discussionViewHolder.mStatusView.setText(discussionViewHolder.mItem.status);
+            discussionViewHolder.mCreateByView.setText(discussionViewHolder.mItem.create_by);
+            discussionViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
                         // Notify the active callbacks interface (the activity, if the
                         // fragment is attached to one) that an item has been selected.
-                        mListener.onListFragmentInteraction(projectViewHolder.mItem);
+                        mListener.onListDiscussionFragmentInteraction(discussionViewHolder.mItem);
                     }
                 }
             });
-            setFadeAnimation(projectViewHolder.mView);
+            setFadeAnimation(discussionViewHolder.mView);
         }
     }
 
@@ -83,27 +86,27 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         return mValues.size();
     }
 
-    public class ProjectViewHolder extends RecyclerView.ViewHolder {
+    public class DiscussionViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mNameView;
-        public final TextView mCreateBy;
-        public final TextView mCreateAt;
-        public ProjectItem mItem;
+        public final TextView mDiscussionNameView;
+        public final TextView mProjectNameView;
+        public final TextView mStatusView;
+        public final TextView mCreateByView;
+        public DiscussionItem mItem;
         public final CardView mCardView;
-        public ProjectViewHolder(View view) {
+        public DiscussionViewHolder(View view) {
             super(view);
             mView = view;
             mCardView = (CardView) view.findViewById(R.id.cv);
-            mIdView = (TextView) mCardView.findViewById(R.id.id_project);
-            mNameView = (TextView) mCardView.findViewById(R.id.name_project);
-            mCreateBy =(TextView) mCardView.findViewById(R.id.txt_projectname);
-            mCreateAt = (TextView) mCardView.findViewById(R.id.txt_create_at);
+            mDiscussionNameView = (TextView) mCardView.findViewById(R.id.discussion_name);
+            mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
+            mStatusView =(TextView) mCardView.findViewById(R.id.txt_status);
+            mCreateByView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mNameView.getText() + "'";
+            return super.toString() + " '" + mDiscussionNameView.getText() + "'";
         }
     }
     public static class FooterViewHolder extends RecyclerView.ViewHolder {

@@ -26,7 +26,7 @@
                     android:textColor="#0d638f"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:id="@+id/task_name"
+                    android:id="@+id/ticket_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Task Name" />
@@ -49,7 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_create_by"
+                    android:id="@+id/txt_projectname"
                     android:text="Project Name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_alignParentTop="true"
@@ -60,8 +60,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Priority"
-                    android:id="@+id/textView4"
-                    android:layout_below="@+id/txt_create_by"
+                    android:id="@+id/txt_deparment"
+                    android:layout_below="@+id/txt_projectname"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -70,11 +70,11 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Stataus"
-                    android:id="@+id/textView5"
+                    android:id="@+id/txt_status"
                     android:layout_marginRight="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_alignBaseline="@+id/txt_create_by"
-                    android:layout_alignBottom="@+id/txt_create_by"
+                    android:layout_alignBaseline="@+id/txt_projectname"
+                    android:layout_alignBottom="@+id/txt_projectname"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -82,11 +82,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Last co user"
-                    android:id="@+id/textView6"
-                    android:layout_below="@+id/textView5"
-                    android:layout_alignRight="@+id/textView5"
-                    android:layout_alignEnd="@+id/textView5" />
+                    android:text="txt"
+                    android:id="@+id/txt_create_by"
+                    android:layout_below="@+id/txt_status"
+                    android:layout_alignRight="@+id/txt_status"
+                    android:layout_alignEnd="@+id/txt_status" />
             </RelativeLayout>
         </LinearLayout>
         </LinearLayout>

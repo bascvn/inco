@@ -45,7 +45,7 @@
                 android:layout_toEndOf="@+id/id_project" />
 
             <TextView
-                android:id="@+id/txt_create_by"
+                android:id="@+id/txt_projectname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -66,7 +66,7 @@
                 android:text="Kien Pham"
                 android:id="@+id/txt_create_at"
                 android:textColor="#2a6496"
-                android:layout_alignTop="@+id/txt_create_by"
+                android:layout_alignTop="@+id/txt_projectname"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="25dp"
