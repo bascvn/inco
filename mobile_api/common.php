@@ -172,20 +172,21 @@
      	if(strlen($project_id)>0){
      		$where_arr->pushAND("tasks.projects_id = $project_id");
             if( $access_task == UserAccess::VIEW_OWN_ONLY){
-                $where_arr->pushAND("( tasks.assigned_to  = $user_id OR tasks.created_by = $user_id)");
+                $where_arr->pushAND("( find_in_set($user_id,tasks.assigned_to) >0 OR tasks.created_by = $user_id)");
             }
      	} else{
             if($access_project == UserAccess::VIEW_OWN_ONLY){
                 $where_arr->pushAND("(find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id)");
             }
             if($access_task == UserAccess::VIEW_OWN_ONLY){
-                $where_arr->pushAND("( tasks.assigned_to  = $user_id OR tasks.created_by = $user_id)");
+                $where_arr->pushAND("( find_in_set($user_id,tasks.assigned_to) >0 OR tasks.created_by = $user_id)");
             }
         }	
         $where_arr->pushAND("tasks.name LIKE '%$search%'");
      	$projects=array();
-       
+     
      	$main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tasks.name LIMIT $limit OFFSET $offset";
+
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {
@@ -197,6 +198,41 @@
 	     	  mysqli_free_result($result);
 	     }
 	     return $projects;
+     }
+     function get_task_comments($task_id,$search,$offset,$limit,$con){
+        $main_sql ="SELECT 
+            tasks_comments.id AS id,
+            tasks_comments.description AS description,
+            users.photo AS avatar,
+            tasks_comments.created_at AS created_at,
+            users.name AS name 
+            FROM tasks_comments 
+            LEFT JOIN users ON tasks_comments.created_by = users.id";
+            $main_sql .= " WHERE tasks_comments.tasks_id = $task_id AND tasks_comments.description LIKE '%$search%' ORDER BY tasks_comments.created_at desc LIMIT $limit OFFSET $offset";
+        $projects=array();
+        if ($result=mysqli_query($con,$main_sql)){
+            if (mysqli_num_rows($result) > 0) {
+                 while($row = mysqli_fetch_assoc($result)) {
+                    $row['attachments'] = get_attachments('comments',$row['id'],$con);
+                    array_push($projects,$row);
+                }   
+            }
+              mysqli_free_result($result);
+         }
+         return $projects;
+     }
+     function get_attachments($bind_type,$bind_id,$con){
+        $main_sql ="SELECT id,file FROM attachments WHERE bind_type = $bind_type AND bind_id = $bind_id";
+        $item=array();
+        if ($result=mysqli_query($con,$main_sql)){
+            if (mysqli_num_rows($result) > 0) {
+                 while($row = mysqli_fetch_assoc($result)) {
+                    array_push($item,$row);
+                }   
+            }
+              mysqli_free_result($result);
+         }
+         return $item;
      }
      function get_list_tickets($user,$project_id,$search,$offset,$limit,$con){
         $main_sql ="SELECT 
