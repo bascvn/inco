@@ -220,6 +220,8 @@ public class ProjectFragment extends Fragment implements MainFragmentINCO{
                 params.put(Globals.TOKEN_PARAMETER,((MyApplication)getActivity().getApplication()).getTokenAccess());
                 if(projects.size() == 0) {
                     params.put(Globals.OFFSET_PARAMETER, "0");
+                } else if(hasFooter()){
+                    params.put(Globals.OFFSET_PARAMETER, String.valueOf(projects.size()-1));
                 }else{
                     params.put(Globals.OFFSET_PARAMETER, String.valueOf(projects.size()));
                 }

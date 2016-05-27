@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.dummy.DummyContent;
+import vn.com.basc.inco.fragment.CommentFragment;
+import vn.com.basc.inco.model.CommentItem;
 
-public class ListCommentActivity extends AppCompatActivity implements ListCommentFragment.OnListCommentFragmentInteractionListener {
+public class ListCommentActivity extends AppCompatActivity implements CommentFragment.OnListCommentragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +30,17 @@ public class ListCommentActivity extends AppCompatActivity implements ListCommen
                         .setAction("Action", null).show();
             }
         });
-        ListCommentFragment fragment =  ListCommentFragment.newInstance(1);
+        String id = getIntent().getStringExtra(Globals.ID_EXTRA);
+        CommentFragment fragment =  CommentFragment.newInstance(1,id);
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
 
+
     @Override
-    public void onListCommentFragmentInteraction(DummyContent.DummyItem item) {
-        Intent intent = new Intent(ListCommentActivity.this, DetailCommentActivity.class);
-        startActivity(intent);
+    public void onListCommentFragmentInteraction(CommentItem item) {
+
     }
 }

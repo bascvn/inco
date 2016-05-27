@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListTaskFragmentInteraction(TaskItem item) {
         Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        intent.putExtra(Globals.ID_EXTRA, item.id);
         startActivity(intent);
     }
 

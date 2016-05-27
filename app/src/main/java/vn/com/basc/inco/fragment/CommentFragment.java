@@ -31,23 +31,21 @@ import java.util.Map;
 
 import vn.com.basc.inco.MyApplication;
 import vn.com.basc.inco.R;
-import vn.com.basc.inco.adapter.MyTaskRecyclerViewAdapter;
-import vn.com.basc.inco.adapter.MyTicketRecyclerViewAdapter;
+import vn.com.basc.inco.adapter.MyCommetRecyclerViewAdapter;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
+import vn.com.basc.inco.model.CommentItem;
 import vn.com.basc.inco.model.Footer;
 import vn.com.basc.inco.model.Item;
 import vn.com.basc.inco.model.MainFragmentINCO;
-import vn.com.basc.inco.model.TaskItem;
-import vn.com.basc.inco.model.TicketItem;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListTicketragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnListCommentragmentInteractionListener}
  * interface.
  */
-public class TicketFragment extends Fragment implements MainFragmentINCO{
+public class CommentFragment extends Fragment implements MainFragmentINCO{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -55,7 +53,7 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private List<Item> projects;
-    private OnListTicketragmentInteractionListener mListener;
+    private OnListCommentragmentInteractionListener mListener;
     private RecyclerView mRecyclerView;
     private RelativeLayout mEmptyStateView;
     private SwipeRefreshLayout mySwipeRefreshLayout;
@@ -66,20 +64,20 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public TicketFragment() {
+    public CommentFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static TicketFragment newInstance(int columnCount) {
-        TicketFragment fragment = new TicketFragment();
+    public static CommentFragment newInstance(int columnCount) {
+        CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
-    public static TicketFragment newInstance(int columnCount, String id) {
-        TicketFragment fragment = new TicketFragment();
+    public static CommentFragment newInstance(int columnCount, String id) {
+        CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         args.putString(ARG_ID, id);
@@ -116,7 +114,7 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            mRecyclerView.setAdapter(new MyTicketRecyclerViewAdapter(projects, mListener));
+            mRecyclerView.setAdapter(new MyCommetRecyclerViewAdapter(projects, mListener, (MyApplication) getActivity().getApplication()));
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -155,8 +153,8 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListTicketragmentInteractionListener) {
-            mListener = (OnListTicketragmentInteractionListener) context;
+        if (context instanceof OnListCommentragmentInteractionListener) {
+            mListener = (OnListCommentragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnTaskListFragmentInteractionListener");
@@ -179,13 +177,13 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListTicketragmentInteractionListener {
+    public interface OnListCommentragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListTicketFragmentInteraction(TicketItem item);
+        void onListCommentFragmentInteraction(CommentItem item);
 
     }
     private void getListProject(final String key)  {
-        String url = ((MyApplication)getActivity().getApplication()).getUrlApi(Globals.API_TICKET_LIST);
+        String url = ((MyApplication)getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TASK);
         projects.add(new Footer());
         mRecyclerView.getAdapter().notifyItemInserted(projects.size() - 1);
 
@@ -202,8 +200,8 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
                         String  productStr = obj.getString(INCOResponse.DATA_TAG);
                         Log.d("kienbk1910",productStr);
                         Gson gson = new Gson();
-                        List<TicketItem> data= (List<TicketItem>) gson.fromJson(productStr,
-                                new TypeToken<List<TicketItem>>() {
+                        List<CommentItem> data= (List<CommentItem>) gson.fromJson(productStr,
+                                new TypeToken<List<CommentItem>>() {
                                 }.getType());
                         if(!data.isEmpty()){
                             int size = projects.size();
@@ -238,9 +236,7 @@ public class TicketFragment extends Fragment implements MainFragmentINCO{
                 }else{
                     params.put(Globals.OFFSET_PARAMETER, String.valueOf(projects.size()));
                 }
-                if(id.length()>0){
-                    params.put(Globals.PROJECT_ID_PARAMETER,id);
-                }
+                params.put(Globals.TASK_ID_PARAMETER,id);
                 params.put(Globals.LIMIT_PARAMETER, "30");
                 params.put(Globals.SEARCH_PARAMETER, key);
                 return params;
