@@ -222,8 +222,9 @@
          return $projects;
      }
      function get_attachments($bind_type,$bind_id,$con){
-        $main_sql ="SELECT id,file FROM attachments WHERE bind_type = $bind_type AND bind_id = $bind_id";
+        $main_sql ="SELECT id,file FROM attachments WHERE bind_type = '$bind_type' AND bind_id = $bind_id";
         $item=array();
+
         if ($result=mysqli_query($con,$main_sql)){
             if (mysqli_num_rows($result) > 0) {
                  while($row = mysqli_fetch_assoc($result)) {
@@ -325,6 +326,24 @@
               mysqli_free_result($result);
          }
          return $projects;
+     }
+     // check acess API
+     function check_acess_project_by_ticket_id($user,$ticket_id,$con){
+         $access_project  = $user['allow_manage_projects'];
+            $user_id = $user['id'];
+         if($access_project == UserAccess::VIEW_OWN_ONLY){
+            $sql = "SELECT tickets.id FROM tickets 
+            LEFT JOIN projects ON tickets.projects_id = projects.id 
+            WHERE tickets.id = 4 
+            AND find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id)";
+            $result = mysql_query( $sql, $con);
+            $num_rows = mysql_num_rows($result);
+            if($num_rows == 0){
+                return false;
+            }
+         }
+ 
+         return true;
      }
     
 ?>
