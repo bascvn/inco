@@ -406,7 +406,7 @@ class menuController
     {
       $m[] = $this->buildConfigurationMenu();
       $m[] = $this->buildToolsMenu();
-      $m[] = $this->buildUpgradeToExtendedMenu();
+     // $m[] = $this->buildUpgradeToExtendedMenu();
     }
                  
     return $m;
