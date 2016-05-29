@@ -569,3 +569,30 @@ CREATE TABLE IF NOT EXISTS `discussions_reports` (
   KEY `users_id` (`users_id`),
   CONSTRAINT `discussions_reports_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `mobile_tokens` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `device_id` text NOT NULL,
+  `device_type` int(3) NOT NULL,
+  `token` text NOT NULL,
+  `create_time` datetime NOT NULL,
+  `last_access` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `mobile_tokens`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `mobile_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+  CREATE TABLE `device_types` (
+  `id` int(3) NOT NULL,
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `device_types` (`id`, `name`) VALUES
+(1, 'Android'),
+(2, 'IOS');
+
+ALTER TABLE `device_types`
+  ADD PRIMARY KEY (`id`);
