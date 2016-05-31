@@ -38,7 +38,10 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        if(position%2 == 0)
+        return new DummyItem(String.valueOf(position), "Itemdfdfd dfdsfdsfdsfdsfdfdsfdsfdsfsgsrgrg rdgdf gfd gdfg dfgdfgdfg dfgffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff " + position, makeDetails(position));
+        return new DummyItem(String.valueOf(position), "Itemdfdfd dfd=ffffffffffffffffffff= " + position, makeDetails(position));
+
     }
 
     private static String makeDetails(int position) {

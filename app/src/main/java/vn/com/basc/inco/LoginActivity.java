@@ -29,24 +29,20 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +52,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vn.com.basc.inco.MainActivity;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
 
@@ -91,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private EditText mComnayView;
     private LinearLayout mContent;
+    private CheckBox mRemember;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -105,10 +101,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mComnayView = (EditText) findViewById(R.id.company);
         mContent = (LinearLayout) findViewById(R.id.main_login);
+        mRemember = (CheckBox) findViewById(R.id.remember);
+        mPasswordView = (EditText) findViewById(R.id.password);
 
         populateAutoComplete();
-
-        mPasswordView = (EditText) findViewById(R.id.password);
+        final INCOApplication incoApplication = (INCOApplication) getApplication();
+        if(incoApplication.getTokenAccess().length()>0){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        mRemember.setChecked(incoApplication.getRemember());
+        if(incoApplication.getRemember()) {
+            mEmailView.setText(incoApplication.getEmail());
+            mPasswordView.setText(incoApplication.getPassWord());
+            mComnayView.setText(incoApplication.getCompanyAddress());
+        }
+        mRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                incoApplication.setRemember(isChecked);
+            }
+        });
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -228,7 +241,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            ((MyApplication)getApplication()).saveCompanyAddress(company);
+            ((INCOApplication)getApplication()).saveCompanyAddress(company);
              showProgress(true);
              String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                     Settings.Secure.ANDROID_ID);
@@ -440,7 +453,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void loginAction(final String email,final String password,final String device_id){
         Log.d("response","loginAction");
       //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
-        String url = ((MyApplication)getApplication()).getUrlApi(Globals.API_LOGIN);
+        String url = ((INCOApplication)getApplication()).getUrlApi(Globals.API_LOGIN);
         Log.d("response","url:"+url );
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -455,11 +468,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                         JSONObject data = new JSONObject(obj.getString(INCOResponse.DATA_TAG));
                         String token = data.getString(INCOResponse.TOKEN_TAG);
-                        MyApplication app = (MyApplication) getApplication();
+                        INCOApplication app = (INCOApplication) getApplication();
                         app.saveTokenAccess(token);
                         showProgress(false);
                         String user = data.getString(INCOResponse.USER_TAG);
                         app.saveUserInfo(user);
+                        app.setRemember(mRemember.isChecked());
+                        app.setEmail(mEmailView.getText().toString());
+                        app.setPassWord(mPasswordView.getText().toString());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -507,7 +523,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);*/
        // queue.add(request);
-       MyApplication.getInstance().addToRequestQueue(request);
+       INCOApplication.getInstance().addToRequestQueue(request);
     }
 }
 

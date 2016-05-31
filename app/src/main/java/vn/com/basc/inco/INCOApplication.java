@@ -2,7 +2,6 @@ package vn.com.basc.inco;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,7 +17,7 @@ import vn.com.basc.inco.model.User;
 /**
  * Created by User on 22/05/2016.
  */
-public class MyApplication extends Application {
+public class INCOApplication extends Application {
 
         /**
          * Log or request TAG
@@ -33,7 +32,7 @@ public class MyApplication extends Application {
         /**
          * A singleton instance of the application class for easy access in other places
          */
-        public static MyApplication sInstance;
+        public static INCOApplication sInstance;
 
         @Override
         public void onCreate() {
@@ -46,7 +45,7 @@ public class MyApplication extends Application {
         /**
          * @return ApplicationController singleton instance
          */
-        public static synchronized MyApplication getInstance() {
+        public static synchronized INCOApplication getInstance() {
             return sInstance;
         }
 
@@ -108,8 +107,56 @@ public class MyApplication extends Application {
         private static String INCO_USER_CONFIG = "inco_user_config";
         private static String COMPANY_ADDRESS  = "compay_address";
         private static String TOKEN_ACCESS = "token";
-         private static String USER_INFO   = "user";
+        private static String USER_INFO   = "user";
+        private static String USER_CHECK_REMEMBER = "remember";
+        private static String USER_REMEMBER = "user_remember";
+        private static String PASS_REMEMBER = "pass_remember";
+      //  private static String COMMAPY__REMEMBER = "compay_remember";
 
+        public void setRemember(boolean remember){
+            SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(USER_CHECK_REMEMBER, remember);
+            // Commit the edits!
+            editor.commit();
+        }
+        public boolean getRemember() {
+            SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+            return settings.getBoolean(USER_CHECK_REMEMBER, false);
+        }
+        public void setPassWord(String pass){
+            SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(PASS_REMEMBER, pass);
+            // Commit the edits!
+            editor.commit();
+        }
+    public void removeRemember(){
+        SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove(USER_REMEMBER).remove(PASS_REMEMBER).remove(COMPANY_ADDRESS).commit();
+    }
+    public String getPassWord(){
+        SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+        return settings.getString(PASS_REMEMBER,"");
+    }
+
+    public void setEmail(String email){
+        SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(USER_REMEMBER, email);
+        // Commit the edits!
+        editor.commit();
+    }
+    public void removeToken(){
+        Log.d("removeToken" ,"removeToken");
+        SharedPreferences preferences = getSharedPreferences(INCO_USER_CONFIG, 0);
+        preferences.edit().remove(TOKEN_ACCESS).commit();
+    }
+    public String getEmail(){
+        SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+        return settings.getString(USER_REMEMBER,"");
+    }
         public void saveCompanyAddress(String address){
             SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
             SharedPreferences.Editor editor = settings.edit();

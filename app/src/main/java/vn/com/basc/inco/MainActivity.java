@@ -1,23 +1,28 @@
 package vn.com.basc.inco;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.fragment.DiscussionFragment;
 import vn.com.basc.inco.fragment.ProjectFragment;
 import vn.com.basc.inco.fragment.ProjectFragment.OnListFragmentInteractionListener;
@@ -44,14 +49,14 @@ public class MainActivity extends AppCompatActivity
     private TaskFragment taskFragment;
     private TicketFragment tickFragment;
     private DiscussionFragment discussionFragment;
-
+    FloatingActionButton fab;
     private MainFragmentINCO mainFragmentINCO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFrameLayout  = (android.widget.FrameLayout) findViewById(R.id.fragment_container);
-
+        fab = (FloatingActionButton) findViewById(R.id.fab);
        // getSupportActionBar().setTitle(R.string.navigation_drawer_menu_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,8 +77,16 @@ public class MainActivity extends AppCompatActivity
         TextView mUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserEmail);
         imageUserAvatar  = (NetworkImageView) navigationView.getHeaderView(0).findViewById(R.id.imageUserAvatar);
         imageUserAvatar.setDefaultImageResId(R.mipmap.ic_account_circle_white_48dp);
-        MyApplication myApplication = (MyApplication) getApplication();
+        INCOApplication myApplication = (INCOApplication) getApplication();
         User user = myApplication.getUserInfo();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         if(user != null && user.getName()!= null){
             mUserName.setText(user.getName());
         }
@@ -139,9 +152,25 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             initDiscussionFragment();
         } else if (id == R.id.nav_share) {
+            //logout
 
         } else if (id == R.id.nav_send) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Do you Log out?")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // call logout api
+                            // TODO
+                            (( INCOApplication) getApplication()).removeToken();
+                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }})
+                    .setNegativeButton(android.R.string.no, null).show();
+            return false;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -171,11 +200,13 @@ public class MainActivity extends AppCompatActivity
     public void onListTaskFragmentInteraction(TaskItem item) {
         Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
+        intent.putExtra(Globals.MESS_EXTRA, item.name);
+        intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         startActivity(intent);
     }
 
     private void loadAvatarImage(String avatar){
-        String url = ((MyApplication)getApplication()).getAvatarUrl(avatar);
+        String url = ((INCOApplication)getApplication()).getAvatarUrl(avatar);
         ImageLoader  imageLoader = CustomVolleyRequest.getInstance(this.getApplicationContext())
                 .getImageLoader();
         imageLoader.get(url, ImageLoader.getImageListener(imageUserAvatar,
@@ -213,6 +244,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, projectFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = projectFragment;
+        fab.hide();
     }
     private void initTaskFragment(){
         if(taskFragment == null){
@@ -225,6 +257,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, taskFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = taskFragment;
+        fab.hide();
     }
     private void initTicketFragment(){
         if(tickFragment == null){
@@ -237,6 +270,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, tickFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = tickFragment;
+        fab.show();
     }
     private void initDiscussionFragment(){
         if(discussionFragment == null){
@@ -249,14 +283,23 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, discussionFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = discussionFragment;
+        fab.hide();
     }
     @Override
     public void onListTicketFragmentInteraction(TicketItem item) {
-
+        Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        intent.putExtra(Globals.ID_EXTRA, item.id);
+        intent.putExtra(Globals.MESS_EXTRA, item.name);
+        intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
+        startActivity(intent);
     }
 
     @Override
     public void onListDiscussionFragmentInteraction(DiscussionItem item) {
-
+        Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        intent.putExtra(Globals.ID_EXTRA, item.id);
+        intent.putExtra(Globals.MESS_EXTRA, item.name);
+        intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
+        startActivity(intent);
     }
 }

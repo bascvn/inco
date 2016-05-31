@@ -6,7 +6,7 @@
     <android.support.v7.widget.CardView
         card_view:cardElevation="2dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         card_view:cardUseCompatPadding="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/cv">
@@ -21,8 +21,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:id="@+id/im_avatar" />
 
             <TextView
@@ -35,30 +36,22 @@
                 android:layout_toRightOf="@+id/im_avatar"
                 android:layout_toEndOf="@+id/im_avatar"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:textColor="#0821c9"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:padding="8dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/txt_description"
-                android:layout_below="@+id/txt_name"
+                android:maxLength="200"
                 android:text="@string/large_text"
-                android:layout_alignBottom="@+id/im_avatar"
-                android:layout_marginLeft="72dp"
-                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="file "
-                android:id="@+id/txt_attachment"
-                android:layout_below="@+id/txt_description"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_below="@+id/im_avatar"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,9 +59,21 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/txt_create_at"
+                android:textStyle="italic"
+                android:layout_alignBottom="@+id/im_avatar"
+                android:layout_alignLeft="@+id/txt_name"
+                android:layout_alignStart="@+id/txt_name" />
+
+            <ImageView
+                android:src="@drawable/ic_attachment_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_file"
                 android:layout_alignTop="@+id/txt_name"
-                android:layout_alignRight="@+id/txt_attachment"
-                android:layout_alignEnd="@+id/txt_attachment" />
+                android:layout_marginRight="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

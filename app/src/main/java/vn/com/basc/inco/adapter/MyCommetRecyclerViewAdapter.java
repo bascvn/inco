@@ -15,7 +15,7 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
-import vn.com.basc.inco.MyApplication;
+import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.fragment.CommentFragment.OnListCommentragmentInteractionListener;
 import vn.com.basc.inco.model.CommentItem;
@@ -35,8 +35,8 @@ public class MyCommetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     private final OnListCommentragmentInteractionListener mListener;
     private static int ITEM =0;
     private static int FOOTER = 1;
-    MyApplication myApplication;
-    public MyCommetRecyclerViewAdapter(List<Item> items, OnListCommentragmentInteractionListener listener, MyApplication myApp) {
+    INCOApplication myApplication;
+    public MyCommetRecyclerViewAdapter(List<Item> items, OnListCommentragmentInteractionListener listener, INCOApplication myApp) {
         mValues = items;
         mListener = listener;
         myApplication =myApp;
@@ -73,6 +73,12 @@ public class MyCommetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             commentViewHolder.mNameView.setText(commentViewHolder.mItem.name);
             commentViewHolder.mCreateAtView.setText(commentViewHolder.mItem.created_at);
             commentViewHolder.mDescriptionView.setText(Html.fromHtml(commentViewHolder.mItem.description));
+            commentViewHolder.mAvatarView.setDefaultImageResId(R.drawable.ic_account_box_black_24dp);
+            if(commentViewHolder.mItem.attachments.size()>0){
+                commentViewHolder.mAttachmentByView.setVisibility(View.VISIBLE);
+            }else{
+                commentViewHolder.mAttachmentByView.setVisibility(View.INVISIBLE);
+            }
             loadAvatarImage(commentViewHolder.mItem.avatar,commentViewHolder.mAvatarView);
             commentViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +98,7 @@ public class MyCommetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         ImageLoader imageLoader = CustomVolleyRequest.getInstance(myApplication.getBaseContext())
                 .getImageLoader();
         imageLoader.get(url, ImageLoader.getImageListener(imageView,
-                R.mipmap.ic_account_circle_white_48dp, R.mipmap.ic_account_circle_white_48dp));
+                R.drawable.ic_account_box_black_24dp, R.drawable.ic_account_box_black_24dp));
         imageView.setImageUrl(url, imageLoader);
     }
     @Override
@@ -105,7 +111,7 @@ public class MyCommetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         public final TextView mNameView;
         public final NetworkImageView mAvatarView;
         public final TextView mDescriptionView;
-        public final TextView mAttachmentByView;
+        public final ImageView mAttachmentByView;
         public final TextView mCreateAtView;
         public CommentItem mItem;
         public final CardView mCardView;
@@ -116,7 +122,7 @@ public class MyCommetRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             mNameView = (TextView) mCardView.findViewById(R.id.txt_name);
             mAvatarView = (NetworkImageView) mCardView.findViewById(R.id.im_avatar);
             mDescriptionView =(TextView) mCardView.findViewById(R.id.txt_description);
-            mAttachmentByView = (TextView) mCardView.findViewById(R.id.txt_attachment);
+            mAttachmentByView = (ImageView) mCardView.findViewById(R.id.img_file);
             mCreateAtView = (TextView) mCardView.findViewById(R.id.txt_create_at);
         }
 

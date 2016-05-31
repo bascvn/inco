@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.android.volley.AuthFailureError;
@@ -29,9 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vn.com.basc.inco.MyApplication;
+import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.adapter.MyCommetRecyclerViewAdapter;
+import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
 import vn.com.basc.inco.model.CommentItem;
@@ -50,6 +52,7 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String ARG_ID= "key_id";
+    private static final String ARG_TYPE ="type";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private List<Item> projects;
@@ -60,6 +63,7 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
     private boolean hasMore = true;
     private String id;
     private String key;
+    private int type;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -76,11 +80,12 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
         fragment.setArguments(args);
         return fragment;
     }
-    public static CommentFragment newInstance(int columnCount, String id) {
+    public static CommentFragment newInstance(int columnCount, String id,int type) {
         CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         args.putString(ARG_ID, id);
+        args.putInt(ARG_TYPE,type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,6 +97,7 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             this.id = getArguments().getString(ARG_ID,"");
+            this.type = getArguments().getInt(ARG_TYPE, ComponentType.TASK);
         }
     }
 
@@ -105,6 +111,13 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
         mySwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mEmptyStateView = (RelativeLayout) view.findViewById(R.id.empty_state);
         emptyState(false);
+        Button btn_reload = (Button) view.findViewById(R.id.btn_reload);
+        btn_reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshList();
+            }
+        });
         if (mRecyclerView instanceof RecyclerView) {
             Context context = view.getContext();
 
@@ -113,8 +126,8 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
             } else {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
-            mRecyclerView.setAdapter(new MyCommetRecyclerViewAdapter(projects, mListener, (MyApplication) getActivity().getApplication()));
+            mRecyclerView.setHasFixedSize(false);
+            mRecyclerView.setAdapter(new MyCommetRecyclerViewAdapter(projects, mListener, (INCOApplication) getActivity().getApplication()));
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -183,7 +196,14 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
 
     }
     private void getListProject(final String key)  {
-        String url = ((MyApplication)getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TASK);
+        String url ="";
+        if(type == ComponentType.TASK) {
+            url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TASK);
+        }else if(type == ComponentType.TICKET){
+            url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TICKET);
+        }else{
+            url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_DISCUSSIONS);
+        }
         projects.add(new Footer());
         mRecyclerView.getAdapter().notifyItemInserted(projects.size() - 1);
 
@@ -228,7 +248,7 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                params.put(Globals.TOKEN_PARAMETER,((MyApplication)getActivity().getApplication()).getTokenAccess());
+                params.put(Globals.TOKEN_PARAMETER,((INCOApplication)getActivity().getApplication()).getTokenAccess());
                 if(projects.size() == 0) {
                     params.put(Globals.OFFSET_PARAMETER, "0");
                 } else if(hasFooter()){
@@ -236,14 +256,21 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
                 }else{
                     params.put(Globals.OFFSET_PARAMETER, String.valueOf(projects.size()));
                 }
-                params.put(Globals.TASK_ID_PARAMETER,id);
+                if(type == ComponentType.TASK){
+                    params.put(Globals.TASK_ID_PARAMETER,id);
+                }else if (type == ComponentType.DISCUSSION){
+                    params.put(Globals.DISCUSSION_ID_PARAMETER,id);
+                }else{
+                    params.put(Globals.TICKET_ID_PARAMETER,id);
+                }
+
                 params.put(Globals.LIMIT_PARAMETER, "30");
                 params.put(Globals.SEARCH_PARAMETER, key);
                 return params;
             }
         };
 
-        MyApplication.getInstance().addToRequestQueue(request);
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
     private boolean hasFooter() {
         if(projects.size() == 0){

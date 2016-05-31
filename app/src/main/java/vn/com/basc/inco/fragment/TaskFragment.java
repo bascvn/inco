@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.android.volley.AuthFailureError;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vn.com.basc.inco.MyApplication;
+import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.adapter.MyTaskRecyclerViewAdapter;
 import vn.com.basc.inco.common.Globals;
@@ -105,6 +106,13 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
         mySwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mEmptyStateView = (RelativeLayout) view.findViewById(R.id.empty_state);
         emptyState(false);
+        Button btn_reload = (Button) view.findViewById(R.id.btn_reload);
+        btn_reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshList();
+            }
+        });
         if (mRecyclerView instanceof RecyclerView) {
             Context context = view.getContext();
 
@@ -183,7 +191,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
 
     }
     private void getListProject(final String key)  {
-        String url = ((MyApplication)getActivity().getApplication()).getUrlApi(Globals.API_TASK_LIST);
+        String url = ((INCOApplication)getActivity().getApplication()).getUrlApi(Globals.API_TASK_LIST);
         projects.add(new Footer());
         mRecyclerView.getAdapter().notifyItemInserted(projects.size() - 1);
 
@@ -228,7 +236,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                params.put(Globals.TOKEN_PARAMETER,((MyApplication)getActivity().getApplication()).getTokenAccess());
+                params.put(Globals.TOKEN_PARAMETER,((INCOApplication)getActivity().getApplication()).getTokenAccess());
                 if(projects.size() == 0) {
                     params.put(Globals.OFFSET_PARAMETER, "0");
                 } else if(hasFooter()){
@@ -245,7 +253,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
             }
         };
 
-        MyApplication.getInstance().addToRequestQueue(request);
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
     private boolean hasFooter() {
         if(projects.size() == 0){
