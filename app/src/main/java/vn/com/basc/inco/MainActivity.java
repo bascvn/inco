@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity
         //String message = editText.getText().toString();
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
+
         startActivity(intent);
     }
 

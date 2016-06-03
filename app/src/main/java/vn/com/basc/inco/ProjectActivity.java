@@ -77,7 +77,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
-
+        tabLayout.getTabAt(0).select();
         id = getIntent().getStringExtra(Globals.ID_EXTRA);
         name = getIntent().getStringExtra(Globals.MESS_EXTRA);
         getSupportActionBar().setTitle(name);
@@ -170,6 +170,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);
 
     }
@@ -180,6 +181,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);
     }
 
@@ -189,6 +191,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);
     }
 

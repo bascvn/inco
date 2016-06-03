@@ -21,4 +21,8 @@ public class User {
     public String getPhoto() {
         return photo;
     }
+
+    public String getId() {
+        return id;
+    }
 }

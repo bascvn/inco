@@ -51,6 +51,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String ARG_ID= "key_id";
+    private static final String ARG_PROJECT_ID= "project_id";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private List<Item> projects;
@@ -61,6 +62,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
     private boolean hasMore = true;
     private String id;
     private String key;
+    private String project_id;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -85,6 +87,15 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
         fragment.setArguments(args);
         return fragment;
     }
+    public static TaskFragment newInstance(int columnCount,String id,String project_id) {
+        TaskFragment fragment = new TaskFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_ID, id);
+        args.putString(ARG_PROJECT_ID, project_id);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +104,7 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             this.id = getArguments().getString(ARG_ID,"");
+            this.project_id = getArguments().getString(ARG_PROJECT_ID,"");
         }
     }
 

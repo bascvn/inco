@@ -469,6 +469,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         JSONObject data = new JSONObject(obj.getString(INCOResponse.DATA_TAG));
                         String token = data.getString(INCOResponse.TOKEN_TAG);
                         INCOApplication app = (INCOApplication) getApplication();
+                        Log.e("kien",token);
                         app.saveTokenAccess(token);
                         showProgress(false);
                         String user = data.getString(INCOResponse.USER_TAG);

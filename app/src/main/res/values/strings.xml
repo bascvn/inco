@@ -121,4 +121,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_list_comment">ListCommentActivity</string>
+    <string name="title_activity_add_comment">Comments</string>
+    <string name="title_activity_add_ticket">AddTicketActivity</string>
 </resources>

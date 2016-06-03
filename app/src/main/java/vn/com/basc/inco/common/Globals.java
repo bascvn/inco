@@ -28,6 +28,7 @@ public class Globals {
     public static  String ID_EXTRA = "ID_EXTRA";
     public static  String MESS_EXTRA = "MESS_EXTRA";
     public static String COMPONENT_EXTRA = "COMPONENT_EXTRA";
+    public static String PROJECT_ID_EXTRA ="PROJECT_ID_EXTRA";
 
 
     public static String API_TICKET_LIST;
@@ -37,6 +38,12 @@ public class Globals {
 
     public static  String API_COMMENT_OF_TICKET;
 
+    public static  String API_ADD_COMMENT_OF_TASK;
+    public static  String ADD_TASK_COMM_ID ;
+    public static  String ADD_TASK_COMM_BY ;
+    public static  String ADD_TASK_COMM_DES ;
+    public static  String ADD_COMMENT_PRO_ID ;
+    public static  String ADD_TASK_ID;
     static {
         PRE_FIX_API ="incodemo";
         PROTOCOL = "http://";
@@ -48,6 +55,7 @@ public class Globals {
         API_COMMENT_OF_TASK = PRE_FIX_API+"/mobile_api/gateway.php?controller=task.get_comments";
         API_COMMENT_OF_TICKET = PRE_FIX_API+"/mobile_api/gateway.php?controller=tickets.get_comments";
         API_COMMENT_OF_DISCUSSIONS = PRE_FIX_API+"/mobile_api/gateway.php?controller=discussions.get_comments";
+        API_ADD_COMMENT_OF_TASK =PRE_FIX_API+"/index.php/mobile/addcommenttask";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";
@@ -61,5 +69,11 @@ public class Globals {
         TICKET_ID_PARAMETER = "ticket_id";
         TASK_ID_PARAMETER ="task_id";
         AVATAR_PATH =PRE_FIX_API+"/uploads/users";
+        // add comment;
+        ADD_TASK_COMM_ID = "tasks_comments[tasks_id]";
+        ADD_TASK_COMM_BY ="tasks_comments[created_by]";
+        ADD_TASK_COMM_DES ="tasks_comments[description]";
+        ADD_COMMENT_PRO_ID = "projects_id";
+        ADD_TASK_ID ="tasks_id";
     }
 }

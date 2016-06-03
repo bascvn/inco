@@ -17,7 +17,10 @@ import vn.com.basc.inco.fragment.CommentFragment;
 import vn.com.basc.inco.model.CommentItem;
 
 public class ListCommentActivity extends AppCompatActivity implements CommentFragment.OnListCommentragmentInteractionListener,ListCommentFragment.OnListCommentFragmentInteractionListener{
-
+    private String project_id;
+    private String id;
+    private int type;
+    CommentFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +33,18 @@ public class ListCommentActivity extends AppCompatActivity implements CommentFra
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ListCommentActivity.this,AddCommentActivity.class);
+                intent.putExtra(Globals.ID_EXTRA,ListCommentActivity.this.id);
+                intent.putExtra(Globals.PROJECT_ID_EXTRA,ListCommentActivity.this.project_id);
+                intent.putExtra(Globals.COMPONENT_EXTRA,ListCommentActivity.this.type);
+                startActivity(intent);
+
             }
         });
-        String id = getIntent().getStringExtra(Globals.ID_EXTRA);
-        int type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA,ComponentType.TASK);
-        CommentFragment fragment =  CommentFragment.newInstance(1,id,type);
+         this.id = getIntent().getStringExtra(Globals.ID_EXTRA);
+         this.type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA,ComponentType.TASK);
+         this.project_id = getIntent().getStringExtra(Globals.PROJECT_ID_EXTRA);
+         fragment =  CommentFragment.newInstance(1,this.id,this.type);
         String name = getIntent().getStringExtra(Globals.MESS_EXTRA);
         getSupportActionBar().setTitle(name);
         //ListCommentFragment fragment =  ListCommentFragment.newInstance(1);
@@ -45,6 +53,13 @@ public class ListCommentActivity extends AppCompatActivity implements CommentFra
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fragment.refreshList();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
