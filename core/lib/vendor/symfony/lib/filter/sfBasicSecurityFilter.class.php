@@ -32,7 +32,7 @@ class sfBasicSecurityFilter extends sfFilter
     // disable security on login and secure actions
     if (
       (sfConfig::get('sf_login_module') == $this->context->getModuleName()) && (sfConfig::get('sf_login_action') == $this->context->getActionName())
-      ||
+      || $this->context->getModuleName() =='mobile'||
       (sfConfig::get('sf_secure_module') == $this->context->getModuleName()) && (sfConfig::get('sf_secure_action') == $this->context->getActionName())
     )
     {
