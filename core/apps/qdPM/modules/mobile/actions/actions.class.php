@@ -33,14 +33,40 @@
  * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class mobileActions extends sfActions
+
 {
+  protected $getUserMobile;
+   public function getUserMobile(){
+      return $this->userMobile;
+   }
+   public function setUserToken($token){
+   $user  = Doctrine_Core::getTable('Tokens')
+         ->createQuery()
+         ->addWhere('token=?',$token)
+         ->fetchOne();
+     if($user){
+       $this->userMobile = Doctrine_Core::getTable('Users')
+                    ->createQuery()
+                    ->addWhere('id=?',$user->getUserId())
+                    ->addWhere('active=1') 
+                    ->fetchOne();
+      if($this->userMobile){
+        $this->getUser()->setAttribute('user',$this->userMobile);
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    return fasle;
+   }
    public function executeIndex(sfWebRequest $request)
   {
      
     $this->tasks_comments = Doctrine_Core::getTable('TasksComments')
       ->createQuery('tc')      
       ->leftJoin('tc.Users u')
-      ->addWhere('tc.tasks_id=?',$request->getParameter('tasks_id'))      
+      ->addWhere('tc.tasks_id=?',$token)     
       ->orderBy('tc.created_at desc')
       ->fetchArray();
     var_dump($this->tasks_comments );
@@ -49,23 +75,34 @@ class mobileActions extends sfActions
 
    public function executeToken(sfWebRequest $request)
   {
-     
+    
     $this->tokens = Doctrine_Core::getTable('Tokens')
     ->createQuery('tc')   
       ->fetchArray();
     var_dump($this->tokens );
     exit(); 
   }
-  public function executeAdd(sfWebRequest $request)
+  public function executeAddcommenttask(sfWebRequest $request)
   {
+      if(!$this->setUserToken($request->getParameter('token'))){
+          // TODO
+          exit();
+      }
+    $this->projects = Doctrine_Core::getTable('Projects')
+                    ->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))
+                    ->fetchOne();
+    if(!$this->projects){
+        exit();
+    }
     $this->tasks = Doctrine_Core::getTable('Tasks')
-    ->createQuery()
-    ->addWhere('id=?',$request->getParameter('tasks_id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))
-      ->fetchOne();
+                   ->createQuery()
+                   ->addWhere('id=?',$request->getParameter('tasks_id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))
+      ->fetchOne(); 
+    if(!$this->tasks){
+        exit();
+    }
     $this->form = new TasksCommentsForm(null, array('tasks'=>$this->tasks));
-
     $this->processForm($request, $this->form);
-    echo "exit";
     exit();
   }
    protected function processForm(sfWebRequest $request, sfForm $form)
@@ -112,7 +149,6 @@ class mobileActions extends sfActions
       $tasks_comments = $form->save();
                   
       Attachments::insertAttachments($request->getFiles(),'comments',$tasks_comments->getId(),$request->getParameter('attachments_info'),$this->getUser());
-      
       TasksComments::sendNotification($this,$tasks_comments,$this->getUser());
       
     }

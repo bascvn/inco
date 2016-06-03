@@ -31,7 +31,7 @@ all:
     standard_helpers: [I18N,Partial,Text,app,menu,form]
 
     # Form security secret (CSRF protection)
-    csrf_secret:            234sAFE425SDFAf2ljlkasdhfiwugb2563h2g4jA
+    csrf_secret:            false
 
 
     # Output escaping settings
