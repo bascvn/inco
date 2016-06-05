@@ -458,7 +458,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.e("login",response);
                 try {
                     JSONObject obj = new JSONObject(response);
                     if(INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))){

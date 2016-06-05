@@ -3,10 +3,10 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/fa_bell" />
+        android:drawable="@drawable/ic_attachment_white_24dp" />
 
     <item
         android:state_selected="false"
-        android:drawable="@drawable/fa_bell_black" />
+        android:drawable="@drawable/ic_attachment_black_24dp1" />
 
 </selector>

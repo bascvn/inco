@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        card_view:cardElevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardUseCompatPadding="true"
+
+
+        android:id="@+id/cv">
+        <RelativeLayout
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress_upload"
+                android:layout_toRightOf="@+id/imb_remove"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:max="100" />
+
+            <ImageButton
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:id="@+id/imb_remove"
+                android:src="@drawable/ic_clear_white_24dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="File Name"
+                android:id="@+id/txt_filename"
+                android:layout_below="@+id/progress_upload"
+                android:layout_toRightOf="@+id/imb_remove"
+                android:layout_toEndOf="@+id/imb_remove" />
+
+            <EditText
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_info"
+                android:layout_below="@+id/txt_filename"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/imb_remove"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

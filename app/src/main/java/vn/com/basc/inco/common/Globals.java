@@ -39,11 +39,13 @@ public class Globals {
     public static  String API_COMMENT_OF_TICKET;
 
     public static  String API_ADD_COMMENT_OF_TASK;
+    public static   String API_UPLOAD_FILE ;
     public static  String ADD_TASK_COMM_ID ;
     public static  String ADD_TASK_COMM_BY ;
     public static  String ADD_TASK_COMM_DES ;
     public static  String ADD_COMMENT_PRO_ID ;
     public static  String ADD_TASK_ID;
+    public static int MAX_SIZE_UPLOAD = 5*1024*1024;
     static {
         PRE_FIX_API ="incodemo";
         PROTOCOL = "http://";
@@ -56,6 +58,7 @@ public class Globals {
         API_COMMENT_OF_TICKET = PRE_FIX_API+"/mobile_api/gateway.php?controller=tickets.get_comments";
         API_COMMENT_OF_DISCUSSIONS = PRE_FIX_API+"/mobile_api/gateway.php?controller=discussions.get_comments";
         API_ADD_COMMENT_OF_TASK =PRE_FIX_API+"/index.php/mobile/addcommenttask";
+        API_UPLOAD_FILE = PRE_FIX_API+"/index.php/mobile/upload";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";

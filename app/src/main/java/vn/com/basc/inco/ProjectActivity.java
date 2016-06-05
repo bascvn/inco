@@ -66,6 +66,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -81,6 +82,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         id = getIntent().getStringExtra(Globals.ID_EXTRA);
         name = getIntent().getStringExtra(Globals.MESS_EXTRA);
         getSupportActionBar().setTitle(name);
+
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
