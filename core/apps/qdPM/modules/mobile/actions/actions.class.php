@@ -82,6 +82,15 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
+    public function executeFile(sfWebRequest $request)
+  {
+    
+    $this->tokens = Doctrine_Core::getTable('Attachments')
+    ->createQuery('tc')   
+      ->fetchArray();
+    var_dump($this->tokens );
+    exit(); 
+  }
   public function executeAddcommenttask(sfWebRequest $request)
   {
       if(!$this->setUserToken($request->getParameter('token'))){
@@ -103,6 +112,7 @@ class mobileActions extends sfActions
     }
     $this->form = new TasksCommentsForm(null, array('tasks'=>$this->tasks));
     $this->processForm($request, $this->form);
+    echo "exit";
     exit();
   }
    protected function processForm(sfWebRequest $request, sfForm $form)
@@ -147,10 +157,83 @@ class mobileActions extends sfActions
       if($form->getObject()->isNew() and sfConfig::get('app_allow_adit_tasks_comments_date')!='on'){ $form->setFieldValue('created_at',date('Y-m-d H:i:s')); }
     
       $tasks_comments = $form->save();
-                  
+       var_dump($request->getParameter('attachments_info')) ;          
       Attachments::insertAttachments($request->getFiles(),'comments',$tasks_comments->getId(),$request->getParameter('attachments_info'),$this->getUser());
       TasksComments::sendNotification($this,$tasks_comments,$this->getUser());
+
       
     }
 }
+
+  public function executeUpload(sfWebRequest $request)
+  {      
+
+
+    $file = $request->getFiles();
+    $filename = mt_rand(111111,999999)  . '-' . $file['Filedata']['name'];
+    if(move_uploaded_file($file['Filedata']['tmp_name'], sfConfig::get('sf_upload_dir') . '/attachments/'  . $filename))
+    {               
+      $bind_id = $request->getParameter('bind_id');
+      
+      if((int)$bind_id==0)
+      {
+        $bind_id = -$this->getUser()->getAttribute('id');
+      }
+       
+      $a = new Attachments();
+      $a->setFile($filename);    
+      $a->setBindType("comments");            
+      $a->setBindId($bind_id);      
+      $a->save();  
+      $response = new Response();  
+      $response->status = ResponseCode::STATUS_SUCCESS;
+      $tmp['id'] = $a->getId();
+      $tmp['fileName'] = $a->getFile();
+      $response->data = $tmp;
+      echo json_encode($response);
+      exit();
+    }
+    reponeError();        
+    exit();
+  }
+  function reponeError(){
+    $response = new Response();
+    $response->set_statsus(ResponseCode::STATUS_ERROR);
+    $response->error_code = ResponseCode::E_C_MISS_PARAMETER;
+    $response->error_mess = ResponseMess::E_M_MISS_PARAMETER;
+    echo json_encode($response);
+    exit();
+  }
+
+
 }
+class ResponseCode 
+  {
+    const STATUS_SUCCESS = "sucess";
+    const STATUS_ERROR = "error";
+    const E_C_MISS_PARAMETER = "1";
+    const E_C_LOGIN_ERROR ="2";
+    const E_C_PERMISSION = "3";
+  }
+  /**
+  * 
+  */
+  class ResponseMess {
+
+    const  E_M_MISS_PARAMETER ="miss parameter.";
+    const  E_M_LOGIN_ERROR ="error email or password";
+    const  E_M_PERMISSION = "Error permisson";
+  }
+    
+
+  class Response
+  {
+    public $status = "";
+    public $error_code = "";
+    public $error_mess = "";
+    public $data = "";
+      public function set_statsus($status){
+        $this->status = $status;
+      }
+     
+  }
