@@ -8,4 +8,8 @@ public class ComponentType {
     public static int TASK = 1;
     public static int TICKET = 2;
     public static int DISCUSSION = 3;
+
+    public static String TASK_COMMENT ="comments";
+    public static String TICKET_COMMENT = "ticketsComments";
+    public static String DISCUSSION_COMMENT = "discussionsComments";
 }

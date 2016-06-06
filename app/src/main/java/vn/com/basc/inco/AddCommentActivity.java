@@ -2,14 +2,12 @@ package vn.com.basc.inco;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,8 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ProgressBar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -43,7 +39,7 @@ import java.util.concurrent.locks.Lock;
 
 import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.common.Globals;
-import vn.com.basc.inco.dummy.DummyContent;
+import vn.com.basc.inco.fragment.AddCommentFragment;
 import vn.com.basc.inco.fragment.AddFileFragment;
 import vn.com.basc.inco.model.UploadFile;
 
@@ -80,6 +76,7 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
          toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp);
         this.id = getIntent().getStringExtra(Globals.ID_EXTRA);
         this.type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         this.project_id = getIntent().getStringExtra(Globals.PROJECT_ID_EXTRA);
@@ -275,12 +272,16 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
         String url = "";
         if(this.type == ComponentType.TASK){
             url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_TASK);
+        }else if(this.type == ComponentType.TICKET){
+            url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_TICKET);
+        }else if(this.type == ComponentType.DISCUSSION){
+            url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_DISCUSS);
         }
         Log.e("kienbk1910","url:"+url);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.e("kienbk1910","response:"+response);
                 AddCommentActivity.this.finish();
             }
         }, new Response.ErrorListener() {
@@ -303,12 +304,25 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
                     params.put(Globals.ADD_TASK_COMM_ID,AddCommentActivity.this.id);
                     params.put(Globals.ADD_TASK_COMM_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
                     params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
-                    List<UploadFile> fileList = ((AddFileFragment) mSectionsPagerAdapter.getItem(1)).getUploadFile();
-                    for (int i = 0; i< fileList.size();i++){
-                        if(fileList.get(i).getStatus() == 2) {
-                            Log.e("kienbk1910","attachments_info" + fileList.get(i).getId());
-                            params.put("attachments_info[" + fileList.get(i).getId() + "]", fileList.get(i).getInfo());
-                        }
+
+                }else if(AddCommentActivity.this.type == ComponentType.TICKET){
+                    params.put(Globals.ADD_TICKET_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
+                    params.put(Globals.ADD_TICKET_COMM_ID,AddCommentActivity.this.id);
+                    params.put(Globals.ADD_TICKET_ID,AddCommentActivity.this.id);
+                    params.put(Globals.ADD_TICKET_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
+                    params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
+                }else if(AddCommentActivity.this.type == ComponentType.DISCUSSION){
+                    params.put(Globals.ADD_DISCUSS_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
+                    params.put(Globals.ADD_DISCUSS_COM_ID,AddCommentActivity.this.id);
+                    params.put(Globals.ADD_DISCUSS_ID,AddCommentActivity.this.id);
+                    params.put(Globals.ADD_DISCUSS_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
+                    params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
+                }
+                List<UploadFile> fileList = ((AddFileFragment) mSectionsPagerAdapter.getItem(1)).getUploadFile();
+                for (int i = 0; i< fileList.size();i++){
+                    if(fileList.get(i).getStatus() == 2) {
+                        Log.e("kienbk1910","attachments_info" + fileList.get(i).getId());
+                        params.put("attachments_info[" + fileList.get(i).getId() + "]", fileList.get(i).getInfo());
                     }
                 }
                // params.put("attachments_info[27]", "fdfdf");
@@ -363,7 +377,7 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
                 return addCommentFragment;
             }
             if (addFileFragment == null){
-                 addFileFragment = AddFileFragment.newInstance(1);
+                 addFileFragment = AddFileFragment.newInstance(AddCommentActivity.this.type);
               }
             return addFileFragment;
         }

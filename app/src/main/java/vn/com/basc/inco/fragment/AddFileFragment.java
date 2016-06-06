@@ -40,6 +40,7 @@ import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.MainActivity;
 import vn.com.basc.inco.MyFileRecyclerViewAdapter;
 import vn.com.basc.inco.R;
+import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
 import vn.com.basc.inco.dummy.DummyContent;
@@ -103,11 +104,9 @@ public class AddFileFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
+
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
+
             recyclerView.setAdapter(adapter);
         }
         return view;
@@ -257,7 +256,17 @@ public class AddFileFragment extends Fragment {
                 entity.addPart(Globals.TOKEN_PARAMETER,
                         new StringBody(((INCOApplication)getActivity().getApplication()).getTokenAccess()));
 
-
+                if(mColumnCount == ComponentType.TASK ){
+                    entity.addPart(Globals.TYPE_BIND_PARAMATER,
+                            new StringBody(ComponentType.TASK_COMMENT));
+                }else  if(mColumnCount == ComponentType.TICKET ) {
+                    entity.addPart(Globals.TYPE_BIND_PARAMATER,
+                            new StringBody(ComponentType.TICKET_COMMENT));
+                }
+                else  if(mColumnCount == ComponentType.DISCUSSION ) {
+                    entity.addPart(Globals.TYPE_BIND_PARAMATER,
+                            new StringBody(ComponentType.DISCUSSION_COMMENT));
+                }
                 totalSize = parseInt(uploadFile.getFile_size());
                 Log.e("kienbk1910","totalSize"+ String.valueOf(totalSize));
                 httppost.setEntity(entity);

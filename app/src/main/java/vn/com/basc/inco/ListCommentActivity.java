@@ -79,7 +79,9 @@ public class ListCommentActivity extends AppCompatActivity implements CommentFra
 
     @Override
     public void onListCommentFragmentInteraction(CommentItem item) {
-
+        Intent intent = new Intent(ListCommentActivity.this,DetailCommentActivity.class);
+        intent.putExtra(Globals.MESS_EXTRA,item);
+        startActivity(intent);
     }
 
     @Override

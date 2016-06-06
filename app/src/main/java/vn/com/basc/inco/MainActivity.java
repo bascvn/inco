@@ -194,6 +194,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
 
+
         startActivity(intent);
     }
 
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
     }
 
@@ -292,6 +294,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
     }
 
@@ -301,6 +304,7 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
+        intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
     }
 }

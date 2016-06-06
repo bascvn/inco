@@ -10,5 +10,6 @@ public class TaskItem extends Item{
     public String tasks_priority;
     public String assigned_to;
     public String tasks_status;
+    public String projects_id;
 
 }

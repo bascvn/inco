@@ -10,4 +10,5 @@ public class TicketItem extends Item {
     public String tickets_status;
     public String create_by;
     public String project;
+    public String projects_id;
 }
