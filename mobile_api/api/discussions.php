@@ -70,5 +70,47 @@ function get_list()
 	cm_close_connect($db);
 	exit();
 }
+function get_comments(){
+	$token = $_POST['token'];
+	$offset = "";
+	$limit = "";
+	$search = "";
+	$discussion_id = "";
+	if(isset($_POST['offset'])){
+		$offset = $_POST['offset'];
+	}
+	if(isset($_POST['limit'])){
+		$limit = $_POST['limit'];
+	}
+	if(isset($_POST['search'])){
+		$search = $_POST['search'];
+	}
+	if(isset($_POST['discussion_id'])){
+		$discussion_id = $_POST['discussion_id'];
+	}
 
+	$response = new Response();
+	// check parameter
+	if(is_string_empty($token)|| is_string_empty($offset) ||is_string_empty($limit)){
+		$response->set_statsus(ResponseCode::STATUS_ERROR);
+		$response->error_code = ResponseCode::E_C_MISS_PARAMETER;
+		$response->error_mess = ResponseMess::E_M_MISS_PARAMETER;
+		echo json_encode($response);
+		exit();
+	}
+	 $db     = cm_connect();
+	$user = get_user_access($token,$db);
+	if($user  == null){
+		$response->status = ResponseCode::STATUS_ERROR;
+		$response->error_code = ResponseMess::E_M_PERMISSION;
+		echo json_encode($response);
+	}else{
+		$projects = get_discussion_comments($discussion_id,$search,$offset,$limit,$db);
+		$response->status = ResponseCode::STATUS_SUCCESS;
+		$response->data = $projects;
+		echo json_encode($response);
+	}
+	cm_close_connect($db);
+	exit();
+}
 ?>

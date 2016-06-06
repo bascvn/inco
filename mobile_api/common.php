@@ -28,9 +28,13 @@
 		$db_name = explode("=",$db_info_array[0])[1];
 		$db_host = explode("=",$db_info_array[1])[1];
 		$username = $parsed['all']['doctrine']['param']['username'];
-		$password = eval('?>'.$parsed['all']['doctrine']['param']['password']);
-		
-		$con=mysqli_connect($db_host,$username,$password,$db_name);
+
+		$password = $parsed['all']['doctrine']['param']['password'];
+		$password = str_replace(" echo "," \$password = ",$password);
+        eval('?>'.$password);
+        
+
+		$con=mysqli_connect($db_host,$username,'~1qazxsw23@',$db_name);
 
 		// Check connection
 		if (mysqli_connect_errno()) {
@@ -345,5 +349,55 @@
  
          return true;
      }
+    function get_ticket_comments($ticket_id,$search,$offset,$limit,$con){
+          $main_sql ="SELECT 
+            tickets_comments.id AS id,
+            tickets_comments.description AS description,
+            users.photo AS avatar,
+            tickets_comments.created_at AS created_at,
+            users.name AS name 
+            FROM tickets_comments
+           LEFT JOIN users ON tickets_comments.users_id = users.id";
+
+            $main_sql .= " WHERE tickets_comments.tickets_id = $ticket_id AND tickets_comments.description LIKE '%$search%' ORDER BY tickets_comments.created_at desc LIMIT $limit OFFSET $offset";
+      
+        $projects=array();
+        if ($result=mysqli_query($con,$main_sql)){
+            if (mysqli_num_rows($result) > 0) {
+                 while($row = mysqli_fetch_assoc($result)) {
+                    $row['attachments'] = get_attachments('ticketsComments',$row['id'],$con);
+                    array_push($projects,$row);
+                }   
+            }
+              mysqli_free_result($result);
+         }
+         return $projects;
+    }
+    function get_discussion_comments($discussion_id,$search,$offset,$limit,$db){
+    
+         $main_sql ="SELECT 
+            discussions_comments.id AS id,
+            discussions_comments.description AS description,
+            users.photo AS avatar,
+            discussions_comments.created_at AS created_at,
+            users.name AS name 
+            FROM discussions_comments
+           LEFT JOIN users ON discussions_comments.users_id = users.id ";
+
+            $main_sql .= " WHERE discussions_comments.discussions_id = $discussion_id AND discussions_comments.description LIKE '%$search%' ORDER BY discussions_comments.created_at desc LIMIT $limit OFFSET $offset";
+        $projects=array();
+        if ($result=mysqli_query($con,$main_sql)){
+            if (mysqli_num_rows($result) > 0) {
+               // var_dump($result);
+                 while($row = mysqli_fetch_assoc($result)) {
+                    $row['attachments'] = get_attachments('discussionsComments',$row['id'],$con);
+                    array_push($projects,$row);
+                }   
+            }
+              mysqli_free_result($result);
+         }
+         return $projects;
+
+    }
     
 ?>
