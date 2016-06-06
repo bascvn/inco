@@ -161,7 +161,8 @@
      		projects.name AS projects,
      		tasks_priority.name AS tasks_priority,
      		users.name AS assigned_to,
-     		tasks_status.name AS tasks_status
+     		tasks_status.name AS tasks_status,
+             projects.id AS  projects_id
      		 FROM tasks 
      		LEFT JOIN projects ON tasks.projects_id = projects.id 
      		LEFT JOIN tasks_priority ON tasks.tasks_type_id=tasks_priority.id 
@@ -246,7 +247,8 @@
                 departments.name AS departments,
                 tickets_status.name AS tickets_status,
                 users.name AS create_by,
-                projects.name AS project 
+                projects.name AS project,
+                 projects.id AS  projects_id
                 FROM tickets
                 LEFT JOIN departments ON tickets.departments_id = departments.id 
                 LEFT JOIN tickets_status ON tickets_status.id= tickets.tickets_status_id 
@@ -292,7 +294,8 @@
              discussions.name AS name, 
              discussions_status.name AS status,
              projects.name AS projects,
-             users.name AS create_by 
+             users.name AS create_by,
+             projects.id AS  projects_id
              FROM discussions 
              LEFT JOIN projects ON projects.id = discussions.projects_id
              LEFT JOIN users ON users.id = discussions.users_id 
@@ -373,7 +376,7 @@
          }
          return $projects;
     }
-    function get_discussion_comments($discussion_id,$search,$offset,$limit,$db){
+    function get_discussion_comments($discussion_id,$search,$offset,$limit,$con){
     
          $main_sql ="SELECT 
             discussions_comments.id AS id,
@@ -385,17 +388,20 @@
            LEFT JOIN users ON discussions_comments.users_id = users.id ";
 
             $main_sql .= " WHERE discussions_comments.discussions_id = $discussion_id AND discussions_comments.description LIKE '%$search%' ORDER BY discussions_comments.created_at desc LIMIT $limit OFFSET $offset";
+      
         $projects=array();
         if ($result=mysqli_query($con,$main_sql)){
             if (mysqli_num_rows($result) > 0) {
-               // var_dump($result);
+              
                  while($row = mysqli_fetch_assoc($result)) {
                     $row['attachments'] = get_attachments('discussionsComments',$row['id'],$con);
                     array_push($projects,$row);
                 }   
             }
+       
               mysqli_free_result($result);
          }
+      
          return $projects;
 
     }

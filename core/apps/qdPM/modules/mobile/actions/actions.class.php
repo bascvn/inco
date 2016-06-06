@@ -35,6 +35,7 @@
 class mobileActions extends sfActions
 
 {
+
   protected $getUserMobile;
    public function getUserMobile(){
       return $this->userMobile;
@@ -52,6 +53,7 @@ class mobileActions extends sfActions
                     ->fetchOne();
       if($this->userMobile){
         $this->getUser()->setAttribute('user',$this->userMobile);
+        $this->getUser()->setAttribute('users_group_id',$this->userMobile->getUsersGroupId());
         return true;
       }
       else{
@@ -60,6 +62,50 @@ class mobileActions extends sfActions
     }
     return fasle;
    }
+
+   protected function checkProjectsAccess($projects)
+  {    
+    Projects::checkViewOwnAccess($this,$this->getUser(),$projects);    
+  }
+  
+  protected function checkTasksAccess($access,$tasks=false,$projects=false)
+  {
+    if($projects)
+    {
+      Users::checkAccess($this,$access,'tasks',$this->getUser(),$projects->getId());
+      if($tasks)
+      {
+        Tasks::checkViewOwnAccess($this,$this->getUser(),$tasks,$projects);
+      }
+    }
+  }
+  protected function checkTicketsAccess($access,$tickets=false,$projects=false)
+  {
+    if($projects)
+    {
+      Users::checkAccess($this,$access,'tickets',$this->getUser(),$projects->getId());
+      if($tickets)
+      {
+        Tickets::checkViewOwnAccess($this,$this->getUser(),$tickets,$projects);
+      }
+    }
+    elseif($tickets)
+    {
+      Users::checkAccess($this,$access,'tickets',$this->getUser());
+      Tickets::checkViewOwnAccess($this,$this->getUser(),$tickets);
+    }
+  }
+  protected function checkDiscussionsAccess($access,$discussions=false,$projects=false)
+  {
+    if($projects)
+    {
+      Users::checkAccess($this,$access,'discussions',$this->getUser(),$projects->getId());
+      if($discussions)
+      {
+        Discussions::checkViewOwnAccess($this,$this->getUser(),$discussions,$projects);
+      }
+    }
+  }
    public function executeIndex(sfWebRequest $request)
   {
      
@@ -82,6 +128,15 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
+    public function executeDiscussion(sfWebRequest $request)
+  {
+    
+    $this->tokens = Doctrine_Core::getTable('DiscussionsComments')
+    ->createQuery('tc')   
+      ->fetchArray();
+    var_dump($this->tokens );
+    exit(); 
+  }
     public function executeFile(sfWebRequest $request)
   {
     
@@ -94,13 +149,14 @@ class mobileActions extends sfActions
   public function executeAddcommenttask(sfWebRequest $request)
   {
       if(!$this->setUserToken($request->getParameter('token'))){
-          // TODO
+           $this->reponeError(); 
           exit();
       }
     $this->projects = Doctrine_Core::getTable('Projects')
                     ->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))
                     ->fetchOne();
     if(!$this->projects){
+       $this->reponeError(); 
         exit();
     }
     $this->tasks = Doctrine_Core::getTable('Tasks')
@@ -108,11 +164,16 @@ class mobileActions extends sfActions
                    ->addWhere('id=?',$request->getParameter('tasks_id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))
       ->fetchOne(); 
     if(!$this->tasks){
+       $this->reponeError(); 
         exit();
     }
+    
+    $this->checkProjectsAccess($this->projects);
+    $this->checkTasksAccess('view',$this->tasks, $this->projects);
+    Users::checkAccess($this,'insert','tasksComments',$this->getUser(),$this->projects->getId());
     $this->form = new TasksCommentsForm(null, array('tasks'=>$this->tasks));
     $this->processForm($request, $this->form);
-    echo "exit";
+    
     exit();
   }
    protected function processForm(sfWebRequest $request, sfForm $form)
@@ -168,7 +229,10 @@ class mobileActions extends sfActions
   public function executeUpload(sfWebRequest $request)
   {      
 
-
+    if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
     $file = $request->getFiles();
     $filename = mt_rand(111111,999999)  . '-' . $file['Filedata']['name'];
     if(move_uploaded_file($file['Filedata']['tmp_name'], sfConfig::get('sf_upload_dir') . '/attachments/'  . $filename))
@@ -182,7 +246,7 @@ class mobileActions extends sfActions
        
       $a = new Attachments();
       $a->setFile($filename);    
-      $a->setBindType("comments");            
+      $a->setBindType($request->getParameter('bind_type'));            
       $a->setBindId($bind_id);      
       $a->save();  
       $response = new Response();  
@@ -193,8 +257,131 @@ class mobileActions extends sfActions
       echo json_encode($response);
       exit();
     }
-    reponeError();        
+    $this->reponeError();        
     exit();
+  }
+
+
+//*********************** add comment ticket **************************************************/
+  public function executeAddcommentticket(sfWebRequest $request)
+  {
+     
+    if(!$this->setUserToken($request->getParameter('token'))){
+         $this->reponeError(); 
+        exit();
+    }       
+    if($request->getParameter('projects_id')>0)
+    {
+        $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+        if(!$this->projects){
+            $this->reponeError(); 
+          exit();
+        }
+     $this->tickets = Doctrine_Core::getTable('Tickets')->createQuery()->addWhere('id=?',$request->getParameter('tickets_id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))->fetchOne();
+      if(!$this->tickets){
+            $this->reponeError(); 
+          exit();
+        }
+      $this->checkProjectsAccess($this->projects);
+      $this->checkTicketsAccess('view',$this->tickets, $this->projects);
+    }
+    else
+    {
+      $this->projects = null;
+      $this->tickets = Doctrine_Core::getTable('Tickets')->find(array($request->getParameter('tickets_id')));
+      if(!$this->tickets){
+            $this->reponeError(); 
+          exit();
+        }
+      $this->checkTicketsAccess('view',$this->tickets);
+    }
+    
+    Users::checkAccess($this,'insert','ticketsComments',$this->getUser(),$request->getParameter('projects_id'));
+
+    $this->form = new TicketsCommentsForm(null, array('tickets'=>$this->tickets));
+
+    $this->processFormTicket($request, $this->form);
+
+    exit();
+  }
+  protected function processFormTicket(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      if($form->getObject()->isNew())
+      {
+        $tickets = Doctrine_Core::getTable('Tickets')->find($request->getParameter('tickets_id'));
+        if($form->getValue('tickets_status_id')>0)
+        { 
+          $tickets->setTicketsStatusId($form->getValue('tickets_status_id'));                                  
+        } 
+        else 
+        { 
+          unset($form['tickets_status_id']); 
+        }
+        
+        if($request->getParameter('tickets_types_id')>0){ $tickets->setTicketsTypesId($request->getParameter('tickets_types_id')); }             
+        if($request->getParameter('departments_id')>0){ $tickets->setDepartmentsId($request->getParameter('departments_id')); } 
+                    
+        $tickets->save();
+      }
+      
+      if($form->getObject()->isNew()){ $form->setFieldValue('created_at',date('Y-m-d H:i:s')); }
+      
+      $tickets_comments = $form->save();
+      
+      Attachments::insertAttachments($request->getFiles(),'ticketsComments',$tickets_comments->getId(),$request->getParameter('attachments_info'),$this->getUser());          
+      TicketsComments::sendNotification($this,$tickets_comments,$this->getUser());
+    }
+  }
+  //*********************** add comment  discussion ticket ****************************************/
+   public function executeAddcommentdiscussion(sfWebRequest $request)
+  {
+     if(!$this->setUserToken($request->getParameter('token'))){
+         $this->reponeError(); 
+        exit();
+    }  
+    
+    $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+     if(!$this->projects){
+            $this->reponeError(); 
+          exit();
+        }
+    $this->discussions = Doctrine_Core::getTable('Discussions')->createQuery()->addWhere('id=?',$request->getParameter('discussions_id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))->fetchOne();
+     if(!$this->discussions){
+            $this->reponeError(); 
+          exit();
+        }
+    $this->checkProjectsAccess($this->projects);
+    $this->checkDiscussionsAccess('view',$this->discussions, $this->projects);
+    Users::checkAccess($this,'insert','discussionsComments',$this->getUser(),$this->projects->getId());
+
+    $this->form = new DiscussionsCommentsForm(null, array('discussions'=>$this->discussions));
+
+    $this->processFormDiscussion($request, $this->form);
+    exit();
+  }
+ protected function processFormDiscussion(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      if($form->getObject()->isNew())
+      {
+        $discussions = Doctrine_Core::getTable('Discussions')->find($request->getParameter('discussions_id'));            
+        if($form->getValue('discussions_status_id')>0){ $discussions->setDiscussionsStatusId($form->getValue('discussions_status_id')); } else { unset($form['discussions_status_id']); }      
+        $discussions->save();
+      }
+      
+      if($form->getObject()->isNew()){ $form->setFieldValue('created_at',date('Y-m-d H:i:s')); }
+    
+      $discussions_comments = $form->save();
+      
+      Attachments::insertAttachments($request->getFiles(),'discussionsComments',$discussions_comments->getId(),$request->getParameter('attachments_info'),$this->getUser());
+      
+      DiscussionsComments::sendNotification($this,$discussions_comments,$this->getUser());
+    }
   }
   function reponeError(){
     $response = new Response();
