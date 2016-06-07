@@ -42,6 +42,7 @@ public class Globals {
     public static  String API_ADD_COMMENT_OF_TICKET;
     public static  String API_ADD_COMMENT_OF_DISCUSS;
     public static   String API_UPLOAD_FILE ;
+    public static  String API_DOWNLOAD_FILE;
     public static  String ADD_TASK_COMM_ID ;
     public static  String ADD_TASK_COMM_BY ;
     public static  String ADD_TASK_COMM_DES ;
@@ -72,6 +73,7 @@ public class Globals {
         API_ADD_COMMENT_OF_TICKET = PRE_FIX_API+"/index.php/mobile/addcommentticket";
         API_ADD_COMMENT_OF_DISCUSS = PRE_FIX_API+"/index.php/mobile/addcommentdiscussion";
         API_UPLOAD_FILE = PRE_FIX_API+"/index.php/mobile/upload";
+        API_DOWNLOAD_FILE = PRE_FIX_API+"/index.php/mobile/download";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";

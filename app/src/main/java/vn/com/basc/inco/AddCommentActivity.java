@@ -88,9 +88,9 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.fa_comments));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.comment_selector));
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.task_selector));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.attachment_selector));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

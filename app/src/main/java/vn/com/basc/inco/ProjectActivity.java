@@ -72,9 +72,9 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.fa_tasks));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.fa_bell));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.fa_comments));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.task_selector));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ticket_selector));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.comment_selector));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         //Adding onTabSelectedListener to swipe views
         tabLayout.setOnTabSelectedListener(this);
@@ -110,8 +110,8 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
       fab.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                      .setAction("Action", null).show();
+              Intent intent = new Intent(ProjectActivity.this,NewTicketActivity.class);
+              startActivity(intent);
           }
       });
         fab.setVisibility(View.VISIBLE);

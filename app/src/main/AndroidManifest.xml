@@ -67,6 +67,10 @@
         <activity
             android:name=".fragment.AddTicketActivity"
             android:label="@string/title_activity_add_ticket"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewTicketActivity"
+            android:label="@string/title_activity_new_ticket"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
