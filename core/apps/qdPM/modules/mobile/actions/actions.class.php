@@ -45,22 +45,29 @@ class mobileActions extends sfActions
          ->createQuery()
          ->addWhere('token=?',$token)
          ->fetchOne();
+    
      if($user){
        $this->userMobile = Doctrine_Core::getTable('Users')
                     ->createQuery()
                     ->addWhere('id=?',$user->getUserId())
                     ->addWhere('active=1') 
                     ->fetchOne();
+                
       if($this->userMobile){
+       
         $this->getUser()->setAttribute('user',$this->userMobile);
+        $this->getUser()->setAttribute('id',$this->userMobile->getId());
         $this->getUser()->setAttribute('users_group_id',$this->userMobile->getUsersGroupId());
-        return true;
+        return TRUE;
       }
       else{
-        return false;
+    
+        return FALSE;
       }
+     
     }
-    return fasle;
+ 
+    return FALSE;
    }
 
    protected function checkProjectsAccess($projects)
@@ -146,6 +153,46 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
+    public function executeTicketform(sfWebRequest $request)
+  {
+    if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
+    $projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+    if(!$projects){
+      $this->reponeError(); 
+          exit();
+    }
+    $this->checkProjectsAccess($projects);
+    $this->checkTicketsAccess('insert',false,$projects);
+
+     $response = new Response();  
+     $response->status = ResponseCode::STATUS_SUCCESS;
+     $ticketform = new TicketFormResponse();
+     $ticketform->deparments = app::getItemsChoicesByTable('Departments');
+     $ticketform->ticketsStatus = app::getItemsChoicesByTable('TicketsStatus');
+     $ticketform->ticketsStatusDefault = app::getDefaultValueByTable('TicketsStatus');
+     $ticketform->ticketsTypes = app::getItemsChoicesByTable('TicketsTypes');
+     $ticketform->ticketsTypesDefault = app::getDefaultValueByTable('TicketsTypes');
+     if($projects)
+    {
+      if(Users::hasAccess('edit','projects',$this->getUser(),$projects->getId()))
+      {
+         $ticketform->users = Users::getChoices(array_merge(array($this->getUser()->getAttribute('id')),array_filter(explode(',',$projects->getTeam()))),'tickets_insert');
+      }
+      
+    }
+    $response->data =  $ticketform;
+    echo json_encode($response);
+    exit();
+    $TicketsStatus =  app::getItemsChoicesByTable('TicketsStatus');
+    echo json_encode($TicketsStatus);
+     $TicketsStatusDefault = app::getDefaultValueByTable('TicketsStatus');
+      echo json_encode($TicketsStatusDefault);
+    exit(); 
+  }
+  
   public function executeAddcommenttask(sfWebRequest $request)
   {
       if(!$this->setUserToken($request->getParameter('token'))){
@@ -225,6 +272,43 @@ class mobileActions extends sfActions
       
     }
 }
+  /********************* file **************************************/
+
+   public function executeDownload(sfWebRequest $request)
+  {
+     
+     
+     if($this->setUserToken($request->getParameter('token')) == FALSE){
+          echo "token";
+           $this->reponeError(); 
+          exit();
+    }
+    $attachments = Doctrine_Core::getTable('Attachments')->find($request->getParameter('id'));
+      if(!$attachments){
+        
+            $this->reponeError(); 
+          exit();
+        }  
+    $file_path = sfConfig::get('sf_upload_dir') . '/attachments/' . $attachments->getFile();
+                    
+    if(is_file($file_path))
+    {
+      header("Expires: Mon, 26 Nov 1962 00:00:00 GMT");
+      header("Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT");
+      header("Cache-Control: no-cache, must-revalidate");
+      header("Pragma: no-cache");
+      header("Content-Type: Application/octet-stream");
+      header("Content-disposition: attachment; filename=" . substr(str_replace(' ','_',$attachments->getFile()),7));
+  
+      readfile($file_path);
+    }
+    else
+    {
+      echo 'File "' . $attachments->getFile() . '" not found';
+    }
+  
+    exit();
+  }
 
   public function executeUpload(sfWebRequest $request)
   {      
@@ -423,4 +507,12 @@ class ResponseCode
         $this->status = $status;
       }
      
+  }
+  class TicketFormResponse{
+    public $deparments;
+    public $ticketsStatus;
+    public $ticketsStatusDefault;
+    public $ticketsTypes;
+    public $ticketsTypesDefault;
+    public $users;
   }
