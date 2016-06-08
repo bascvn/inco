@@ -111,6 +111,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
           @Override
           public void onClick(View view) {
               Intent intent = new Intent(ProjectActivity.this,NewTicketActivity.class);
+              intent.putExtra(Globals.PROJECT_ID_EXTRA,ProjectActivity.this.id);
               startActivity(intent);
           }
       });
@@ -233,12 +234,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+
             }
             return null;
         }

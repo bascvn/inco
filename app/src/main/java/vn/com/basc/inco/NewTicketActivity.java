@@ -20,11 +20,14 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.fragment.AddFileFragment;
+import vn.com.basc.inco.fragment.AddTicketConfigFragment;
+import vn.com.basc.inco.fragment.AddTicketConfigFragment.OnFragmentInteractionListener;
 import vn.com.basc.inco.fragment.AddTicketContentFragment;
 import vn.com.basc.inco.model.UploadFile;
 
-public class NewTicketActivity extends AppCompatActivity implements AddFileFragment.OnListFragmentInteractionListener,AddTicketContentFragment.OnFragmentInteractionListener{
+public class NewTicketActivity extends AppCompatActivity implements AddFileFragment.OnListFragmentInteractionListener,AddTicketContentFragment.OnFragmentInteractionListener,OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,6 +43,7 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -57,8 +62,31 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
 
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ticket_selector));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.setting_selector));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.attachment_selector));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //Adding onTabSelectedListener to swipe views
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        tabLayout.getTabAt(0).select();
+        //tabLayout.setupWithViewPager(mViewPager);
+        this.id = getIntent().getStringExtra(Globals.PROJECT_ID_EXTRA);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,40 +136,6 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_new_ticket, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -163,7 +157,7 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
             if(position == 2){
                 return AddFileFragment.newInstance(1);
             }
-            return PlaceholderFragment.newInstance(position + 1);
+            return AddTicketConfigFragment.newInstance(NewTicketActivity.this.id);
         }
 
         @Override
