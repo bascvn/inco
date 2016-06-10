@@ -89,5 +89,25 @@
 
         </RadioGroup>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFE0E0E0"/>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Notify"
+
+        />
+    <LinearLayout
+        android:paddingLeft="30dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/notifyUser"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

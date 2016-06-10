@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import vn.com.basc.inco.R;
 
@@ -29,6 +30,8 @@ public class AddTicketContentFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private EditText mName;
+    private EditText mBody;
 
     public AddTicketContentFragment() {
         // Required empty public constructor
@@ -65,9 +68,26 @@ public class AddTicketContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_ticket_content, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_ticket_content, container, false);
+        mName = (EditText) view.findViewById(R.id.txtSubject);
+        mBody = (EditText) view.findViewById(R.id.txtComments);
+        return view;
     }
-
+    public boolean haveData(){
+        if(mName.getText().toString().trim().length() == 0 && mBody.getText().toString().trim().length() == 0){
+            return false;
+        }
+        return true;
+    }
+    public String getNameTicket(){
+        return mName.getText().toString();
+    }
+    public String getBodyTicket(){
+        return  mBody.getText().toString();
+    }
+    public void setNameError(){
+        mName.setError("Can't empty!");
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

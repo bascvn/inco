@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -30,6 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,6 +72,7 @@ public class AddTicketConfigFragment extends Fragment {
     List<SpinnerItem> listDepaments;
     List<SpinnerItem> listTypes;
     List<SpinnerItem> listStatus;
+    private LinearLayout notifyUser;
     public AddTicketConfigFragment() {
         // Required empty public constructor
     }
@@ -108,9 +112,40 @@ public class AddTicketConfigFragment extends Fragment {
         spinnerType = (Spinner) view.findViewById(R.id.spinnerType);
         spinnerStatus = (Spinner) view.findViewById(R.id.spinnerStatus);
         userLayout = (RadioGroup) view.findViewById(R.id.userContainer);
+        notifyUser = (LinearLayout) view.findViewById(R.id.notifyUser);
         return view;
     }
+    public String getDeparmentId(){
+        SpinnerItem spinnerItem = (SpinnerItem) spinnerDeparments.getSelectedItem();
+        return spinnerItem.getId();
+    }
+    public String getTypeTicket(){
+        SpinnerItem spinnerItem = (SpinnerItem) spinnerType.getSelectedItem();
+        return spinnerItem.getId();
+    }
+    public String getTypeStatus(){
+        SpinnerItem spinnerItem = (SpinnerItem) spinnerStatus.getSelectedItem();
+        return spinnerItem.getId();
+    }
+    public String getUserCreate(){
+        RadioButton  user = (RadioButton) userLayout.findViewById(userLayout.getCheckedRadioButtonId());
+        return (String) user.getTag();
+    }
+    public List<String> getUserNotify(){
+        List<String > users = new ArrayList<String>();
+        for(int i=0;i<notifyUser.getChildCount();i++)
+        {
 
+            View v =  (View)notifyUser.getChildAt(i);
+            if (v instanceof CheckBox) {
+                CheckBox b = (CheckBox) v;
+                if(b.isChecked()){
+                    users.add(v.getTag().toString());
+                }
+            }
+        }
+        return users;
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -153,7 +188,7 @@ public class AddTicketConfigFragment extends Fragment {
     public List<SpinnerItem> getListSpinnerItems(HashMap<String,String> map){
         List<SpinnerItem> result = new ArrayList<SpinnerItem>();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-
+            Log.e("kienbk1910",entry.getValue());
             result.add(new SpinnerItem(entry.getKey(), entry.getValue()));
         }
         return  result;
@@ -199,12 +234,12 @@ public class AddTicketConfigFragment extends Fragment {
                         spinnerType.setSelection(getIndexof(listTypes,ticketForm.ticketsTypesDefault));
 
                         listStatus = getListSpinnerItems(ticketForm.ticketsStatus);
-                        ArrayAdapter<SpinnerItem> statusAdapter = new ArrayAdapter<SpinnerItem>(getActivity(), android.R.layout.simple_spinner_item,listTypes);
+                        ArrayAdapter<SpinnerItem> statusAdapter = new ArrayAdapter<SpinnerItem>(getActivity(), android.R.layout.simple_spinner_item,listStatus);
                         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerStatus.setAdapter(listAdapter);
+                        spinnerStatus.setAdapter(statusAdapter);
                         spinnerStatus.setSelection(getIndexof(listStatus,ticketForm.ticketsStatusDefault));
                         buildLayoutUser(ticketForm.users);
-
+                        buildNotifyLayout(ticketForm.notify);
                     }
                 } catch (JSONException e) {
 
@@ -246,11 +281,27 @@ public class AddTicketConfigFragment extends Fragment {
         // queue.add(request);
         INCOApplication.getInstance().addToRequestQueue(request);
     }
-    private void buildLayoutUser(HashMap<String,HashMap<String,String>> user){
+    private void buildNotifyLayout(LinkedHashMap<String,LinkedHashMap<String,String>> user){
+        for (Map.Entry<String, LinkedHashMap<String,String>> entry : user.entrySet()) {
+            TextView  title = new TextView(getContext());
+            title.setText(entry.getKey());
+            title.setLayoutParams(new AppBarLayout.LayoutParams(AppBarLayout.LayoutParams.WRAP_CONTENT, AppBarLayout.LayoutParams.WRAP_CONTENT));
+            HashMap<String,String> userGroup = entry.getValue();
+            notifyUser.addView(title);
+            for (Map.Entry<String,String> entryUser : userGroup.entrySet()){
+                CheckBox userRadio = new CheckBox(getContext());
+                userRadio.setLayoutParams(new AppBarLayout.LayoutParams(AppBarLayout.LayoutParams.WRAP_CONTENT, AppBarLayout.LayoutParams.WRAP_CONTENT));
+                userRadio.setText(entryUser.getValue());
+                userRadio.setTag(entryUser.getKey());
+                notifyUser.addView(userRadio);
+            }
+        }
+    }
+    private void buildLayoutUser(LinkedHashMap<String,LinkedHashMap<String,String>> user){
          INCOApplication incoApplication = (INCOApplication) getActivity().getApplication();
          String currentUser = incoApplication.getUserInfo().getId();
         RadioButton current = null;
-        for (Map.Entry<String, HashMap<String,String>> entry : user.entrySet()) {
+        for (Map.Entry<String, LinkedHashMap<String,String>> entry : user.entrySet()) {
             TextView  title = new TextView(getContext());
             title.setText(entry.getKey());
             title.setLayoutParams(new AppBarLayout.LayoutParams(AppBarLayout.LayoutParams.WRAP_CONTENT, AppBarLayout.LayoutParams.WRAP_CONTENT));

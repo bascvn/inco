@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mRemember.setChecked(incoApplication.getRemember());
         if(incoApplication.getRemember()) {
             mEmailView.setText(incoApplication.getEmail());
-            mPasswordView.setText(incoApplication.getPassWord());
+           // mPasswordView.setText(incoApplication.getPassWord());
             mComnayView.setText(incoApplication.getCompanyAddress());
         }
         mRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -59,10 +59,13 @@ public class DetailCommentActivity extends AppCompatActivity implements View.OnC
         LayoutInflater inflater = (LayoutInflater)getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.download_item, null);
         TextView filename = (TextView) v.findViewById(R.id.txtFileName);
+        TextView info = (TextView) v.findViewById(R.id.txt_info);
         ImageButton btn = (ImageButton) v.findViewById(R.id.imgDownload);
         btn.setTag(attachment);
+
         btn.setOnClickListener(DetailCommentActivity.this);
         filename.setText(attachment.getFile());
+        info.setText(attachment.getInfo());
 
         return v;
 
@@ -105,7 +108,9 @@ public class DetailCommentActivity extends AppCompatActivity implements View.OnC
                 Uri.parse(url));
         mRqRequest.setTitle(attachment.getFile());
         mRqRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        mRqRequest.setDescription("This is Test File");
+        if(attachment.getInfo()!= null) {
+            mRqRequest.setDescription(attachment.getInfo());
+        }
 //        mRqRequest.setDestinationUri(Uri.parse("give your local path"));
         long idDownLoad=mManager.enqueue(mRqRequest);
     }

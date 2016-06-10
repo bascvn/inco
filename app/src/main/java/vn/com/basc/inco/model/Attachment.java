@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Attachment implements Serializable {
     String id;
     String file;
+    String info;
 
     public String getId() {
         return id;
@@ -15,5 +16,9 @@ public class Attachment implements Serializable {
 
     public String getFile() {
         return file;
+    }
+
+    public String getInfo() {
+        return info;
     }
 }

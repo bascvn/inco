@@ -44,7 +44,7 @@ public class Globals {
     public static   String API_UPLOAD_FILE ;
     public static  String API_DOWNLOAD_FILE;
     public static String API_GET_TICKET_FORM;
-
+    public static String API_NEW_TICKET;
     public static  String ADD_TASK_COMM_ID ;
     public static  String ADD_TASK_COMM_BY ;
     public static  String ADD_TASK_COMM_DES ;
@@ -59,6 +59,17 @@ public class Globals {
     public static String ADD_DISCUSS_COMM_BY ;
     public static String ADD_DISCUSS_ID ;
     public static String ADD_DISCUSS_DES ;
+
+
+    public static String NEW_TICKET_COM_ID ;
+    public static String NEW_TICKET_DEPA_ID ;
+    public static String NEW_TICKET_TYPE_ID;
+    public static String NEW_TICKET_STATUS_ID ;
+    public static String NEW_TICKET_NAME ;
+    public static String NEW_TICKET_DES;
+    public static String NEW_TIECKT_USER;
+    public static String EXTRA_NOTIFY;
+
     public static int MAX_SIZE_UPLOAD = 5*1024*1024;
     static {
         PRE_FIX_API ="incodemo";
@@ -77,6 +88,7 @@ public class Globals {
         API_UPLOAD_FILE = PRE_FIX_API+"/index.php/mobile/upload";
         API_DOWNLOAD_FILE = PRE_FIX_API+"/index.php/mobile/download";
         API_GET_TICKET_FORM = PRE_FIX_API+"/index.php/mobile/ticketform";
+        API_NEW_TICKET = PRE_FIX_API+"/index.php/mobile/newticket";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";
@@ -107,6 +119,14 @@ public class Globals {
         ADD_DISCUSS_ID ="discussions_id";
         ADD_DISCUSS_DES = "discussions_comments[description]";
 
+        NEW_TICKET_COM_ID = "tickets[projects_id]";
+        NEW_TICKET_DEPA_ID = "tickets[departments_id]";
+        NEW_TICKET_TYPE_ID = "tickets[tickets_types_id]";
+        NEW_TICKET_STATUS_ID = "tickets[tickets_status_id]";
+        NEW_TICKET_NAME = "tickets[name]";
+        NEW_TICKET_DES = "tickets[description]";
+        NEW_TIECKT_USER = "tickets[users_id]";
+        EXTRA_NOTIFY ="extra_notification[]";
         TYPE_BIND_PARAMATER = "bind_type";
 
 

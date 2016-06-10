@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vn.com.basc.inco.ProjectActivity" >
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_detail"
         android:title="@string/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_description_while_24dp"
+        app:showAsAction="always" />
 </menu>

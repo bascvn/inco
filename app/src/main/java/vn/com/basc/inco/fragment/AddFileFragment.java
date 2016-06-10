@@ -1,13 +1,9 @@
 package vn.com.basc.inco.fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,8 +16,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -29,22 +23,17 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import vn.com.basc.inco.AndroidMultiPartEntity;
 import vn.com.basc.inco.INCOApplication;
-import vn.com.basc.inco.MainActivity;
-import vn.com.basc.inco.MyFileRecyclerViewAdapter;
+import vn.com.basc.inco.adapter.MyFileRecyclerViewAdapter;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
-import vn.com.basc.inco.dummy.DummyContent;
-import vn.com.basc.inco.dummy.DummyContent.DummyItem;
 import vn.com.basc.inco.model.UploadFile;
 
 import static java.lang.Integer.parseInt;
@@ -99,7 +88,7 @@ public class AddFileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         this.listFile  = new ArrayList<UploadFile>() ;
-        adapter = new MyFileRecyclerViewAdapter(this.listFile, mListener,getContext());
+        adapter = new MyFileRecyclerViewAdapter(this.listFile,mListener,AddFileFragment.this);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -112,7 +101,12 @@ public class AddFileFragment extends Fragment {
         return view;
     }
 
-
+   public boolean haveData(){
+        if(this.listFile.size() >0){
+            return true;
+        }
+        return false;
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -266,6 +260,9 @@ public class AddFileFragment extends Fragment {
                 else  if(mColumnCount == ComponentType.DISCUSSION ) {
                     entity.addPart(Globals.TYPE_BIND_PARAMATER,
                             new StringBody(ComponentType.DISCUSSION_COMMENT));
+                }else if(mColumnCount == ComponentType.NEW_TICKET){
+                    entity.addPart(Globals.TYPE_BIND_PARAMATER,
+                            new StringBody(ComponentType.NEW_TICKET_FILE));
                 }
                 totalSize = parseInt(uploadFile.getFile_size());
                 Log.e("kienbk1910","totalSize"+ String.valueOf(totalSize));

@@ -1,7 +1,5 @@
-package vn.com.basc.inco;
+package vn.com.basc.inco.adapter;
 
-import android.content.Context;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,14 +11,13 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import vn.com.basc.inco.R;
+import vn.com.basc.inco.fragment.AddFileFragment;
 import vn.com.basc.inco.fragment.AddFileFragment.OnListFragmentInteractionListener;
 import vn.com.basc.inco.dummy.DummyContent.DummyItem;
-import vn.com.basc.inco.fragment.CommentFragment;
 import vn.com.basc.inco.model.UploadFile;
 
 import java.util.List;
-
-import static vn.com.basc.inco.R.color.colorAccent;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
@@ -31,12 +28,13 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
 
     private final List<UploadFile> mValues;
     private final OnListFragmentInteractionListener mListener;
-    private  final Context context;
 
-    public MyFileRecyclerViewAdapter(List<UploadFile> items, OnListFragmentInteractionListener listener, Context context) {
+    private  AddFileFragment addFileFragment;
+
+    public MyFileRecyclerViewAdapter(List<UploadFile> items, OnListFragmentInteractionListener listener, AddFileFragment context) {
         mValues = items;
         mListener = listener;
-        this.context = context;
+        this.addFileFragment = context;
     }
 
     @Override
@@ -51,9 +49,9 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
         holder.mItem = mValues.get(position);
         holder.mFileName.setText(mValues.get(position).getFileName());
         if(holder.mItem.getStatus() == 1){
-            holder.mFileName.setTextColor(  context.getResources().getColor(R.color.colorError));
+            holder.mFileName.setTextColor(  addFileFragment.getResources().getColor(R.color.colorError));
         }else if(holder.mItem.getStatus() == 2){
-            holder.mFileName.setTextColor(  context.getResources().getColor(R.color.colorPrimary));
+            holder.mFileName.setTextColor(  addFileFragment.getResources().getColor(R.color.colorPrimary));
         }
         if(holder.mItem.getStatus() == 2){
             holder.mInfo.setVisibility(View.VISIBLE);
@@ -81,7 +79,8 @@ public class MyFileRecyclerViewAdapter extends RecyclerView.Adapter<MyFileRecycl
         holder.mImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onDeleteFileUpload(holder.mItem);
+               // mListener.onDeleteFileUpload(holder.mItem);
+                addFileFragment.deleteUploadFile(holder.mItem);
             }
         });
        // holder.mContentView.setText(mValues.get(position).content);

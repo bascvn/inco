@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
 import vn.com.basc.inco.common.ComponentType;
+import vn.com.basc.inco.common.FileUtility;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.fragment.AddCommentFragment;
 import vn.com.basc.inco.fragment.AddFileFragment;
@@ -183,59 +184,14 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
             if (resultData != null) {
                 uri = resultData.getData();
                 Log.i("kienbk1910", "Uri: " + uri.toString());
-                UploadFile uploadFile = dumpFileMetaData(uri);
+                UploadFile uploadFile = FileUtility.dumpFileMetaData(getBaseContext(),uri);
                 if(uploadFile != null) {
                     ((AddFileFragment) mSectionsPagerAdapter.getItem(1)).addFileUpload(uploadFile);
                 }
             }
         }
     }
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public UploadFile dumpFileMetaData(Uri uri) {
 
-        // The query, since it only applies to a single document, will only return
-        // one row. There's no need to filter, sort, or select fields, since we want
-        // all fields for one document.
-        Cursor cursor = getContentResolver()
-                .query(uri, null, null, null, null, null);
-
-        UploadFile uploadFile = null;
-        try {
-            // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
-            // "if there's anything to look at, look at it" conditionals.
-            if (cursor != null && cursor.moveToFirst()) {
-
-                // Note it's called "Display Name".  This is
-                // provider-specific, and might not necessarily be the file name.
-                String displayName = cursor.getString(
-                        cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                 uploadFile = new UploadFile();
-
-                uploadFile.setFileName(displayName);
-                uploadFile.setUri(uri);
-
-                int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-                // If the size is unknown, the value stored is null.  But since an
-                // int can't be null in Java, the behavior is implementation-specific,
-                // which is just a fancy term for "unpredictable".  So as
-                // a rule, check if it's null before assigning to an int.  This will
-                // happen often:  The storage API allows for remote files, whose
-                // size might not be locally known.
-                String size = null;
-                if (!cursor.isNull(sizeIndex)) {
-                    // Technically the column stores an int, but cursor.getString()
-                    // will do the conversion automatically.
-                    size = cursor.getString(sizeIndex);
-                } else {
-                    size = "Unknown";
-                }
-                uploadFile.setFile_size(size);
-            }
-        } finally {
-            cursor.close();
-        }
-        return uploadFile;
-    }
         @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -252,8 +208,11 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
 
 
         if(id == android.R.id.home){
-            finish();
-            return true;
+           if(checkDataEmpty()){
+               finish();
+               return true;
+           }
+
         }
         if(id == R.id.action_send){
             Log.e("kienbk1910","cllick");
@@ -267,6 +226,37 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
 
         return super.onOptionsItemSelected(item);
     }
+    private boolean checkDataEmpty(){
+        if(!addCommentFragment.haveData() && !addFileFragment.haveData()){
+            return true;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Discard Changes?")
+                .setMessage("If you go back now, your draft will be discarded.")
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton("KEEP", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                    }})
+                .setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).show();
+        return false;
+
+    }
+    @Override
+    public void onBackPressed() {
+        if(!checkDataEmpty()){
+            return;
+        }
+        super.onBackPressed();
+    }
+
     private void addComment()  {
 
         String url = "";
@@ -302,27 +292,31 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
                     params.put(Globals.ADD_TASK_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
                     params.put(Globals.ADD_TASK_ID,AddCommentActivity.this.id);
                     params.put(Globals.ADD_TASK_COMM_ID,AddCommentActivity.this.id);
-                    params.put(Globals.ADD_TASK_COMM_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
+                    params.put(Globals.ADD_TASK_COMM_DES,addCommentFragment.getComments());
                     params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
 
                 }else if(AddCommentActivity.this.type == ComponentType.TICKET){
                     params.put(Globals.ADD_TICKET_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
                     params.put(Globals.ADD_TICKET_COMM_ID,AddCommentActivity.this.id);
                     params.put(Globals.ADD_TICKET_ID,AddCommentActivity.this.id);
-                    params.put(Globals.ADD_TICKET_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
+                    params.put(Globals.ADD_TICKET_DES,((AddCommentFragment) addCommentFragment).getComments());
                     params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
                 }else if(AddCommentActivity.this.type == ComponentType.DISCUSSION){
                     params.put(Globals.ADD_DISCUSS_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
                     params.put(Globals.ADD_DISCUSS_COM_ID,AddCommentActivity.this.id);
                     params.put(Globals.ADD_DISCUSS_ID,AddCommentActivity.this.id);
-                    params.put(Globals.ADD_DISCUSS_DES,((AddCommentFragment) mSectionsPagerAdapter.getItem(0)).getComments());
+                    params.put(Globals.ADD_DISCUSS_DES,((AddCommentFragment) addCommentFragment).getComments());
                     params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
                 }
-                List<UploadFile> fileList = ((AddFileFragment) mSectionsPagerAdapter.getItem(1)).getUploadFile();
+                List<UploadFile> fileList = addFileFragment.getUploadFile();
                 for (int i = 0; i< fileList.size();i++){
                     if(fileList.get(i).getStatus() == 2) {
+                        String info = fileList.get(i).getInfo();
                         Log.e("kienbk1910","attachments_info" + fileList.get(i).getId());
-                        params.put("attachments_info[" + fileList.get(i).getId() + "]", fileList.get(i).getInfo());
+                        if(info == null ) {
+                            info ="";
+                        }
+                        params.put("attachments_info[" + fileList.get(i).getId() + "]", info);
                     }
                 }
                // params.put("attachments_info[27]", "fdfdf");
@@ -357,10 +351,10 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
                     }})
                 .setNegativeButton(android.R.string.no, null).show();
     }
-
+    private AddFileFragment addFileFragment;
+    private AddCommentFragment addCommentFragment ;
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private AddFileFragment addFileFragment;
-        private AddCommentFragment addCommentFragment ;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }

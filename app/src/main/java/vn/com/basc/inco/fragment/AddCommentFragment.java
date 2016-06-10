@@ -75,7 +75,12 @@ public class AddCommentFragment extends Fragment {
         return view;
 
     }
-
+    public boolean haveData(){
+        if(mTxtComments.getText().toString().trim().length()>0){
+            return true;
+        }
+        return false;
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

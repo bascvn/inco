@@ -9,7 +9,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="vn.com.basc.inco.SplashActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@mipmap/ic_launcher"
+        android:layout_above="@+id/progressBar2"
+        android:layout_centerHorizontal="true" />
+
     <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar2"
