@@ -227,7 +227,7 @@
          return $projects;
      }
      function get_attachments($bind_type,$bind_id,$con){
-        $main_sql ="SELECT id,file FROM attachments WHERE bind_type = '$bind_type' AND bind_id = $bind_id";
+        $main_sql ="SELECT id,file,info FROM attachments WHERE bind_type = '$bind_type' AND bind_id = $bind_id";
         $item=array();
 
         if ($result=mysqli_query($con,$main_sql)){

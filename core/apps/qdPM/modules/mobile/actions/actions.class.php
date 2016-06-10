@@ -153,6 +153,127 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
+  /******************** new ticket ******************************************/
+  public function executeNewticket(sfWebRequest $request)
+  {
+     if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
+   
+    
+    $projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+    if(!$projects){
+          $this->reponeError();
+    }
+    $this->checkProjectsAccess($projects);
+    $this->checkTicketsAccess('insert',false,$projects);
+
+    $this->form = new TicketsForm(null,array('projects'=>$projects,'sf_user'=>$this->getUser()));
+
+    $this->processFormNewTicket($request, $this->form);
+
+    exit();
+  }
+  protected function processFormNewTicket(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      if($form->getObject()->isNew()){ $previeous_status = false; }else{ $previeous_status = $form->getObject()->getTicketsStatusId(); }
+      if($form->getObject()->isNew()){ $previeous_departmnet = false; }else{ $previeous_departmnet = $form->getObject()->getDepartmentsId(); }
+    
+      $send_to = $this->getSendTo($form);
+      
+      if($form->getObject()->isNew()){ $form->setFieldValue('created_at',date('Y-m-d H:i:s')); }
+    
+      $tickets = $form->save();
+      
+      ExtraFieldsList::setValues($request->getParameter('extra_fields'),$tickets->getId(),'tickets',$this->getUser(),$request);
+      
+      Attachments::insertAttachments($request->getFiles(),'tickets',$tickets->getId(),$request->getParameter('attachments_info'),$this->getUser());
+      
+      $tickets = $this->addCommentIfStatusChanged($previeous_status,$previeous_departmnet,$tickets);
+      
+      $this->addRelatedItems($tickets,$request);
+      
+      if($tickets->getUsersId()>0)      
+      {        
+        Tickets::sendNotification($this,$tickets,$send_to,$this->getUser(),$request->getParameter('extra_notification',array()));
+      }
+    }
+  }
+  protected function addRelatedItems($tickets,$request)
+  {
+    if($request->getParameter('related_tasks_id')>0)
+    {
+      $o = new TasksToTickets;
+      $o->setTasksId($request->getParameter('related_tasks_id'))
+        ->setTicketsId($tickets->getId())
+        ->save();  
+    }
+    elseif($request->getParameter('related_discussions_id')>0)
+    {
+      $o = new TicketsToDiscussions;
+      $o->setDiscussionsId($request->getParameter('related_discussions_id'))
+        ->setTicketsId($tickets->getId())
+        ->save();  
+    }
+    
+  }
+  
+  protected function addCommentIfStatusChanged($previeous_status,$previeous_departmnet,$tickets)
+  {  
+              
+    if(($previeous_status!=$tickets->getTicketsStatusId() or $previeous_departmnet!=$tickets->getDepartmentsId() ) and $previeous_status>0)
+    {
+      $c = new TicketsComments;
+      if($previeous_status!=$tickets->getTicketsStatusId()){ $c->setTicketsStatusId($tickets->getTicketsStatusId()); }      
+      $c->setTicketsId($tickets->getId());
+      $c->setCreatedAt(date('Y-m-d H:i:s'));
+      $c->setUsersId($this->getUser()->getAttribute('id'));
+      $c->save();
+                  
+      $tickets->save();
+    }
+     
+    return $tickets;    
+  }
+   protected function getSendTo($form)
+  {
+    $send_to = array();
+    
+    $allow_send = ''; 
+    
+    $departments = Doctrine_Core::getTable('Departments')->find($form['departments_id']->getValue());   
+    
+    if($form->getObject()->isNew())
+    {
+      $send_to['new'] = array($departments->getUsersId());
+      
+      $allow_send = 'new';
+    }
+    else
+    {    
+      if($form['departments_id']->getValue()!=$form->getObject()->getDepartmentsId())
+      {
+        $send_to['new'] = array($departments->getUsersId());
+      }
+      elseif($form->getObject()->getTicketsStatusId()!=$form['tickets_status_id']->getValue())
+      {
+        $send_to['status'] = array($departments->getUsersId());
+        
+        $allow_send = 'status';
+      }
+    }
+    
+    if(strlen($allow_send)>0 and sfConfig::get('app_notify_all_tickets')=='on')
+    {    
+      $send_to[$allow_send] = Projects::getTeamUsersByAccess($form['projects_id']->getValue(),'tickets');                                    
+    }
+    
+    return $send_to;    
+  }  
     public function executeTicketform(sfWebRequest $request)
   {
     if(!$this->setUserToken($request->getParameter('token'))){
@@ -175,6 +296,7 @@ class mobileActions extends sfActions
      $ticketform->ticketsStatusDefault = app::getDefaultValueByTable('TicketsStatus');
      $ticketform->ticketsTypes = app::getItemsChoicesByTable('TicketsTypes');
      $ticketform->ticketsTypesDefault = app::getDefaultValueByTable('TicketsTypes');
+     $ticketform->notify = Users::getChoices(array_filter(explode(',',$projects->getTeam())),'tickets');
      if($projects)
     {
       if(Users::hasAccess('edit','projects',$this->getUser(),$projects->getId()))
@@ -467,6 +589,7 @@ class mobileActions extends sfActions
       DiscussionsComments::sendNotification($this,$discussions_comments,$this->getUser());
     }
   }
+
   function reponeError(){
     $response = new Response();
     $response->set_statsus(ResponseCode::STATUS_ERROR);
@@ -515,4 +638,5 @@ class ResponseCode
     public $ticketsTypes;
     public $ticketsTypesDefault;
     public $users;
+    public $notify;
   }
