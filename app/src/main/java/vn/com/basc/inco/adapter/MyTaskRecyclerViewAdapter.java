@@ -100,7 +100,7 @@ public class MyTaskRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             mCardView = (CardView) view.findViewById(R.id.cv);
             mTaskNameView = (TextView) mCardView.findViewById(R.id.task_name);
             mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
-            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_status);
+            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_deparment);
             mPriorityView = (TextView) mCardView.findViewById(R.id.txt_prioritty);
             mAssginToView = (TextView) mCardView.findViewById(R.id.txt_assigned_to);
         }

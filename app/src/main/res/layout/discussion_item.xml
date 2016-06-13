@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Stataus"
-                    android:id="@+id/txt_status"
+                    android:id="@+id/txt_deparment"
                     android:layout_marginRight="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_alignBaseline="@+id/txt_projectname"
@@ -83,9 +83,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="txt"
                     android:id="@+id/txt_create_by"
-                    android:layout_below="@+id/txt_status"
-                    android:layout_alignRight="@+id/txt_status"
-                    android:layout_alignEnd="@+id/txt_status" />
+                    android:layout_below="@+id/txt_deparment"
+                    android:layout_alignRight="@+id/txt_deparment"
+                    android:layout_alignEnd="@+id/txt_deparment" />
             </RelativeLayout>
         </LinearLayout>
         </LinearLayout>

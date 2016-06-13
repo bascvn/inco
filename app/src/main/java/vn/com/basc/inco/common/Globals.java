@@ -23,6 +23,7 @@ public class Globals {
     public static String TYPE_BIND_PARAMATER;
     public static String API_TASK_LIST;
     public static String PROJECT_ID_PARAMETER;
+    public static String ID_PARAMETER;
     public static String TASK_ID_PARAMETER;
     public static String DISCUSSION_ID_PARAMETER;
     public static  String ID_EXTRA = "ID_EXTRA";
@@ -41,10 +42,15 @@ public class Globals {
     public static  String API_ADD_COMMENT_OF_TASK;
     public static  String API_ADD_COMMENT_OF_TICKET;
     public static  String API_ADD_COMMENT_OF_DISCUSS;
-    public static   String API_UPLOAD_FILE ;
+    public static  String API_UPLOAD_FILE ;
     public static  String API_DOWNLOAD_FILE;
     public static String API_GET_TICKET_FORM;
     public static String API_NEW_TICKET;
+
+    public static String API_GET_PROJECT;
+    public static String API_GET_TASK;
+    public  static  String API_GET_TICKET;
+    public  static  String API_GET_DISCUSSIONS;
     public static  String ADD_TASK_COMM_ID ;
     public static  String ADD_TASK_COMM_BY ;
     public static  String ADD_TASK_COMM_DES ;
@@ -89,6 +95,10 @@ public class Globals {
         API_DOWNLOAD_FILE = PRE_FIX_API+"/index.php/mobile/download";
         API_GET_TICKET_FORM = PRE_FIX_API+"/index.php/mobile/ticketform";
         API_NEW_TICKET = PRE_FIX_API+"/index.php/mobile/newticket";
+        API_GET_PROJECT = PRE_FIX_API+"/index.php/mobile/projects";
+        API_GET_TASK = PRE_FIX_API+"/index.php/mobile/tasks";
+        API_GET_TICKET = PRE_FIX_API+"/index.php/mobile/tickets";
+        API_GET_DISCUSSIONS = PRE_FIX_API+"/index.php/mobile/discussions";
         LOGIN_EMAIL = "email";
         LOGIN_PASS = "password";
         LOGIN_DEVICE_ID = "device_id";
@@ -102,6 +112,7 @@ public class Globals {
         TICKET_ID_PARAMETER = "ticket_id";
         TASK_ID_PARAMETER ="task_id";
         AVATAR_PATH =PRE_FIX_API+"/uploads/users";
+        ID_PARAMETER ="id";
         // add comment;
         ADD_TASK_COMM_ID = "tasks_comments[tasks_id]";
         ADD_TASK_COMM_BY ="tasks_comments[created_by]";

@@ -71,6 +71,10 @@
         <activity
             android:name=".NewTicketActivity"
             android:label="@string/title_activity_new_ticket"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailBaseComponentActivity"
+            android:label="@string/title_activity_detail_base_component"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

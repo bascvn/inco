@@ -17,7 +17,6 @@ import vn.com.basc.inco.model.DiscussionItem;
 import vn.com.basc.inco.model.Footer;
 import vn.com.basc.inco.model.Item;
 import vn.com.basc.inco.model.ProjectItem;
-import vn.com.basc.inco.model.TicketItem;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link ProjectItem} and makes a call to the
@@ -100,7 +99,7 @@ public class MyDiscussionRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
             mCardView = (CardView) view.findViewById(R.id.cv);
             mDiscussionNameView = (TextView) mCardView.findViewById(R.id.discussion_name);
             mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
-            mStatusView =(TextView) mCardView.findViewById(R.id.txt_status);
+            mStatusView =(TextView) mCardView.findViewById(R.id.txt_deparment);
             mCreateByView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }
 

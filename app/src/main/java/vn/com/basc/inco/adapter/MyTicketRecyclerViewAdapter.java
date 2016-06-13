@@ -17,7 +17,6 @@ import vn.com.basc.inco.fragment.TicketFragment.OnListTicketragmentInteractionLi
 import vn.com.basc.inco.model.Footer;
 import vn.com.basc.inco.model.Item;
 import vn.com.basc.inco.model.ProjectItem;
-import vn.com.basc.inco.model.TaskItem;
 import vn.com.basc.inco.model.TicketItem;
 
 /**
@@ -103,7 +102,7 @@ public class MyTicketRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             mCardView = (CardView) view.findViewById(R.id.cv);
             mTicketNameView = (TextView) mCardView.findViewById(R.id.ticket_name);
             mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
-            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_status);
+            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_deparment);
             mDeparmetView = (TextView) mCardView.findViewById(R.id.txt_deparment);
             mCreateByView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }

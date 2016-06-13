@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
+            card_view:cardElevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardUseCompatPadding="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/vc">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.android.volley.toolbox.NetworkImageView
+                    android:src="@mipmap/ic_account_circle_white_48dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/im_avatar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/txt_name"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/im_avatar"
+                    android:layout_toEndOf="@+id/im_avatar"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#0821c9"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:padding="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/txt_description"
+                    android:layout_below="@+id/im_avatar"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Small Text"
+                    android:id="@+id/txt_create_at"
+                    android:textStyle="italic"
+                    android:layout_alignBottom="@+id/im_avatar"
+                    android:layout_alignLeft="@+id/txt_name"
+                    android:layout_alignStart="@+id/txt_name" />
+
+
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#FFE0E0E0"/>
+            <LinearLayout
+                android:id="@+id/file_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            card_view:cardElevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardUseCompatPadding="true"
+            android:id="@+id/vc_detail"
+            android:foreground="?android:attr/selectableItemBackground">
+
+         </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

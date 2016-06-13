@@ -135,7 +135,12 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_detail) {
+            Intent intent = new Intent(ProjectActivity.this,DetailBaseComponentActivity.class);
+            intent.putExtra(Globals.PROJECT_ID_EXTRA,ProjectActivity.this.id);
+            intent.putExtra(Globals.COMPONENT_EXTRA,ComponentType.PROJECT);
+            intent.putExtra(Globals.MESS_EXTRA,name);
+            startActivity(intent);
             return true;
         }
         if(id == android.R.id.home){
@@ -169,7 +174,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
 
     @Override
     public void  onListTaskFragmentInteraction(TaskItem item) {
-        Intent intent = new Intent(ProjectActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
@@ -180,7 +185,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
 
     @Override
     public void onListTicketFragmentInteraction(TicketItem item) {
-        Intent intent = new Intent(ProjectActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
@@ -190,7 +195,7 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
 
     @Override
     public void onListDiscussionFragmentInteraction(DiscussionItem item) {
-        Intent intent = new Intent(ProjectActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
