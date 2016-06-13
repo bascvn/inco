@@ -135,10 +135,10 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
-    public function executeDiscussion(sfWebRequest $request)
+    public function executeTest(sfWebRequest $request)
   {
     
-    $this->tokens = Doctrine_Core::getTable('DiscussionsComments')
+    $this->tokens = Doctrine_Core::getTable('Projects')
     ->createQuery('tc')   
       ->fetchArray();
     var_dump($this->tokens );
@@ -588,6 +588,196 @@ class mobileActions extends sfActions
       
       DiscussionsComments::sendNotification($this,$discussions_comments,$this->getUser());
     }
+  }
+/****************** getdetail component *******************************/ 
+public function executeDiscussions(sfWebRequest $request){
+  $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+   if(!$this->projects){
+      $this->reponeError(); 
+          exit();
+  }
+  $this->discussions = Doctrine_Core::getTable('Discussions')->createQuery()->addWhere('id=?',$request->getParameter('id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))->fetchOne();
+  if(!$this->discussions){
+      $this->reponeError(); 
+          exit();
+  }
+  //$this->checkDiscussionsAccess('view',$this->discussions, $this->projects);
+  $response = new Response();  
+  $response->status = ResponseCode::STATUS_SUCCESS;
+  $data['description'] = $this->discussions->getDescription();
+  $data['id'] = $this->discussions->getId();
+  $data['create_at'] = '';
+  $create_by  = $this->discussions->getUsers();
+  if($create_by){
+    $data['users'] = $create_by->getId();
+    $data['photo'] = $create_by->getPhoto();
+    $data['name'] = $create_by->getName();
+  }
+    $this->attachments = Doctrine_Core::getTable('Attachments')
+              ->createQuery()
+              ->addWhere('bind_id=?',$this->discussions->getId())
+              ->addWhere('bind_type=?','discussions')
+              ->orderBy('id')
+              ->fetchArray();
+  $data['attachments'] =$this->attachments;
+  $detail['id'] = $this->discussions->getId();
+  $detail['status'] = $this->discussions->getDiscussionsStatus()->getName();
+  $users = Doctrine_Core::getTable('Users')->createQuery('u')
+        ->addWhere("find_in_set(u.id,'".$this->discussions->getAssignedTo()."')")
+        ->orderBy('u.name')
+        ->fetchArray();
+  $detail['assigendTo'] = $users;
+  $data['detail'] =$detail;
+  $response->data =  $data;
+  echo json_encode($response);
+  exit();  
+}
+public function executeTickets(sfWebRequest $request){
+  if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+      }
+  $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+  if(!$this->projects){
+      $this->reponeError(); 
+          exit();
+  }
+  $this->tickets = Doctrine_Core::getTable('Tickets')->createQuery()->addWhere('id=?',$request->getParameter('id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))->fetchOne();
+   if(!$this->tickets){
+      $this->reponeError(); 
+          exit();
+  }
+  $this->checkProjectsAccess($this->projects);
+  $this->checkTicketsAccess('view',$this->tickets, $this->projects);
+  $response = new Response();  
+  $response->status = ResponseCode::STATUS_SUCCESS;
+  $data['description'] = $this->tickets->getDescription();
+  $data['id'] = $this->tickets->getId();
+  $data['create_at'] = $this->tickets->getCreatedAt();
+  $create_by  = $this->tickets->getUsers();
+  if($create_by){
+    $data['users'] = $create_by->getId();
+    $data['photo'] = $create_by->getPhoto();
+    $data['name'] = $create_by->getName();
+  }
+  $this->attachments = Doctrine_Core::getTable('Attachments')
+              ->createQuery()
+              ->addWhere('bind_id=?',$this->tickets->getId())
+              ->addWhere('bind_type=?','tickets')
+              ->orderBy('id')
+              ->fetchArray();
+  $data['attachments'] =$this->attachments;
+  $detail['id'] = $this->tickets->getId();
+  $detail['department'] = $this->tickets->getDepartments()->getName();
+  $user = $this->tickets->getDepartments()->getUsers();
+  $owner['id'] =  $user->getId();
+  $owner['name'] =  $user->getName();
+  $owner['photo'] =  $user->getPhoto();
+  $detail['user'] = $owner;
+  $detail['department'] = $this->tickets->getDepartments()->getName();
+  $detail['status'] = $this->tickets->getTicketsStatus()->getName();
+  $detail['type'] = $this->tickets->getTicketsTypes()->getName();
+  $data['detail'] =$detail;
+  $response->data =  $data;
+  echo json_encode($response);
+  exit();
+}
+public function executeTasks(sfWebRequest $request)
+  {
+     if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+      }
+    $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+    if(!$this->projects){
+        $this->reponeError(); 
+          exit();
+    }
+    $this->tasks = Doctrine_Core::getTable('Tasks')->createQuery()->addWhere('id=?',$request->getParameter('id'))->addWhere('projects_id=?',$request->getParameter('projects_id'))->fetchOne();
+     if(!$this->tasks){
+        $this->reponeError(); 
+          exit();
+    }
+    $this->checkProjectsAccess($this->projects);
+    $this->checkTasksAccess('view',$this->tasks, $this->projects);     
+
+      $response = new Response();  
+      $response->status = ResponseCode::STATUS_SUCCESS;
+      $data['description'] = $this->tasks->getDescription();
+      $data['id'] = $this->tasks->getId();
+      $data['create_at'] = $this->tasks->getCreatedAt();
+      $create_by  = Doctrine_Core::getTable('Users')->find($this->tasks->getCreatedBy());
+      if($create_by){
+        $data['users'] = $create_by->getId();
+        $data['photo'] = $create_by->getPhoto();
+        $data['name'] = $create_by->getName();
+      }
+      $this->attachments = Doctrine_Core::getTable('Attachments')
+                  ->createQuery()
+                  ->addWhere('bind_id=?',$this->tasks->getId())
+                  ->addWhere('bind_type=?','projects')
+                  ->orderBy('id')
+                  ->fetchArray();
+      $attachments = array();
+      $data['attachments'] =$this->attachments;
+
+      $detail['id'] = $this->tasks->getId();
+      $detail['label'] = $this->tasks->getTasksLabels()->getName();
+      $detail['status'] = $this->tasks->getTasksStatus()->getName();
+      $detail['priority'] = $this->tasks->getTasksPriority()->getName();
+      $detail['type'] = $this->tasks->getTasksTypes()->getName();
+      $users = Doctrine_Core::getTable('Users')->createQuery('u')
+        ->addWhere("find_in_set(u.id,'".$this->tasks->getAssignedTo()."')")
+        ->orderBy('u.name')
+        ->fetchArray();
+      $detail['assigendTo'] = $users;
+      $data['detail'] = $detail;
+      $response->data =  $data;
+     echo json_encode($response);
+     exit();
+  }
+/****************** getdetail component *******************************/ 
+public function executeProjects(sfWebRequest $request)
+  {
+     if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+      }
+     $this->projects = Doctrine_Core::getTable('Projects')->createQuery()
+                  //  ->leftJoin('p.Users')   
+                    ->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+       if(!$this->projects){
+          $this->reponeError();
+      }
+    $this->checkProjectsAccess($this->projects);
+      $response = new Response();  
+      $response->status = ResponseCode::STATUS_SUCCESS;
+      $data['description'] = $this->projects->getDescription();
+      $data['id'] = $this->projects->getId();
+      $data['create_at'] = $this->projects->getCreatedAt();
+      $data['users'] = $this->projects->getUsers()->getId();
+      $data['photo'] = $this->projects->getUsers()->getPhoto();
+      $data['name'] = $this->projects->getUsers()->getName();
+      $this->attachments = Doctrine_Core::getTable('Attachments')
+                  ->createQuery()
+                  ->addWhere('bind_id=?',$this->projects->getId())
+                  ->addWhere('bind_type=?','projects')
+                  ->orderBy('id')
+                  ->fetchArray();
+      $data['attachments'] =$this->attachments;
+      $detail['id'] = $this->projects->getId();
+      $detail['status'] = $this->projects->getProjectsStatus()->getName();
+      $detail['type'] = $this->projects->getProjectsTypes()->getName();
+     
+       $users = Doctrine_Core::getTable('Users')->createQuery('u')
+        ->addWhere("find_in_set(u.id,'".$this->projects->getTeam()."')")
+        ->orderBy('u.name')
+        ->fetchArray();
+      $detail['team'] = $users;
+       $data['detail'] = $detail;
+      $response->data =  $data;
+     echo json_encode($response);
+     exit();
   }
 
   function reponeError(){
