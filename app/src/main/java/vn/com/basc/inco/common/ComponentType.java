@@ -13,5 +13,6 @@ public class ComponentType {
     public static String TASK_COMMENT ="comments";
     public static String TICKET_COMMENT = "ticketsComments";
     public static String DISCUSSION_COMMENT = "discussionsComments";
+    public static String PROJECT_COMMENT = "projectsComments";
     public static String NEW_TICKET_FILE = "tickets";
 }

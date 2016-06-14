@@ -36,12 +36,14 @@ public class Globals {
     public static String API_DISCUSSION_LIST;
     public static String API_COMMENT_OF_TASK;
     public static String API_COMMENT_OF_DISCUSSIONS;
-
+    public static String API_COMMENT_OF_PROJECT;
     public static  String API_COMMENT_OF_TICKET;
 
     public static  String API_ADD_COMMENT_OF_TASK;
     public static  String API_ADD_COMMENT_OF_TICKET;
     public static  String API_ADD_COMMENT_OF_DISCUSS;
+    public static  String API_ADD_COMMENT_OF_PROJECT;
+
     public static  String API_UPLOAD_FILE ;
     public static  String API_DOWNLOAD_FILE;
     public static String API_GET_TICKET_FORM;
@@ -76,6 +78,9 @@ public class Globals {
     public static String NEW_TIECKT_USER;
     public static String EXTRA_NOTIFY;
 
+    public static String ADD_PROJECT_COMM_ID ;
+    public static String ADD_PROJECT_COMM_BY;
+    public static String ADD_PROJECT_COMM_DES;
     public static int MAX_SIZE_UPLOAD = 5*1024*1024;
     static {
         PRE_FIX_API ="incodemo";
@@ -88,9 +93,11 @@ public class Globals {
         API_COMMENT_OF_TASK = PRE_FIX_API+"/mobile_api/gateway.php?controller=task.get_comments";
         API_COMMENT_OF_TICKET = PRE_FIX_API+"/mobile_api/gateway.php?controller=tickets.get_comments";
         API_COMMENT_OF_DISCUSSIONS = PRE_FIX_API+"/mobile_api/gateway.php?controller=discussions.get_comments";
+        API_COMMENT_OF_PROJECT = PRE_FIX_API+"/index.php/mobile/projectscomments";
         API_ADD_COMMENT_OF_TASK =PRE_FIX_API+"/index.php/mobile/addcommenttask";
         API_ADD_COMMENT_OF_TICKET = PRE_FIX_API+"/index.php/mobile/addcommentticket";
         API_ADD_COMMENT_OF_DISCUSS = PRE_FIX_API+"/index.php/mobile/addcommentdiscussion";
+        API_ADD_COMMENT_OF_PROJECT = PRE_FIX_API+"/index.php/mobile/addcommentproject";
         API_UPLOAD_FILE = PRE_FIX_API+"/index.php/mobile/upload";
         API_DOWNLOAD_FILE = PRE_FIX_API+"/index.php/mobile/download";
         API_GET_TICKET_FORM = PRE_FIX_API+"/index.php/mobile/ticketform";
@@ -114,6 +121,11 @@ public class Globals {
         AVATAR_PATH =PRE_FIX_API+"/uploads/users";
         ID_PARAMETER ="id";
         // add comment;
+
+        ADD_PROJECT_COMM_ID = "projects_comments[projects_id]";
+        ADD_PROJECT_COMM_BY = "projects_comments[created_by]";
+        ADD_PROJECT_COMM_DES = "projects_comments[description]";
+
         ADD_TASK_COMM_ID = "tasks_comments[tasks_id]";
         ADD_TASK_COMM_BY ="tasks_comments[created_by]";
         ADD_TASK_COMM_DES ="tasks_comments[description]";

@@ -64,6 +64,7 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
     private String id;
     private String key;
     private int type;
+    private String projectsID;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -71,19 +72,11 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
     public CommentFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static CommentFragment newInstance(int columnCount) {
+
+    public static CommentFragment newInstance(String columnCount, String id,int type) {
         CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-    public static CommentFragment newInstance(int columnCount, String id,int type) {
-        CommentFragment fragment = new CommentFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putString(ARG_COLUMN_COUNT, columnCount);
         args.putString(ARG_ID, id);
         args.putInt(ARG_TYPE,type);
         fragment.setArguments(args);
@@ -95,9 +88,10 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            this.projectsID = getArguments().getString(ARG_COLUMN_COUNT);
             this.id = getArguments().getString(ARG_ID,"");
             this.type = getArguments().getInt(ARG_TYPE, ComponentType.TASK);
+
         }
     }
 
@@ -201,9 +195,13 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
             url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TASK);
         }else if(type == ComponentType.TICKET){
             url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_TICKET);
-        }else{
+        }else if(type == ComponentType.DISCUSSION){
             url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_DISCUSSIONS);
+        }else{
+            url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_COMMENT_OF_PROJECT);
+
         }
+        Log.d("kienbk1910",url);
         projects.add(new Footer());
         mRecyclerView.getAdapter().notifyItemInserted(projects.size() - 1);
 
@@ -260,8 +258,10 @@ public class CommentFragment extends Fragment implements MainFragmentINCO{
                     params.put(Globals.TASK_ID_PARAMETER,id);
                 }else if (type == ComponentType.DISCUSSION){
                     params.put(Globals.DISCUSSION_ID_PARAMETER,id);
-                }else{
+                }else if (type == ComponentType.TICKET){
                     params.put(Globals.TICKET_ID_PARAMETER,id);
+                }else{
+                    params.put(Globals.PROJECT_ID_PARAMETER,CommentFragment.this.projectsID);
                 }
 
                 params.put(Globals.LIMIT_PARAMETER, "30");

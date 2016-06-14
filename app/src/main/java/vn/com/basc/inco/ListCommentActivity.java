@@ -44,7 +44,7 @@ public class ListCommentActivity extends AppCompatActivity implements CommentFra
          this.id = getIntent().getStringExtra(Globals.ID_EXTRA);
          this.type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA,ComponentType.TASK);
          this.project_id = getIntent().getStringExtra(Globals.PROJECT_ID_EXTRA);
-         fragment =  CommentFragment.newInstance(1,this.id,this.type);
+         //fragment =  CommentFragment.newInstance(1,this.id,this.type);
         String name = getIntent().getStringExtra(Globals.MESS_EXTRA);
         getSupportActionBar().setTitle(name);
         //ListCommentFragment fragment =  ListCommentFragment.newInstance(1);

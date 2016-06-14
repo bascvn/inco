@@ -2,6 +2,7 @@ package vn.com.basc.inco;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import vn.com.basc.inco.common.ComponentType;
 import vn.com.basc.inco.fragment.DiscussionFragment;
+import vn.com.basc.inco.fragment.ProfileFragment;
 import vn.com.basc.inco.fragment.ProjectFragment;
 import vn.com.basc.inco.fragment.ProjectFragment.OnListFragmentInteractionListener;
 import vn.com.basc.inco.fragment.TaskFragment;
@@ -42,21 +44,24 @@ import com.android.volley.toolbox.ImageLoader;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnListFragmentInteractionListener,
         OnListTaskFragmentInteractionListener,OnListTicketragmentInteractionListener,DiscussionFragment.OnListDiscussionFragmentInteractionListener,
-        SearchView.OnQueryTextListener  {
+        SearchView.OnQueryTextListener,ProfileFragment.OnFragmentInteractionListener  {
     private NetworkImageView imageUserAvatar;
     private FrameLayout mFrameLayout;
     private ProjectFragment projectFragment;
     private TaskFragment taskFragment;
     private TicketFragment tickFragment;
     private DiscussionFragment discussionFragment;
-    FloatingActionButton fab;
+    private ProfileFragment profileFragment;
+    NavigationView navigationView;
+   // FloatingActionButton fab;
     private MainFragmentINCO mainFragmentINCO;
+    private MenuItem preMenuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFrameLayout  = (android.widget.FrameLayout) findViewById(R.id.fragment_container);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab = (FloatingActionButton) findViewById(R.id.fab);
        // getSupportActionBar().setTitle(R.string.navigation_drawer_menu_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,8 +74,10 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        preMenuItem = (MenuItem) navigationView.getMenu().findItem(R.id.nav_camera);
+        preMenuItem.setChecked(true);
         setNavItemCount(R.id.nav_camera, 10);
 
         TextView mUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
@@ -80,13 +87,7 @@ public class MainActivity extends AppCompatActivity
         INCOApplication myApplication = (INCOApplication) getApplication();
         User user = myApplication.getUserInfo();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         if(user != null && user.getName()!= null){
             mUserName.setText(user.getName());
         }
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
@@ -152,7 +154,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             initDiscussionFragment();
         } else if (id == R.id.nav_share) {
-            //logout
+
+            initProfileFragment();
+
 
         } else if (id == R.id.nav_send) {
             new AlertDialog.Builder(this)
@@ -172,9 +176,11 @@ public class MainActivity extends AppCompatActivity
                     .setNegativeButton(android.R.string.no, null).show();
             return false;
         }
-
+        preMenuItem.setChecked(false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        item.setChecked(true);
+        preMenuItem = item;
         return true;
     }
     private void setNavItemCount( int itemId, int count) {
@@ -200,7 +206,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListTaskFragmentInteraction(TaskItem item) {
-        Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
@@ -247,7 +253,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, projectFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = projectFragment;
-        fab.hide();
+        //fab.hide();
     }
     private void initTaskFragment(){
         if(taskFragment == null){
@@ -260,7 +266,18 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, taskFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = taskFragment;
-        fab.hide();
+       // fab.hide();
+    }
+    private void initProfileFragment(){
+        if(profileFragment == null){
+            profileFragment =  ProfileFragment.newInstance("1","1");
+        }
+        getSupportActionBar().setTitle(R.string.navigation_drawer_menu_profile);
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, profileFragment);
+        fragmentTransaction.commit();
+        mainFragmentINCO = profileFragment;
     }
     private void initTicketFragment(){
         if(tickFragment == null){
@@ -273,7 +290,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, tickFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = tickFragment;
-        fab.show();
+        //fab.show();
     }
     private void initDiscussionFragment(){
         if(discussionFragment == null){
@@ -286,11 +303,11 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragment_container, discussionFragment);
         fragmentTransaction.commit();
         mainFragmentINCO = discussionFragment;
-        fab.hide();
+       // fab.hide();
     }
     @Override
     public void onListTicketFragmentInteraction(TicketItem item) {
-        Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
@@ -300,11 +317,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListDiscussionFragmentInteraction(DiscussionItem item) {
-        Intent intent = new Intent(MainActivity.this, ListCommentActivity.class);
+        Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
         intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

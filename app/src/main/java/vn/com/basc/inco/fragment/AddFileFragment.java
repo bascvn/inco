@@ -263,6 +263,9 @@ public class AddFileFragment extends Fragment {
                 }else if(mColumnCount == ComponentType.NEW_TICKET){
                     entity.addPart(Globals.TYPE_BIND_PARAMATER,
                             new StringBody(ComponentType.NEW_TICKET_FILE));
+                }else{
+                    entity.addPart(Globals.TYPE_BIND_PARAMATER,
+                            new StringBody(ComponentType.PROJECT_COMMENT));
                 }
                 totalSize = parseInt(uploadFile.getFile_size());
                 Log.e("kienbk1910","totalSize"+ String.valueOf(totalSize));

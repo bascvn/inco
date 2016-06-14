@@ -266,6 +266,8 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
             url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_TICKET);
         }else if(this.type == ComponentType.DISCUSSION){
             url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_DISCUSS);
+        }else{
+            url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_PROJECT);
         }
         Log.e("kienbk1910","url:"+url);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -307,6 +309,11 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
                     params.put(Globals.ADD_DISCUSS_ID,AddCommentActivity.this.id);
                     params.put(Globals.ADD_DISCUSS_DES,((AddCommentFragment) addCommentFragment).getComments());
                     params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
+                }else{
+                    params.put(Globals.ADD_PROJECT_COMM_DES,((AddCommentFragment) addCommentFragment).getComments());
+                    params.put(Globals.ADD_PROJECT_COMM_ID,AddCommentActivity.this.project_id);
+                    params.put(Globals.ADD_COMMENT_PRO_ID,AddCommentActivity.this.project_id);
+                    params.put(Globals.ADD_PROJECT_COMM_BY,((INCOApplication)getApplication()).getUserInfo().getId());
                 }
                 List<UploadFile> fileList = addFileFragment.getUploadFile();
                 for (int i = 0; i< fileList.size();i++){

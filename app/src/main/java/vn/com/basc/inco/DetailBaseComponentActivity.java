@@ -185,7 +185,7 @@ public class DetailBaseComponentActivity extends AppCompatActivity implements Co
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             //fab.show();
-             commentFragment = CommentFragment.newInstance(1,DetailBaseComponentActivity.this.id,DetailBaseComponentActivity.this.type);
+             commentFragment = CommentFragment.newInstance(DetailBaseComponentActivity.this.project_id,DetailBaseComponentActivity.this.id,DetailBaseComponentActivity.this.type);
             return commentFragment;
         }
 

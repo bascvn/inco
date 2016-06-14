@@ -9,6 +9,16 @@ public class User {
     String name;
     String photo;
     String email;
+    String phone;
+    String users_group;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUsers_group() {
+        return users_group;
+    }
 
     public String getName() {
         return name;
