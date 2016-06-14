@@ -54,6 +54,7 @@
      function get_user($con,$email,$password){
      	
      	$sql = "SELECT * FROM `users` WHERE `users`.`email` = '$email' AND `users`.`active` = 1";
+      
         if ($result=mysqli_query($con,$sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {

@@ -776,10 +776,110 @@ public function executeProjects(sfWebRequest $request)
       $detail['team'] = $users;
        $data['detail'] = $detail;
       $response->data =  $data;
+
      echo json_encode($response);
      exit();
   }
+/****** get projects comments ******************/
+public function executeProjectscomments(sfWebRequest $request){
+   if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
+  $offset = $request->getParameter('offset');
+  $search = $request->getParameter('search');
+  $limit = $request->getParameter('limit');
+  $projects_id = $request->getParameter('projects_id');
+  if($search == null ){
+    $search ='';
+  }
+  if($offset == null || $limit == null || $projects_id == null ){
+    $this->reponeError();
+  }
+  $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$projects_id)->fetchOne();
+    if(!$this->projects){
+          $this->reponeError();
+      }
+   $this->checkProjectsAccess($this->projects);
+        
+    $this->projects_comments = Doctrine_Core::getTable('ProjectsComments')
+      ->createQuery('pc')                        
+      ->leftJoin('pc.Users u')
+      ->addWhere('projects_id=?',$projects_id)
+        ->addWhere('description LIKE ?', '%'.$search.'%')
+      ->orderBy('created_at desc')
+      ->limit($limit)
+      ->offset( $offset)
+      ->fetchArray();
+       
+       $comments_array = array();
+       foreach ($this->projects_comments as $comments) {
+         $row['id'] = $comments['id'];
+         $row['description'] = $comments['description'];
+         $row['avatar'] = $comments['Users']['photo'];
+         $row['created_at'] = $comments['created_at'];
+         $row['name'] = $comments['Users']['name'];
+         $attachments = Doctrine_Core::getTable('Attachments')
+                  ->createQuery()
+                  ->addWhere('bind_id=?',$comments['id'])
+                  ->addWhere('bind_type=?','projectsComments')
+                  ->orderBy('id')
+                  ->fetchArray();
+         $row['attachments'] = $attachments;
+         array_push($comments_array,$row);
+       }
+       $response = new Response();
+        $response->status = ResponseCode::STATUS_SUCCESS;
+        $response->data = $comments_array;
+       echo json_encode($response);
+      exit();
+}
+/******************* projects comments ********************/
+public function executeAddcommentproject(sfWebRequest $request)
+  {
+    if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+      }
+  $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
+  if(!$this->projects){
+          $this->reponeError();
+      }
+   // $this->checkProjectsAccess($this->projects);
+  //  Users::checkAccess($this,'insert','projectsComments',$this->getUser(),$this->projects->getId());
+    
+  
 
+    $this->form = new ProjectsCommentsForm(null, array('projects'=>$this->projects,'sf_user'=>$this->getUser()));
+
+    $this->processFormProjectComment($request, $this->form);
+
+    exit();
+  }
+   protected function processFormProjectComment(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {  
+      if($form->getObject()->isNew())
+      {    
+        $project = Doctrine_Core::getTable('Projects')->find($request->getParameter('projects_id'));            
+        if($request->getParameter('projects_types_id')>0){ $project->setProjectsTypesId($request->getParameter('projects_types_id')); }       
+        if($request->getParameter('projects_status_id')>0){  $project->setProjectsStatusId($request->getParameter('projects_status_id'));}
+        $project->save();
+      }
+      
+      if($form->getObject()->isNew()){ $form->setFieldValue('created_at',date('Y-m-d H:i:s')); }
+                            
+      $projects_comments = $form->save();
+                              
+      Attachments::insertAttachments($request->getFiles(),'projectsComments',$projects_comments->getId(),$request->getParameter('attachments_info'),$this->getUser());
+      
+      ProjectsComments::sendNotification($this,$projects_comments,$this->getUser());
+        
+    }
+  }
+  
   function reponeError(){
     $response = new Response();
     $response->set_statsus(ResponseCode::STATUS_ERROR);
