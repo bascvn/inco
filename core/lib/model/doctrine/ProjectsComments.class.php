@@ -39,38 +39,96 @@ class ProjectsComments extends BaseProjectsComments
   public static function sendNotification($c,$comment,$sf_user)
   {
     $to = array();
+    $tokens = array();// Kien add
+    $push =  new Push();//Kien add
     foreach(explode(',',$comment->getProjects()->getTeam()) as $v)
     {
       if($u = Doctrine_Core::getTable('Users')->find($v))
       {        
-        $to[$u->getEmail()]=$u->getName();        
+        $to[$u->getEmail()]=$u->getName();  
+        $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add        
       }
     }
           
     $user = $sf_user->getAttribute('user');
     $from[$user->getEmail()] = $user->getName();
-    $to[$comment->getProjects()->getUsers()->getEmail()] = $comment->getProjects()->getUsers()->getName();
-    $to[$user->getEmail()] = $user->getName();
+    $push->setTitle($user->getName());// kien add
+    $push->setPhoto($user->getPhoto());// kiean add
     
+    $to[$comment->getProjects()->getUsers()->getEmail()] = $comment->getProjects()->getUsers()->getName();
+    $tokens[$comment->getProjects()->getUsers()->getEmail()]=Tokens::getTokensByUserID($comment->getProjects()->getUsers()->getId());// kien add
+    $to[$user->getEmail()] = $user->getName();
+    $tokens[$user->getEmail()]=Tokens::getTokensByUserID($user->getId()); // Kien add       
     $projects_comments = Doctrine_Core::getTable('ProjectsComments')
       ->createQuery()
       ->addWhere('projects_id=?',$comment->getProjectsId())      
       ->orderBy('created_at desc')
       ->execute();
-      
+       $push->setProject($comment->getProjectsId());// kiean add
+       $push->setID($comment->getProjectsId());// kiean add  
     foreach($projects_comments as $v)
-    {      
-      $to[$v->getUsers()->getEmail()]=$v->getUsers()->getName();      
+    {  
+     if(!array_key_exists($v->getUsers()->getEmail(),$to)) {   
+        $to[$v->getUsers()->getEmail()]=$v->getUsers()->getName(); 
+        $tokens[$v->getUsers()->getEmail()]=Tokens::getTokensByUserID($v->getUsers()->getId()); //
+      }      
     }
     
     if(sfConfig::get('app_send_email_to_owner')=='off')
     {
-      unset($to[$user->getEmail()]);             
+      unset($to[$user->getEmail()]);
+      unset($tokens[$user->getEmail()]);// kien add                  
     }
-                 
+    // kien add send gcm 
+     $gcm = new GCM();
+     $push->setComponent('projectsComments');
+    
+     $description = $comment->getDescription();
+     $description = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
+     $description =strip_tags($description) ;
+     
+     if(strlen($description)>200){
+       $description = substr($description,0,200);
+        $description = substr($description, 0, strrpos($description, ' '));
+     }
+     
+     
+     $push->setMessage($description);
+     $push->setParent($comment->getProjects()->getName());
+     $attachments = Doctrine_Core::getTable('Attachments')
+                  ->createQuery()
+                  ->addWhere('bind_id=?',$comment->getId())
+                  ->addWhere('bind_type=?','projectsComments')
+                  ->orderBy('id')
+                  ->fetchArray();
+      if(count($attachments)>0){
+        $push->setAttach($attachments[0]['file']);
+      }
+     $push->setDate($comment->getCreatedAt());
+     $tokens = Tokens::arrayMergeTokens($tokens);
+     if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     } 
+           
     $subject = t::__('New Project Comment') . ': ' . $comment->getProjects()->getName() . ($comment->getProjects()->getProjectsStatusId()>0 ? ' [' . $comment->getProjects()->getProjectsStatus()->getName() . ']':'');
     $body  = $c->getComponent('projectsComments','emailBody',array('projects'=>$comment->getProjects()));
                 
     Users::sendEmail($from,$to,$subject,$body,$sf_user);
   }
+  public static function rip_tags($string) { 
+    
+    // ----- remove HTML TAGs ----- 
+    $string = preg_replace ('/<[^>]*>/', ' ', $string); 
+    
+    // ----- remove control characters ----- 
+    $string = str_replace("\r", '', $string);    // --- replace with empty space
+    $string = str_replace("\n", ' ', $string);   // --- replace with space
+    $string = str_replace("\t", ' ', $string);   // --- replace with space
+    
+    // ----- remove multiple spaces ----- 
+    $string = trim(preg_replace('/ {2,}/', ' ', $string));
+    
+    return $string; 
+
+}
 }

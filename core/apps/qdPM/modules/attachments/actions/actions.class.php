@@ -51,7 +51,8 @@ class attachmentsActions extends sfActions
       $a->setFile($filename);    
       $a->setBindType($request->getParameter('bind_type'));            
       $a->setBindId($bind_id);      
-      $a->save();    
+      $a->save(); 
+     
     }
                 
     exit();

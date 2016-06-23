@@ -135,14 +135,79 @@ class mobileActions extends sfActions
     var_dump($this->tokens );
     exit(); 
   }
+    public function executeTokendelete(sfWebRequest $request)
+  {
+    
+    $this->tokens = Doctrine_Core::getTable('Tokens')
+    ->createQuery('tc')   
+    ->delete()
+    ->execute();
+    exit(); 
+  }
     public function executeTest(sfWebRequest $request)
   {
     
-    $this->tokens = Doctrine_Core::getTable('Projects')
-    ->createQuery('tc')   
-      ->fetchArray();
-    var_dump($this->tokens );
+    
+    $message = $request->getParameter('message');
+    $data = array();
+    
+    $data['title'] = 'Google Cloud Messaging';
+    $data['message'] = $message;
+    if ($image == 'true') {
+        $data['image'] = 'http://api.androidhive.info/gcm/panda.jpg';
+    } else {
+        $data['image'] = '';
+    }
+    $data['created_at'] = date('Y-m-d G:i:s');
+
+    $fields = array(
+        'to' => 'c7cLVKUdslk:APA91bEbpnGbbqn3D3IJVC1OceJokBfff6SulNsa_PaSUWL9ZXGCLJV4pDD0YLFxJCIWJDgAoHcOccjem7u_YCPbMTmNk5NJqHf5SrNoaD64zQ5nUZJ-Hdcyfw4D8IVaAXqPS8tCzGJ3',
+        'data' => $data,
+    );
+
+    // Set POST variables
+    $url = 'https://gcm-http.googleapis.com/gcm/send';
+
+    $headers = array(
+        'Authorization: key=' . 'AIzaSyB9Hhiixv_XEDGLes1Wid02CSQiQ9cQtqk',
+        'Content-Type: application/json'
+    );
+
+    // Open connection
+    $ch = curl_init();
+
+    // Set the url, number of POST vars, POST data
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Disabling SSL Certificate support temporarly
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+    $response = array();
+
+    // Execute post
+    $result = curl_exec($ch);
+    if ($result === FALSE) {
+        $response['error'] = TRUE;
+        $response['message'] = 'Unable to send test push notification';
+         echo json_encode($response);
+        exit;
+    }
+
+    // Close connection
+    curl_close($ch);
+
+    $response['error'] = FALSE;
+    $response['message'] = 'Test push message sent successfully!';
+      echo json_encode($response);
+      echo json_encode($fields);
     exit(); 
+
   }
     public function executeFile(sfWebRequest $request)
   {
@@ -312,6 +377,7 @@ class mobileActions extends sfActions
     echo json_encode($TicketsStatus);
      $TicketsStatusDefault = app::getDefaultValueByTable('TicketsStatus');
       echo json_encode($TicketsStatusDefault);
+
     exit(); 
   }
   

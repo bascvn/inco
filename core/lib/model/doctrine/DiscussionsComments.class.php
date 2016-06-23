@@ -39,7 +39,8 @@ class DiscussionsComments extends BaseDiscussionsComments
   public static function sendNotification($c,$comment,$sf_user)
   {
     $to = array();
-    
+     $tokens = array();// Kien add
+    $push =  new Push();//Kien add
     if(sfConfig::get('app_notify_all_discussions')=='on')
     {
       $users_list = Projects::getTeamUsersByAccess($comment->getDiscussions()->getProjectsId(),'discussions');                 
@@ -53,15 +54,25 @@ class DiscussionsComments extends BaseDiscussionsComments
     {
       if($u = Doctrine_Core::getTable('Users')->find($v))
       {        
-        $to[$u->getEmail()]=$u->getName();        
+        $to[$u->getEmail()]=$u->getName(); 
+        $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add            
+       
       }
     }
               
     $user = $sf_user->getAttribute('user');
     $from[$user->getEmail()] = $user->getName();
     $to[$comment->getDiscussions()->getUsers()->getEmail()] = $comment->getDiscussions()->getUsers()->getName();
+    $tokens[$comment->getDiscussions()->getUsers()->getEmail()]=Tokens::getTokensByUserID($comment->getDiscussions()->getUsers()->getId()); // Kien add            
+
     $to[$user->getEmail()] = $user->getName();
-    
+    $tokens[$user->getEmail()]=Tokens::getTokensByUserID($user->getId()); // Kien add            
+   
+    $push->setTitle($user->getName());// kien add
+    $push->setPhoto($user->getPhoto());// kiean add
+    $push->setProject($comment->getDiscussions()->getProjectsId());// kiean add
+    $push->setID($comment->getDiscussionsId());// kiean add  
+
     $discussions_comments = Doctrine_Core::getTable('DiscussionsComments')
       ->createQuery()
       ->addWhere('discussions_id=?',$comment->getDiscussionsId())      
@@ -69,15 +80,51 @@ class DiscussionsComments extends BaseDiscussionsComments
       ->execute();
       
     foreach($discussions_comments as $v)
-    {      
-      $to[$v->getUsers()->getEmail()]=$v->getUsers()->getName();      
+    { 
+      if(!array_key_exists($v->getUsers()->getEmail(),$to)) {        
+        $to[$v->getUsers()->getEmail()]=$v->getUsers()->getName(); 
+        $tokens[$v->getUsers()->getEmail()]=Tokens::getTokensByUserID($v->getUsers()->getId()); //kien add
+ 
+      }    
     }
       
     if(sfConfig::get('app_send_email_to_owner')=='off')
     {
-      unset($to[$user->getEmail()]);             
+      unset($to[$user->getEmail()]); 
+      unset($tokens[$user->getEmail()]);// kien add                  
+            
     }
+     // kien add send gcm 
+     $gcm = new GCM();
+     $push->setComponent('discussionsComments');
     
+     $description = $comment->getDescription();
+     $description = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
+     $description =strip_tags($description) ;
+     
+     if(strlen($description)>200){
+       $description = substr($description,0,200);
+        $description = substr($description, 0, strrpos($description, ' '));
+     }
+     
+     
+     $push->setMessage($description);
+     $push->setParent($comment->getDiscussions()->getName());
+     $attachments = Doctrine_Core::getTable('Attachments')
+                  ->createQuery()
+                  ->addWhere('bind_id=?',$comment->getId())
+                  ->addWhere('bind_type=?','discussionsComments')
+                  ->orderBy('id')
+                  ->fetchArray();
+      if(count($attachments)>0){
+        $push->setAttach($attachments[0]['file']);
+      }
+      $push->setDate($comment->getCreatedAt());
+     $tokens = Tokens::arrayMergeTokens($tokens);
+     if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     }   
+
     $to = array_unique($to);
      
     $subject = t::__('New Discussion Comment') . ': ' . $comment->getDiscussions()->getProjects()->getName() . ' - ' . $comment->getDiscussions()->getName() . ($comment->getDiscussions()->getDiscussionsStatusId()>0 ? ' [' . $comment->getDiscussions()->getDiscussionsStatus()->getName() . ']':'');

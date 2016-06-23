@@ -12,5 +12,24 @@
  */
 class Tokens extends BaseTokens
 {
+	public static function getTokensByUserID($id){
+		$mobiles = Doctrine_Core::getTable('Tokens')
+     	->createQuery()
+     	->addWhere("user_id =?",$id)  
+     	->fetchArray();
+    	 $array_token = array();
+     	foreach ($mobiles as $comments){
+        	array_push($array_token,$comments['device_id']);
+     	}
 
+      	return $array_token;
+	}
+	public static function arrayMergeTokens($tokens){
+		$result= array();
+		foreach ($tokens as $key => $value) {
+			var_dump($value);
+			$result =array_merge($result,$value);
+		}
+		return $result;
+	}
 }
