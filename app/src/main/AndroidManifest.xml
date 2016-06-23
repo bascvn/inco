@@ -13,7 +13,22 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--
+     needed for older devices -
+     used to check app background / foreground status
+    -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <!-- START Added for GCM -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="info.androidhive.incotest.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
+
+    <!-- END Added for GCM -->
     <application
         android:name=".INCOApplication"
         android:allowBackup="true"
@@ -57,10 +72,6 @@
             android:label="@string/title_activity_detail_task"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ListCommentActivity"
-            android:label="@string/title_activity_list_comment"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".AddCommentActivity"
             android:label="@string/title_activity_add_comment"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -75,7 +86,46 @@
         <activity
             android:name=".DetailBaseComponentActivity"
             android:label="@string/title_activity_detail_base_component"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="vn.com.basc.inco.MainActivity"/>
+        </activity>
+        <!-- START Added for GCM -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="vn.com.basc.inco" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".gcm.MyGcmPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".gcm.GcmIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <!-- END Added for GCM -->
+        <activity
+            android:name=".PushActivity"
+            android:label="@string/title_activity_push"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

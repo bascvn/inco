@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,11 +121,12 @@ public class DetailBaseComponentActivity extends AppCompatActivity implements Co
                 intent.putExtra(Globals.ID_EXTRA,DetailBaseComponentActivity.this.id);
                 intent.putExtra(Globals.PROJECT_ID_EXTRA,DetailBaseComponentActivity.this.project_id);
                 intent.putExtra(Globals.COMPONENT_EXTRA,DetailBaseComponentActivity.this.type);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
        fab.setVisibility(View.INVISIBLE);
         this.project_id = getIntent().getStringExtra(Globals.PROJECT_ID_EXTRA);
+        Log.d("kienbk1910",this.project_id);
         this.id = getIntent().getStringExtra(Globals.ID_EXTRA);
         this.type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         this.title = getIntent().getStringExtra(Globals.MESS_EXTRA);
@@ -163,6 +165,16 @@ public class DetailBaseComponentActivity extends AppCompatActivity implements Co
         intent.putExtra(Globals.MESS_EXTRA,item);
         startActivity(intent);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(commentFragment != null) {
+            commentFragment.refreshList();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
     CommentFragment commentFragment;
 
 

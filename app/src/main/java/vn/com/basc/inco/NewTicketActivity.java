@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -47,7 +48,7 @@ import vn.com.basc.inco.fragment.AddTicketConfigFragment.OnFragmentInteractionLi
 import vn.com.basc.inco.fragment.AddTicketContentFragment;
 import vn.com.basc.inco.model.UploadFile;
 
-public class NewTicketActivity extends AppCompatActivity implements AddFileFragment.OnListFragmentInteractionListener,AddTicketContentFragment.OnFragmentInteractionListener,OnFragmentInteractionListener{
+public class NewTicketActivity extends INCOActivity implements AddFileFragment.OnListFragmentInteractionListener,AddTicketContentFragment.OnFragmentInteractionListener,OnFragmentInteractionListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -212,6 +213,11 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
                 tabLayout.getTabAt(0).select();
                 return false;
             }
+            if(checkUploadingFile(addFileFragment.getUploadFile())){
+                Toast toast = Toast.makeText(this, "Please waiting file upload..", Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
             newTicket();
             return true;
         }
@@ -278,6 +284,7 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
 
     }
     private void  newTicket(){
+        showProgressDialog("Sending...");
         String url = ((INCOApplication)getApplication()).getUrlApi(Globals.API_NEW_TICKET);
 
         Log.e("kienbk1910","url:"+url);
@@ -285,12 +292,13 @@ public class NewTicketActivity extends AppCompatActivity implements AddFileFragm
             @Override
             public void onResponse(String response) {
                 Log.e("kienbk1910","response:"+response);
+                hideProgressDialog();
                 NewTicketActivity.this.finish();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                hideProgressDialog();
             }
         }){
             @Override

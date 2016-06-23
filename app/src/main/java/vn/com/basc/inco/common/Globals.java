@@ -82,6 +82,8 @@ public class Globals {
     public static String ADD_PROJECT_COMM_BY;
     public static String ADD_PROJECT_COMM_DES;
     public static int MAX_SIZE_UPLOAD = 5*1024*1024;
+
+    public static final String PUSH_NOTIFICATION = "vn.com.bsc.incotest.pushNotification";
     static {
         PRE_FIX_API ="incodemo";
         PROTOCOL = "http://";

@@ -11,7 +11,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+
 import vn.com.basc.inco.common.Globals;
+import vn.com.basc.inco.database.INCODatabase;
 import vn.com.basc.inco.model.User;
 
 /**
@@ -33,13 +35,14 @@ public class INCOApplication extends Application {
          * A singleton instance of the application class for easy access in other places
          */
         public static INCOApplication sInstance;
-
+        public static INCODatabase myDatabase;
         @Override
         public void onCreate() {
             super.onCreate();
 
             // initialize the singleton
             sInstance = this;
+            myDatabase = new INCODatabase(this);
         }
 
         /**
@@ -82,7 +85,7 @@ public class INCOApplication extends Application {
          * Adds the specified request to the global queue using the Default TAG.
          *
          * @param req
-         * @param tag
+
          */
         public <T> void addToRequestQueue(Request<T> req) {
             // set the default tag if tag is empty

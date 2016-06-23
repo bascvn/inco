@@ -3,7 +3,6 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="1792"
-    android:tint="@color/common_signin_btn_dark_text_default"
     android:viewportHeight="1792">
     <group
         android:rotation="180"

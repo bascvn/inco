@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
 import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.model.MainFragmentINCO;
 import vn.com.basc.inco.model.User;
+import vn.com.basc.inco.network.CustomVolleyRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,15 +76,24 @@ public class ProfileFragment extends Fragment implements MainFragmentINCO {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         TextView fullName = (TextView) view.findViewById(R.id.txtFullName);
         TextView email = (TextView) view.findViewById(R.id.txtEmail);
-        TextView phone = (TextView) view.findViewById(R.id.txtPhone);
+
+        NetworkImageView networkImageView = (NetworkImageView) view.findViewById(R.id.avatar);
         INCOApplication incoApplication = (INCOApplication) getActivity().getApplication();
         User user = incoApplication.getUserInfo();
         fullName.setText(user.getName());
         email.setText(user.getEmail());
-        phone.setText(user.getPhone());
+
+        loadAvatarImage(user.getPhoto(),networkImageView);
         return  view;
     }
-
+    private void loadAvatarImage(String avatar, NetworkImageView imageView){
+        String url = ((INCOApplication)getActivity().getApplication()).getAvatarUrl(avatar);
+        ImageLoader imageLoader = CustomVolleyRequest.getInstance(this.getActivity().getApplicationContext())
+                .getImageLoader();
+        imageLoader.get(url, ImageLoader.getImageListener(imageView,
+                R.mipmap.ic_account_circle_white_48dp, R.mipmap.ic_account_circle_white_48dp));
+        imageView.setImageUrl(url, imageLoader);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

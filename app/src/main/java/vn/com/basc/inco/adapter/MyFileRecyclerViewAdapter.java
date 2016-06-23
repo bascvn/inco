@@ -14,13 +14,13 @@ import android.widget.TextView;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.fragment.AddFileFragment;
 import vn.com.basc.inco.fragment.AddFileFragment.OnListFragmentInteractionListener;
-import vn.com.basc.inco.dummy.DummyContent.DummyItem;
+
 import vn.com.basc.inco.model.UploadFile;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link UploadFile} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */

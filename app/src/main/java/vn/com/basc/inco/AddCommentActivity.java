@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -44,7 +45,7 @@ import vn.com.basc.inco.fragment.AddCommentFragment;
 import vn.com.basc.inco.fragment.AddFileFragment;
 import vn.com.basc.inco.model.UploadFile;
 
-public class AddCommentActivity extends AppCompatActivity implements AddFileFragment.OnListFragmentInteractionListener,AddCommentFragment.OnFragmentInteractionListener{
+public class AddCommentActivity extends INCOActivity implements AddFileFragment.OnListFragmentInteractionListener,AddCommentFragment.OnFragmentInteractionListener{
     private String project_id;
     private String id;
     private int type;
@@ -215,9 +216,11 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
 
         }
         if(id == R.id.action_send){
-            Log.e("kienbk1910","cllick");
-
-
+            if(checkUploadingFile(addFileFragment.getUploadFile())){
+                Toast toast = Toast.makeText(this, "Please waiting file upload..", Toast.LENGTH_LONG);
+                toast.show();
+                return false;
+            }
                addComment();
                 return true;
 
@@ -258,7 +261,7 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
     }
 
     private void addComment()  {
-
+        showProgressDialog("Sending...");
         String url = "";
         if(this.type == ComponentType.TASK){
             url =  ((INCOApplication)getApplication()).getUrlApi(Globals.API_ADD_COMMENT_OF_TASK);
@@ -274,6 +277,7 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
             @Override
             public void onResponse(String response) {
                 Log.e("kienbk1910","response:"+response);
+                hideProgressDialog();
                 AddCommentActivity.this.finish();
             }
         }, new Response.ErrorListener() {
@@ -281,7 +285,7 @@ public class AddCommentActivity extends AppCompatActivity implements AddFileFrag
             public void onErrorResponse(VolleyError error) {
                 Snackbar.make(toolbar, error.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
+                hideProgressDialog();
                 isSend = false;
                 send.setEnabled(true);
             }

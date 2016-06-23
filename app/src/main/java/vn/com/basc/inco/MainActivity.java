@@ -1,7 +1,10 @@
 package vn.com.basc.inco;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +21,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -40,8 +45,12 @@ import vn.com.basc.inco.model.TaskItem;
 import vn.com.basc.inco.model.TicketItem;
 import vn.com.basc.inco.model.User;
 import vn.com.basc.inco.network.CustomVolleyRequest;
+import vn.com.basc.inco.view.BadgeDrawable;
+
 import com.android.volley.toolbox.ImageLoader;
-public class MainActivity extends AppCompatActivity
+
+
+public class MainActivity extends INCOActivity
         implements NavigationView.OnNavigationItemSelectedListener,OnListFragmentInteractionListener,
         OnListTaskFragmentInteractionListener,OnListTicketragmentInteractionListener,DiscussionFragment.OnListDiscussionFragmentInteractionListener,
         SearchView.OnQueryTextListener,ProfileFragment.OnFragmentInteractionListener  {
@@ -97,6 +106,7 @@ public class MainActivity extends AppCompatActivity
         if(user != null && user.getPhoto()!= null && user.getPhoto().length()>0){
             loadAvatarImage(user.getPhoto());
         }
+        setNotifCount(10);
     }
 
     @Override
@@ -116,9 +126,14 @@ public class MainActivity extends AppCompatActivity
         final MenuItem item = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
-        return true;
-    }
 
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    private void setNotifCount(int count){
+     //  mNotifCount = count;
+      //  invalidateOptionsMenu();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -168,6 +183,7 @@ public class MainActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int whichButton) {
                             // call logout api
                             // TODO
+                            INCOApplication.getInstance().myDatabase.cleanDatabase();
                             (( INCOApplication) getApplication()).removeToken();
                             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);

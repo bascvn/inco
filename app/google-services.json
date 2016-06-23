@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "931063998715",
+    "project_id": "incotest-1344"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931063998715:android:06d71808bf9ac03c",
+        "android_client_info": {
+          "package_name": "vn.com.bsc.incotest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEKHa8Vg17M3Ff72YgOFK4aVOJG1tFBeE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

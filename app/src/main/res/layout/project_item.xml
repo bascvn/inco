@@ -70,18 +70,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginEnd="25dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="99999"
-                android:textColor="@android:color/white"
-                android:background="@drawable/badge_circle"
-                android:id="@+id/textView3"
-                android:textSize="8sp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+
 
         </RelativeLayout>
 
