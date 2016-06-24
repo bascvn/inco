@@ -1,5 +1,6 @@
 package vn.com.basc.inco.adapter;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,12 @@ public class PushRecyclerViewAdapter extends RecyclerView.Adapter<PushRecyclerVi
             holder.mComponent.setImageResource(R.drawable.fa_sitemap);
 
         }
+        if(holder.mItem.getAttach() != null && holder.mItem.getAttach().length() >0){
+            holder.attach.setVisibility(View.VISIBLE);
+        }else{
+            holder.attach.setVisibility(View.INVISIBLE);
+
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +101,7 @@ public class PushRecyclerViewAdapter extends RecyclerView.Adapter<PushRecyclerVi
         public final TextView mContentView;
         public final  TextView mParent;
         public final ImageView mComponent;
+        public final ImageView attach;
         public Push mItem;
 
         public ViewHolder(View view) {
@@ -105,6 +113,7 @@ public class PushRecyclerViewAdapter extends RecyclerView.Adapter<PushRecyclerVi
             mParent = (TextView) view.findViewById(R.id.txt_parent);
             mComponent = (ImageView) view.findViewById(R.id.im_component);
             mContentView = (TextView) view.findViewById(R.id.txt_description);
+            attach = (ImageView)view.findViewById(R.id.img_file);
         }
 
         @Override

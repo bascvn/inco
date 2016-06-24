@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.com.basc.inco.DetailBaseComponentActivity;
 import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
 import vn.com.basc.inco.common.ComponentType;
@@ -320,6 +321,8 @@ public class DetailBaseComponentFragment extends Fragment {
                             }else if (type == ComponentType.DISCUSSION) {
                                 createDetailDiscussions(((DetailDiscussionsComponent)detail).getDetail());
                             }
+                            ((DetailBaseComponentActivity)getActivity()).onSetTitle(detail.getTitle());
+
                         }
                         Log.d("kienbk1910",productStr);
 
@@ -380,5 +383,6 @@ public class DetailBaseComponentFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void onSetTitle(String title);
     }
 }

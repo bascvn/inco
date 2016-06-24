@@ -58,7 +58,7 @@ public class Globals {
     public static  String ADD_TASK_COMM_DES ;
     public static  String ADD_COMMENT_PRO_ID ;
     public static  String ADD_TASK_ID;
-
+    public  static String API_LOGOUT;
     public static  String ADD_TICKET_COMM_ID;
     public static  String ADD_TICKET_COMM_BY ;
     public static  String ADD_TICKET_ID;
@@ -82,11 +82,14 @@ public class Globals {
     public static String ADD_PROJECT_COMM_BY;
     public static String ADD_PROJECT_COMM_DES;
     public static int MAX_SIZE_UPLOAD = 5*1024*1024;
+    public static String API_REFRESH_TOKEN;
 
     public static final String PUSH_NOTIFICATION = "vn.com.bsc.incotest.pushNotification";
     static {
-        PRE_FIX_API ="incodemo";
-        PROTOCOL = "http://";
+        PRE_FIX_API ="";
+        PROTOCOL = "http://www.kiemtraduan.net/";
+        API_LOGOUT = PRE_FIX_API+"/index.php/mobile/logout";
+        API_REFRESH_TOKEN = PRE_FIX_API+"/index.php/mobile/refreshtoken";
         API_LOGIN = PRE_FIX_API+"/mobile_api/gateway.php?controller=auth.login";
         API_PROJECT_LIST = PRE_FIX_API+"/mobile_api/gateway.php?controller=project.get_list";
         API_TASK_LIST = PRE_FIX_API+"/mobile_api/gateway.php?controller=task.get_list";

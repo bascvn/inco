@@ -1,6 +1,7 @@
 package vn.com.basc.inco;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -28,7 +29,7 @@ import vn.com.basc.inco.fragment.DetailBaseComponentFragment;
 import vn.com.basc.inco.model.CommentItem;
 import vn.com.basc.inco.model.DetailBaseComponent;
 
-public class DetailBaseComponentActivity extends AppCompatActivity implements CommentFragment.OnListCommentragmentInteractionListener {
+public class DetailBaseComponentActivity extends AppCompatActivity implements CommentFragment.OnListCommentragmentInteractionListener,DetailBaseComponentFragment.OnFragmentInteractionListener{
     private String project_id;
     private String id;
     private int type;
@@ -129,8 +130,10 @@ public class DetailBaseComponentActivity extends AppCompatActivity implements Co
         Log.d("kienbk1910",this.project_id);
         this.id = getIntent().getStringExtra(Globals.ID_EXTRA);
         this.type = getIntent().getIntExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
-        this.title = getIntent().getStringExtra(Globals.MESS_EXTRA);
-        getSupportActionBar().setTitle(title);
+        long id  = getIntent().getLongExtra(Globals.MESS_EXTRA,0);
+        if(id >0){
+            INCOApplication.getInstance().myDatabase.readPush(id);
+        }
     }
 
 
@@ -176,6 +179,17 @@ public class DetailBaseComponentActivity extends AppCompatActivity implements Co
 
 
     CommentFragment commentFragment;
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSetTitle(String title) {
+        getSupportActionBar().setTitle(title);
+
+    }
 
 
     /**

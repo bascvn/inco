@@ -94,11 +94,12 @@
                 android:src="@drawable/fa_sitemap"
                 android:id="@+id/im_component" />
             <TextView
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
-                android:text=""
+                android:text="fdsfsdfdsfsdfd"
                 android:id="@+id/txt_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/im_component"
                 android:layout_toRightOf="@+id/im_component"
                  />
 

@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +27,14 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 
 import vn.com.basc.inco.common.ComponentType;
+import vn.com.basc.inco.common.INCOResponse;
 import vn.com.basc.inco.fragment.DiscussionFragment;
 import vn.com.basc.inco.fragment.ProfileFragment;
 import vn.com.basc.inco.fragment.ProjectFragment;
@@ -39,6 +45,7 @@ import vn.com.basc.inco.fragment.TicketFragment;
 import vn.com.basc.inco.fragment.TicketFragment.OnListTicketragmentInteractionListener;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.model.DiscussionItem;
+import vn.com.basc.inco.model.Footer;
 import vn.com.basc.inco.model.MainFragmentINCO;
 import vn.com.basc.inco.model.ProjectItem;
 import vn.com.basc.inco.model.TaskItem;
@@ -48,6 +55,15 @@ import vn.com.basc.inco.network.CustomVolleyRequest;
 import vn.com.basc.inco.view.BadgeDrawable;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends INCOActivity
@@ -182,12 +198,8 @@ public class MainActivity extends INCOActivity
 
                         public void onClick(DialogInterface dialog, int whichButton) {
                             // call logout api
-                            // TODO
-                            INCOApplication.getInstance().myDatabase.cleanDatabase();
-                            (( INCOApplication) getApplication()).removeToken();
-                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            logout();
+
                         }})
                     .setNegativeButton(android.R.string.no, null).show();
             return false;
@@ -198,6 +210,40 @@ public class MainActivity extends INCOActivity
         item.setChecked(true);
         preMenuItem = item;
         return true;
+    }
+    private void logout(){
+        String url = INCOApplication.getInstance().getUrlApi(Globals.API_LOGOUT);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                    Log.d("kienbk1910","logout : "+response);
+                INCOApplication.getInstance().myDatabase.cleanDatabase();
+
+                (( INCOApplication) getApplication()).removeToken();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                INCOApplication.getInstance().myDatabase.cleanDatabase();
+
+                (( INCOApplication) getApplication()).removeToken();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(Globals.TOKEN_PARAMETER,INCOApplication.getInstance().getTokenAccess());
+                return params;
+            }
+        };
+
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
     private void setNavItemCount( int itemId, int count) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -224,7 +270,6 @@ public class MainActivity extends INCOActivity
     public void onListTaskFragmentInteraction(TaskItem item) {
         Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
@@ -325,7 +370,6 @@ public class MainActivity extends INCOActivity
     public void onListTicketFragmentInteraction(TicketItem item) {
         Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);
@@ -335,7 +379,6 @@ public class MainActivity extends INCOActivity
     public void onListDiscussionFragmentInteraction(DiscussionItem item) {
         Intent intent = new Intent(MainActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,item.projects_id);
         startActivity(intent);

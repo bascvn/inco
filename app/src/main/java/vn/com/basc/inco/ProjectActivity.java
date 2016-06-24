@@ -139,7 +139,6 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
             Intent intent = new Intent(ProjectActivity.this,DetailBaseComponentActivity.class);
             intent.putExtra(Globals.PROJECT_ID_EXTRA,ProjectActivity.this.id);
             intent.putExtra(Globals.COMPONENT_EXTRA,ComponentType.PROJECT);
-            intent.putExtra(Globals.MESS_EXTRA,name);
             startActivity(intent);
             return true;
         }
@@ -176,7 +175,6 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     public void  onListTaskFragmentInteraction(TaskItem item) {
         Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);
@@ -187,7 +185,6 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     public void onListTicketFragmentInteraction(TicketItem item) {
         Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TICKET);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);
@@ -197,7 +194,6 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     public void onListDiscussionFragmentInteraction(DiscussionItem item) {
         Intent intent = new Intent(ProjectActivity.this, DetailBaseComponentActivity.class);
         intent.putExtra(Globals.ID_EXTRA, item.id);
-        intent.putExtra(Globals.MESS_EXTRA, item.name);
         intent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.DISCUSSION);
         intent.putExtra(Globals.PROJECT_ID_EXTRA,this.id);
         startActivity(intent);

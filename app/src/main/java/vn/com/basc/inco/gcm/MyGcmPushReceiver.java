@@ -65,7 +65,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
         push.setAttach(bundle.getString("attach",""));
         Log.d("kienbk1910","atatch:"+push.getAttach());
         push.setDate(bundle.getString("date",""));
-        if(((INCOApplication) getApplication()).getUserInfo()== null){
+        if(INCOApplication.getInstance().getTokenAccess().length()== 0){
             Log.e(TAG, "user is not logged in, skipping push notification");
             return;
         }

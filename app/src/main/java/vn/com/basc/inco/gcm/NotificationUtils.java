@@ -68,7 +68,7 @@ public class NotificationUtils {
 
 
         notifyIntent.putExtra(Globals.ID_EXTRA, push.getId());
-        notifyIntent.putExtra(Globals.MESS_EXTRA, push.getParent());
+        notifyIntent.putExtra(Globals.MESS_EXTRA, push.getIdDB());
         if(push.getComponent().equalsIgnoreCase(ComponentType.TASK_COMMENT)){
             notifyIntent.putExtra(Globals.COMPONENT_EXTRA, ComponentType.TASK);
         }else if(push.getComponent().equalsIgnoreCase(ComponentType.TICKET_COMMENT)){

@@ -203,7 +203,7 @@ public class INCOApplication extends Application {
             return settings.getString(COMPANY_ADDRESS,"");
         }
         public String getUrlApi(String api){
-            return Globals.PROTOCOL+getCompanyAddress()+"/"+api;
+            return Globals.PROTOCOL+getCompanyAddress()+api;
         }
         public String getAvatarUrl(String avatar){
             return Globals.PROTOCOL+getCompanyAddress()+"/"+Globals.AVATAR_PATH+"/"+avatar;

@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,6 +25,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import vn.com.basc.inco.INCOApplication;
+import vn.com.basc.inco.R;
+import vn.com.basc.inco.common.Globals;
 
 
 public class GcmIntentService extends IntentService {
@@ -62,27 +66,40 @@ public class GcmIntentService extends IntentService {
      * Registering with GCM and obtaining the gcm registration id
      */
     private void registerGCM() {
-       /* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String url = INCOApplication.getInstance().getUrlApi(Globals.API_REFRESH_TOKEN);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("kienbk1910","logout : "+response);
 
-        try {
-            InstanceID instanceID = InstanceID.getInstance(this);
-            String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
-                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
-            Log.e(TAG, "GCM Registration Token: " + token);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
 
-            // sending the registration id to our server
-            sendRegistrationToServer(token);
+                InstanceID instanceID = InstanceID.getInstance(getApplicationContext());
+                String device_id = "";
+                try {
+                    device_id = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
+                            GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                    params.put(Globals.TOKEN_PARAMETER,INCOApplication.getInstance().getTokenAccess());
+                    params.put(Globals.LOGIN_DEVICE_ID,device_id);
 
-            sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, true).apply();
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to complete token refresh", e);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            sharedPreferences.edit().putBoolean(Config.SENT_TOKEN_TO_SERVER, false).apply();
-        }
-        // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);*/
+                return params;
+            }
+        };
+
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
 
     private void sendRegistrationToServer(final String token) {

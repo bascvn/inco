@@ -13,6 +13,12 @@ public class DetailBaseComponent {
     private String create_at;
     List<Attachment> attachments;
     private String name;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
     public String getId() {
         return id;
     }

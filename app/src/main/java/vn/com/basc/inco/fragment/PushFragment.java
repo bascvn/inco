@@ -85,6 +85,7 @@ public class PushFragment extends Fragment implements MainFragmentINCO {
                 refreshList();
             }
         });
+
         pushList = INCOApplication.getInstance().myDatabase.getPushes();
         Log.d("kienbk1910","pushList"+pushList.size());
         if (mRecyclerView instanceof RecyclerView) {

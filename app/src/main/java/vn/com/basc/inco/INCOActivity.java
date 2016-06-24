@@ -105,6 +105,7 @@ public class INCOActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        invalidateOptionsMenu();
         Log.d("kienbk1910","Have onResume");
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Globals.PUSH_NOTIFICATION));

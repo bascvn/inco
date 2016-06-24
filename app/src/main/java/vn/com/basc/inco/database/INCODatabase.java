@@ -17,13 +17,13 @@ import vn.com.basc.inco.gcm.Push;
  */
 public class INCODatabase extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DATABASE_NAME = "_database";
 
 
     public static final String PUSH_TABLE_NAME = "push_table";
-    public static final String PUSH_ID = "id";
+    public static final String PUSH_ID = "_id";
     public static final String PUSH_TITLE  = "title";
     public static final String PUSH_PHOTO = "photo";
     public static final String PUSH_MESSAGE = "message";
@@ -36,7 +36,7 @@ public class INCODatabase extends SQLiteOpenHelper {
     public static final String PUSH_STATUS = "status";
 
     private static final String CREATE_PLUSH_TABLE = "CREATE TABLE " + PUSH_TABLE_NAME + " ( "
-            + PUSH_ID + " INTEGER PRIMARY KEY,"
+            + PUSH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + PUSH_TITLE + " TEXT,"
             + PUSH_MESSAGE + " TEXT,"
             + PUSH_PHOTO + " TEXT,"
@@ -66,9 +66,6 @@ public class INCODatabase extends SQLiteOpenHelper {
     }
 
 
-
-
-
     public long insertPush(Push push) {
         database = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -84,16 +81,22 @@ public class INCODatabase extends SQLiteOpenHelper {
         cv.put(PUSH_STATUS,0);
         return database.insert(PUSH_TABLE_NAME, null, cv);
     }
+    public void readPush(long id){
+        database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PUSH_STATUS, "1");
+        String selection = PUSH_ID+" =?";
+        String[] selectionArgs ={String.valueOf(id)};
+        database.update(PUSH_TABLE_NAME, values,selection, selectionArgs);
+    }
     public Cursor getCursorPush() {
         database = getReadableDatabase();
-        String[] columns = {PUSH_TITLE, PUSH_MESSAGE, PUSH_PHOTO,PUSH_COMPONENT,PUSH_COMPONENT,PUSH_PROJECT,PUSH_DATE,PUSH_ID_COM,PUSH_ATTACH,PUSH_PARENT};
-        Cursor c = database.query(PUSH_TABLE_NAME, columns, null, null, null, null, PUSH_ID  + " DESC");
+        Cursor c = database.query(PUSH_TABLE_NAME, null, null, null, null, null, PUSH_ID  + " DESC");
         return c;
     }
     public int getNumberPush(){
         database = getReadableDatabase();
-        String[] columns = {PUSH_TITLE, PUSH_MESSAGE, PUSH_PHOTO,PUSH_COMPONENT,PUSH_COMPONENT,PUSH_PROJECT,PUSH_DATE,PUSH_ID_COM};
-        Cursor c = database.query(PUSH_TABLE_NAME, columns, null, null, null, null, PUSH_ID  + " DESC");
+        Cursor c = database.query(PUSH_TABLE_NAME, null, null, null, null, null, PUSH_ID  + " DESC");
         return c.getCount();
     }
     public void cleanDatabase(){
@@ -102,10 +105,9 @@ public class INCODatabase extends SQLiteOpenHelper {
     }
     public int getNumberPushUnRead(){
         database = getReadableDatabase();
-        String[] columns = {PUSH_TITLE, PUSH_MESSAGE, PUSH_PHOTO,PUSH_COMPONENT,PUSH_COMPONENT,PUSH_PROJECT,PUSH_DATE,PUSH_ID_COM};
         String selection = PUSH_STATUS+" =?";
         String[] selectionArgs ={"0"};
-        Cursor c = database.query(PUSH_TABLE_NAME, columns, selection, selectionArgs, null, null, PUSH_ID  + " DESC");
+        Cursor c = database.query(PUSH_TABLE_NAME, null, selection, selectionArgs, null, null, PUSH_ID  + " DESC");
         return c.getCount();
     }
     public void readAlLPushes(){
@@ -114,11 +116,19 @@ public class INCODatabase extends SQLiteOpenHelper {
         values.put(PUSH_STATUS, "1");
         database.update(PUSH_TABLE_NAME, values,null, null);
     }
+    public void test(){
+        Cursor c = this.getCursorPush();
+        int count  = c.getColumnCount() ;
+        for (int i = 0 ;i<count;i++){
+            Log.d("kienbk1910",i+":"+c.getColumnName(i));
+        }
+    }
     public List<Push> getPushes() {
         List<Push> data = new ArrayList<>();
         Push push = null;
         Cursor c = this.getCursorPush();
         if (c != null) {
+
             while (c.moveToNext()) {
                 Log.d("kienbk1910"," getPushes have item");
                 String title = c.getString(c.getColumnIndex(this.PUSH_TITLE));
@@ -129,6 +139,8 @@ public class INCODatabase extends SQLiteOpenHelper {
                 String component = c.getString(c.getColumnIndex(this.PUSH_COMPONENT));
                 String project = c.getString(c.getColumnIndex(this.PUSH_PROJECT));
                 String id =  c.getString(c.getColumnIndex(this.PUSH_ID_COM));
+                long idDb = c.getLong(c.getColumnIndex(this.PUSH_ID));
+                String attach =  c.getString(c.getColumnIndex(this.PUSH_ATTACH));
                 push = new Push();
                 push.setTitle(title);
                 push.setMessage(message);
@@ -138,7 +150,8 @@ public class INCODatabase extends SQLiteOpenHelper {
                 push.setParent(parent);
                 push.setProject(project);
                 push.setId(id);
-
+                push.setAttach(attach);
+                push.setIdDB(idDb);
                 data.add(push);
             }
             c.close();
