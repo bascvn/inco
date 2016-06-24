@@ -99,7 +99,8 @@ class Tickets extends BaseTickets
           break;
       }
       
-      $to = array();
+      $tokens = array();// Kien add
+     $push =  new Push();//Kien add
       
       $to = array();
       foreach($users as $v)
@@ -107,6 +108,8 @@ class Tickets extends BaseTickets
         if($u = Doctrine_Core::getTable('Users')->find($v))
         {
           $to[$u->getEmail()]=$u->getName();
+          $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add            
+
         }
       }                  
       
@@ -115,21 +118,49 @@ class Tickets extends BaseTickets
         if($u = Doctrine_Core::getTable('Users')->find($v))
         {
           $to[$u->getEmail()]=$u->getName();
+          $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add       
         }
       }
           
       $user = $sf_user->getAttribute('user');
       
-      $from[$user->getEmail()] = $user->getName();            
+      $from[$user->getEmail()] = $user->getName();  
+
+    $push->setTitle($user->getName());// kien add
+    $push->setPhoto($user->getPhoto());// kiean add
+    $push->setProject($tickets->getProjectsId());// kiean add
+    $push->setID($tickets->getId());// kiean add  
+
       $to[$user->getEmail()] = $user->getName();
       $to[$tickets->getUsers()->getEmail()] = $tickets->getUsers()->getName();
       
+      $tokens[$user->getEmail()]=Tokens::getTokensByUserID($user->getId()); // Kien add 
+      $tokens[$tickets->getUsers()->getEmail()]=Tokens::getTokensByUserID($tickets->getUsers()->getId()); // Kien add 
       if(sfConfig::get('app_send_email_to_owner')=='off')
       {
-        unset($to[$user->getEmail()]);             
+        unset($to[$user->getEmail()]);
+        unset($tokens[$user->getEmail()]);               
       }
-       
+        // kien add send gcm 
+     $gcm = new GCM();
+     $push->setComponent('ticketsComments');
+    
+     $description = $tickets->getDescription();
+     $description = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
+     $description =strip_tags($description) ;
+     
+     if(strlen($description)>200){
+       $description = substr($description,0,200);
+        $description = substr($description, 0, strrpos($description, ' '));
+     }
+     $push->setMessage($description);
+       $push->setDate($tickets->getCreatedAt());
+     $tokens = Tokens::arrayMergeTokens($tokens);
       $subject .= ': ' . $tickets->getProjects()->getName() . ' - '  .  $tickets->getName() . ($tickets->getTicketsStatusId()>0 ? ' [' . $tickets->getTicketsStatus()->getName() . ']':'');
+      $push->setParent($subject);// kien add
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+    }  
       $body  = $c->getComponent('tickets','emailBody',array('tickets'=>$tickets));
                   
       Users::sendEmail($from,$to,$subject,$body,$sf_user);

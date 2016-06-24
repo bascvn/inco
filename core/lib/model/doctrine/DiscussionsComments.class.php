@@ -109,7 +109,6 @@ class DiscussionsComments extends BaseDiscussionsComments
      
      
      $push->setMessage($description);
-     $push->setParent($comment->getDiscussions()->getName());
      $attachments = Doctrine_Core::getTable('Attachments')
                   ->createQuery()
                   ->addWhere('bind_id=?',$comment->getId())
@@ -121,13 +120,16 @@ class DiscussionsComments extends BaseDiscussionsComments
       }
       $push->setDate($comment->getCreatedAt());
      $tokens = Tokens::arrayMergeTokens($tokens);
-     if(count($tokens) >0){
-       $result = $gcm->sendMultiple($tokens,$push->getPush());  
-     }   
-
+    
     $to = array_unique($to);
      
     $subject = t::__('New Discussion Comment') . ': ' . $comment->getDiscussions()->getProjects()->getName() . ' - ' . $comment->getDiscussions()->getName() . ($comment->getDiscussions()->getDiscussionsStatusId()>0 ? ' [' . $comment->getDiscussions()->getDiscussionsStatus()->getName() . ']':'');
+      $push->setParent($subject);
+       if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     }   
+
+
     $body  = $c->getComponent('discussionsComments','emailBody',array('discussions'=>$comment->getDiscussions()));
                 
     Users::sendEmail($from,$to,$subject,$body,$sf_user);

@@ -68,6 +68,8 @@ class Tasks extends BaseTasks
   
   public static function sendNotification($c,$tasks,$send_to,$sf_user)
   {
+     $tokens = array();// Kien add
+    $push =  new Push();//Kien add
     foreach($send_to as $type=>$users)
     {
       switch($type)
@@ -84,21 +86,50 @@ class Tasks extends BaseTasks
         if($u = Doctrine_Core::getTable('Users')->find($v))
         {
           $to[$u->getEmail()]=$u->getName();
+          $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add   
         }
       }
                 
       $user = $sf_user->getAttribute('user');
       
       $from[$user->getEmail()] = $user->getName();
+
       $to[$user->getEmail()] = $user->getName();
       $to[$tasks->getUsers()->getEmail()] = $tasks->getUsers()->getName();
       
+      $tokens[$user->getEmail()]=Tokens::getTokensByUserID($user->getId()); // Kien add
+      $tokens[$tasks->getUsers()->getEmail()]=Tokens::getTokensByUserID($tasks->getUsers()->getId()); // Kien add
+      $push->setTitle($user->getName());// kien add
+      $push->setPhoto($user->getPhoto());// kiean add
+      $push->setProject($tasks->getProjectsId());// kiean add
+      $push->setID($tasks->getId());// kiean add  
       if(sfConfig::get('app_send_email_to_owner')=='off')
       {
-        unset($to[$user->getEmail()]);             
+        unset($to[$user->getEmail()]);
+        unset($tokens[$user->getEmail()]);              
       }
-             
+       // kien add send gcm 
+     $gcm = new GCM();
+     $push->setComponent('comments');
+    
+     $description = $tasks->getDescription();
+     $description = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
+     $description =strip_tags($description) ;
+     
+     if(strlen($description)>200){
+       $description = substr($description,0,200);
+        $description = substr($description, 0, strrpos($description, ' '));
+     }
+     $push->setMessage($description);
+     $push->setDate($tasks->getCreatedAt());
+     $tokens = Tokens::arrayMergeTokens($tokens);
+
       $subject .= ': ' . $tasks->getProjects()->getName() . ' - '  .  $tasks->getName() . ($tasks->getTasksStatusId()>0 ? ' [' . $tasks->getTasksStatus()->getName() . ']':'');
+      
+      $push->setParent($subject);//kien add
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     } 
       $body  = $c->getComponent('tasks','emailBody',array('tasks'=>$tasks));
                   
       Users::sendEmail($from,$to,$subject,$body,$sf_user);

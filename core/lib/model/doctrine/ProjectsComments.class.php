@@ -94,7 +94,6 @@ class ProjectsComments extends BaseProjectsComments
      
      
      $push->setMessage($description);
-     $push->setParent($comment->getProjects()->getName());
      $attachments = Doctrine_Core::getTable('Attachments')
                   ->createQuery()
                   ->addWhere('bind_id=?',$comment->getId())
@@ -106,11 +105,13 @@ class ProjectsComments extends BaseProjectsComments
       }
      $push->setDate($comment->getCreatedAt());
      $tokens = Tokens::arrayMergeTokens($tokens);
-     if(count($tokens) >0){
-       $result = $gcm->sendMultiple($tokens,$push->getPush());  
-     } 
            
     $subject = t::__('New Project Comment') . ': ' . $comment->getProjects()->getName() . ($comment->getProjects()->getProjectsStatusId()>0 ? ' [' . $comment->getProjects()->getProjectsStatus()->getName() . ']':'');
+    $push->setParent($subject);
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     } 
+
     $body  = $c->getComponent('projectsComments','emailBody',array('projects'=>$comment->getProjects()));
                 
     Users::sendEmail($from,$to,$subject,$body,$sf_user);

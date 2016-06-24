@@ -117,7 +117,6 @@ class TicketsComments extends BaseTicketsComments
      
      
      $push->setMessage($description);
-     $push->setParent($comment->getTickets()->getName());
      $attachments = Doctrine_Core::getTable('Attachments')
                   ->createQuery()
                   ->addWhere('bind_id=?',$comment->getId())
@@ -129,11 +128,13 @@ class TicketsComments extends BaseTicketsComments
       }
       $push->setDate($comment->getCreatedAt());
      $tokens = Tokens::arrayMergeTokens($tokens);
-     if(count($tokens) >0){
-       $result = $gcm->sendMultiple($tokens,$push->getPush());  
-     }   
+    
              
     $subject = t::__('New Ticket Comment') . ': ' . $comment->getTickets()->getProjects()->getName() . ' - ' . $comment->getTickets()->getName() . ($comment->getTickets()->getTicketsStatusId()>0 ? ' [' . $comment->getTickets()->getTicketsStatus()->getName() . ']':'');
+    $push->setParent($subject);// kien add
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+    }   
     $body  = $c->getComponent('ticketsComments','emailBody',array('tickets'=>$comment->getTickets()));
                 
     Users::sendEmail($from,$to,$subject,$body,$sf_user);

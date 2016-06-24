@@ -373,14 +373,32 @@ class mobileActions extends sfActions
     $response->data =  $ticketform;
     echo json_encode($response);
     exit();
-    $TicketsStatus =  app::getItemsChoicesByTable('TicketsStatus');
-    echo json_encode($TicketsStatus);
-     $TicketsStatusDefault = app::getDefaultValueByTable('TicketsStatus');
-      echo json_encode($TicketsStatusDefault);
-
-    exit(); 
   }
-  
+ public function executeRefreshtoken(sfWebRequest $request){
+    if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
+    $this->tokens = Doctrine_Core::getTable('Tokens')
+        ->createQuery('tc')   
+        ->update()
+        ->set('tc.device_id', '?', $request->getParameter('device_id')) 
+        ->andWhere('token = ?',$request->getParameter('token'))
+        ->execute();  
+    exit();
+ }
+ public function executeLogout(sfWebRequest $request){
+    if(!$this->setUserToken($request->getParameter('token'))){
+           $this->reponeError(); 
+          exit();
+    }
+    $this->tokens = Doctrine_Core::getTable('Tokens')
+        ->createQuery('tc')   
+            ->delete()
+            ->andWhere('token = ?',$request->getParameter('token'))
+            ->execute();  
+    exit();
+ }
   public function executeAddcommenttask(sfWebRequest $request)
   {
       if(!$this->setUserToken($request->getParameter('token'))){
@@ -673,6 +691,7 @@ public function executeDiscussions(sfWebRequest $request){
   $data['description'] = $this->discussions->getDescription();
   $data['id'] = $this->discussions->getId();
   $data['create_at'] = '';
+  $data['title'] = $this->discussions->getName();
   $create_by  = $this->discussions->getUsers();
   if($create_by){
     $data['users'] = $create_by->getId();
@@ -721,6 +740,7 @@ public function executeTickets(sfWebRequest $request){
   $data['id'] = $this->tickets->getId();
   $data['create_at'] = $this->tickets->getCreatedAt();
   $create_by  = $this->tickets->getUsers();
+  $data['title'] = $this->tickets->getName();
   if($create_by){
     $data['users'] = $create_by->getId();
     $data['photo'] = $create_by->getPhoto();
@@ -772,6 +792,7 @@ public function executeTasks(sfWebRequest $request)
       $data['description'] = $this->tasks->getDescription();
       $data['id'] = $this->tasks->getId();
       $data['create_at'] = $this->tasks->getCreatedAt();
+      $data['title'] = $this->tasks->getName();
       $create_by  = Doctrine_Core::getTable('Users')->find($this->tasks->getCreatedBy());
       if($create_by){
         $data['users'] = $create_by->getId();
@@ -824,6 +845,7 @@ public function executeProjects(sfWebRequest $request)
       $data['users'] = $this->projects->getUsers()->getId();
       $data['photo'] = $this->projects->getUsers()->getPhoto();
       $data['name'] = $this->projects->getUsers()->getName();
+      $data['title'] = $this->projects->getName();
       $this->attachments = Doctrine_Core::getTable('Attachments')
                   ->createQuery()
                   ->addWhere('bind_id=?',$this->projects->getId())

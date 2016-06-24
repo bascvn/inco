@@ -109,7 +109,7 @@ class TasksComments extends BaseTasksComments
      
      
      $push->setMessage($description);
-     $push->setParent($comment->getTasks()->getName());
+     
      $attachments = Doctrine_Core::getTable('Attachments')
                   ->createQuery()
                   ->addWhere('bind_id=?',$comment->getId())
@@ -121,11 +121,14 @@ class TasksComments extends BaseTasksComments
       }
       $push->setDate($comment->getCreatedAt());
      $tokens = Tokens::arrayMergeTokens($tokens);
-     if(count($tokens) >0){
-       $result = $gcm->sendMultiple($tokens,$push->getPush());  
-     }   
+      
 
     $subject = t::__('New Task Comment') . ': ' . $comment->getTasks()->getProjects()->getName() . ' - ' . $comment->getTasks()->getName() . ($comment->getTasks()->getTasksStatusId()>0 ? ' [' . $comment->getTasks()->getTasksStatus()->getName() . ']':'');
+    $push->setParent($subject);//kien add
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     } 
+     
     $body  = $c->getComponent('tasksComments','emailBody',array('tasks'=>$comment->getTasks()));
                 
     Users::sendEmail($from,$to,$subject,$body,$sf_user);

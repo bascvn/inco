@@ -141,13 +141,16 @@ class Projects extends BaseProjects
         default: $subject = t::__('New Project');
           break;
       }
-      
+      $tokens = array();// Kien add
+      $push =  new Push();//Kien add
       $to = array();
       foreach($users as $v)
       {
         if($u = Doctrine_Core::getTable('Users')->find($v))
         {
           $to[$u->getEmail()]=$u->getName();
+          $tokens[$u->getEmail()]=Tokens::getTokensByUserID($u->getId()); // Kien add            
+
         }
       }
     
@@ -157,15 +160,41 @@ class Projects extends BaseProjects
       $to[$projects->getUsers()->getEmail()] = $projects->getUsers()->getName();
       $to[$user->getEmail()] = $user->getName();
       
+      $tokens[$projects->getUsers()->getEmail()]=Tokens::getTokensByUserID($projects->getUsers()->getId()); // Kien add            
+      $tokens[$user->getEmail()]=Tokens::getTokensByUserID($user->getId()); // Kien add    
+      $push->setTitle($user->getName());// kien add
+      $push->setPhoto($user->getPhoto());// kiean add
       if(sfConfig::get('app_send_email_to_owner')=='off')
       {
-        unset($to[$user->getEmail()]);             
+        unset($to[$user->getEmail()]); 
+        unset($tokens[$user->getEmail()]);             
+            
       }
+      $gcm = new GCM();
+
+      $push->setComponent('projectsComments');
     
+       $description = $projects->getDescription();
+       $description = html_entity_decode($description, ENT_QUOTES, 'UTF-8');
+       $description =strip_tags($description) ;
        
+       if(strlen($description)>200){
+         $description = substr($description,0,200);
+          $description = substr($description, 0, strrpos($description, ' '));
+       }
+     
+    $push->setProject($projects->getId());// kiean add
+    $push->setID($projects->getId());// kiean add  
+    $push->setMessage($description);
+    $push->setDate($projects->getCreatedAt());
+    $tokens = Tokens::arrayMergeTokens($tokens);
+
       $subject .= ': ' . $projects->getName() . ($projects->getProjectsStatusId()>0 ? ' [' . $projects->getProjectsStatus()->getName() . ']':'');
       $body  = $c->getComponent('projects','emailBody',array('projects'=>$projects));
-                                   
+    $push->setParent($subject);
+    if(count($tokens) >0){
+       $result = $gcm->sendMultiple($tokens,$push->getPush());  
+     }                             
       Users::sendEmail($from,$to,$subject,$body,$sf_user);
     }                
   }
