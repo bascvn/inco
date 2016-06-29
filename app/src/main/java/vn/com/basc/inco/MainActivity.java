@@ -103,7 +103,7 @@ public class MainActivity extends INCOActivity
         navigationView.setNavigationItemSelectedListener(this);
         preMenuItem = (MenuItem) navigationView.getMenu().findItem(R.id.nav_camera);
         preMenuItem.setChecked(true);
-        setNavItemCount(R.id.nav_camera, 10);
+        //setNavItemCount(R.id.nav_camera, 10);
 
         TextView mUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserName);
         TextView mUserEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtUserEmail);
@@ -122,7 +122,7 @@ public class MainActivity extends INCOActivity
         if(user != null && user.getPhoto()!= null && user.getPhoto().length()>0){
             loadAvatarImage(user.getPhoto());
         }
-        setNotifCount(10);
+        //setNotifCount(10);
     }
 
     @Override
@@ -191,8 +191,8 @@ public class MainActivity extends INCOActivity
 
         } else if (id == R.id.nav_send) {
             new AlertDialog.Builder(this)
-                    .setTitle("Logout")
-                    .setMessage("Do you Log out?")
+                    .setTitle(R.string.navigation_drawer_menu_logout)
+                    .setMessage(R.string.logout_confirm)
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 

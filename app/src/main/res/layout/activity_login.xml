@@ -97,7 +97,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remember Credentials"
+                android:text="@string/remember_me"
                 android:id="@+id/remember"
 
                 android:checked="false" />

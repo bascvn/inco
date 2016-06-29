@@ -9,7 +9,7 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detail"/>
+        android:text="@string/detail"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ID">
+            android:text="@string/id">
 
         </TextView>
         <LinearLayout
@@ -53,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Department">
+            android:text="@string/department">
 
         </TextView>
         <LinearLayout
@@ -84,7 +84,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Status">
+            android:text="@string/status">
 
         </TextView>
         <LinearLayout
@@ -114,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Type">
+            android:text="@string/type">
 
         </TextView>
         <LinearLayout

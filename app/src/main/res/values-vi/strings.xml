@@ -3,12 +3,12 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password </string>
-    <string name="prompt_company">Company </string>
-    <string name="action_sign_in">Login</string>
-    <string name="error_server">Server error.</string>
-    <string name="error_password">Password error</string>
-    <string name="remember_me">Remember Me </string>
+    <string name="prompt_password">Mật Khẩu </string>
+    <string name="prompt_company">Công Ty </string>
+    <string name="action_sign_in">Đăng Nhập</string>
+    <string name="error_server">Server Lỗi.</string>
+    <string name="error_password">Mật Khẩu Lỗi</string>
+    <string name="remember_me">Nhớ  </string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -21,27 +21,27 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="detail">Detail</string>
-    <string name="id">ID</string>
-    <string name="status">Status</string>
-    <string name="type">Type</string>
-    <string name="team">Team</string>
-    <string name="label">Label</string>
-    <string name="priority">Priority</string>
-    <string name="assigned_to">Assigned To</string>
-    <string name="department">Department</string>
-    <string name="type_your_comment">Type your comment</string>
-    <string name="subject">Subject</string>
-    <string name="description">Description</string>
-    <string name="create_by">Create by</string>
-    <string name="notify">Notify</string>
+    <string name="detail">Chi Tiết</string>
+    <string name="status">Trạng Thái</string>
+    <string name="type">Loại</string>
+    <string name="team">Đội Ngũ</string>
+    <string name="label">Nhãn</string>
+    <string name="priority">Ưu Tiên</string>
+    <string name="assigned_to">Đã Giao Cho</string>
+    <string name="department">Ban</string>
+    <string name="type_your_comment">Nhập ghi chú của bạn</string>
+    <string name="subject">Tiêu đề</string>
+    <string name="description">Miêu tả</string>
+    <string name="create_by">Được tạo bởi</string>
+    <string name="notify">Thông báo</string>
+
     <string name="action_settings">Settings</string>
-    <string name="navigation_drawer_menu_project">Project</string>
-    <string name="navigation_drawer_menu_task">Task</string>
-    <string name="navigation_drawer_menu_tickets">Tickets</string>
-    <string name="navigation_drawer_menu_discussions">Discussions</string>
-    <string name="navigation_drawer_menu_profile">Profile</string>
-    <string name="navigation_drawer_menu_logout">Logout</string>
+    <string name="navigation_drawer_menu_project">Dự Án</string>
+    <string name="navigation_drawer_menu_task">Tác Vụ</string>
+    <string name="navigation_drawer_menu_tickets">Thẻ</string>
+    <string name="navigation_drawer_menu_discussions">Thảo Luận</string>
+    <string name="navigation_drawer_menu_profile">Tài Khoản</string>
+    <string name="navigation_drawer_menu_logout">Thoát</string>
     <string name="title_activity_project">ProjectActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_detail_task">DetailTaskActivity</string>
@@ -135,18 +135,19 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_list_comment">ListCommentActivity</string>
-    <string name="title_activity_add_comment">Comments</string>
+    <string name="title_activity_add_comment">Ghi Chú</string>
     <string name="title_activity_add_ticket">AddTicketActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_new_ticket">New Ticket</string>
-    <string name="title_activity_detail_base_component">DetailBaseComponentActivity</string>
-    <string name="title_activity_push">Notifications</string>
-    <string name="logout_confirm">Do you log out?</string>
-    <string name="discard_changes">Discard Changes</string>
-    <string name="discard_changes_mes">If you go back now, your draft will be discarded.</string>
-    <string name="discard_changes_keep">KEEP</string>
-    <string name="discard_changes_ok">DISCARD</string>
-    <string name="waiting_uploading">Please waiting file upload...</string>
+    <string name="title_activity_new_ticket">Thẻ mới</string>
+    <string name="title_activity_detail_base_component"></string>
+    <string name="title_activity_push">Thông báo</string>
+    <string name="logout_confirm">Bạn có chắc chắn thoát không?</string>
+    <string name="discard_changes">Thông Báo</string>
+    <string name="discard_changes_mes">Dữ liệu sẽ bị mất.</string>
+    <string name="discard_changes_keep">Giữ</string>
+    <string name="discard_changes_ok">Đồng ý</string>
+    <string name="waiting_uploading">Chờ upload file...</string>
+
 </resources>

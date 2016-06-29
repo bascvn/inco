@@ -234,16 +234,16 @@ public class AddCommentActivity extends INCOActivity implements AddFileFragment.
             return true;
         }
         new AlertDialog.Builder(this)
-                .setTitle("Discard Changes?")
-                .setMessage("If you go back now, your draft will be discarded.")
+                .setTitle(R.string.discard_changes)
+                .setMessage(R.string.discard_changes_mes)
                 .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton("KEEP", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.discard_changes_keep, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
 
 
                     }})
-                .setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.discard_changes_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

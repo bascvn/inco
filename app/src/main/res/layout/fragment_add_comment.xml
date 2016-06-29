@@ -15,6 +15,6 @@
         android:id="@+id/txtComments"
         android:gravity="top"
         style="@style/FullWidthEditText"
-        android:hint="Type your comment"
+        android:hint="@string/type_your_comment"
         />
 </LinearLayout>
