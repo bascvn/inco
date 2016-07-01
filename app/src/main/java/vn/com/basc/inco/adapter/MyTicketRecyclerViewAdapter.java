@@ -102,7 +102,7 @@ public class MyTicketRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             mCardView = (CardView) view.findViewById(R.id.cv);
             mTicketNameView = (TextView) mCardView.findViewById(R.id.ticket_name);
             mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
-            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_deparment);
+            mStatsuView =(TextView) mCardView.findViewById(R.id.txt_status);
             mDeparmetView = (TextView) mCardView.findViewById(R.id.txt_deparment);
             mCreateByView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }

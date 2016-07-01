@@ -53,16 +53,8 @@
                     android:text="Project Name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/txt_deparment"
-                    android:layout_below="@+id/txt_projectname"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,12 +62,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Stataus"
                     android:id="@+id/txt_deparment"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_alignBaseline="@+id/txt_projectname"
-                    android:layout_alignBottom="@+id/txt_projectname"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_below="@+id/txt_projectname"
+                    android:layout_alignRight="@+id/txt_projectname"
+                    android:layout_alignEnd="@+id/txt_projectname" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,6 +75,36 @@
                     android:layout_below="@+id/txt_deparment"
                     android:layout_alignRight="@+id/txt_deparment"
                     android:layout_alignEnd="@+id/txt_deparment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/navigation_drawer_menu_project"
+                    android:id="@+id/textView11"
+                    android:layout_alignBottom="@+id/txt_projectname"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/status"
+                    android:id="@+id/textView14"
+                    android:layout_alignBottom="@+id/txt_deparment"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/create_by"
+                    android:id="@+id/textView15"
+                    android:layout_alignBottom="@+id/txt_create_by"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
         </LinearLayout>
         </LinearLayout>
