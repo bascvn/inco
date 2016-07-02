@@ -7,6 +7,7 @@
 	require_once('./common/Component.php'); 
    require_once('./common/UserAccess.php'); 
    require_once('./common/sqlhepper.php'); 
+   
 	//======================================================================================
     function cm_get_server_uri(){
 	
@@ -30,11 +31,9 @@
 		$username = $parsed['all']['doctrine']['param']['username'];
 
 		$password = $parsed['all']['doctrine']['param']['password'];
-		$password = str_replace(" echo "," \$password = ",$password);
-        eval('?>'.$password);
-        
+        $password = substr ($password,strlen("<?php echo urlencode('"),strlen($password)- strlen("<?php echo urlencode('")-strlen("') ; ?>"));
 
-		$con=mysqli_connect($db_host,$username,'~1qazxsw23@',$db_name);
+		$con=mysqli_connect($db_host,$username,$password,$db_name);
 
 		// Check connection
 		if (mysqli_connect_errno()) {
