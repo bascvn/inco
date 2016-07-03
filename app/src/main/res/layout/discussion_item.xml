@@ -18,13 +18,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="25dp">
+                android:padding="8dp">
 
                 <TextView
                     android:textColor="#0d638f"
-                    android:textSize="15sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold"
                     android:id="@+id/discussion_name"
                     android:layout_width="wrap_content"
@@ -34,8 +34,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#0d638f" />
+                android:layout_height="1dp"
+                android:background="#FFE0E0E0" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/txt_projectname"
                     android:text="Project Name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Stataus"
                     android:id="@+id/txt_deparment"
                     android:layout_below="@+id/txt_projectname"
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="txt"
                     android:id="@+id/txt_create_by"
                     android:layout_below="@+id/txt_deparment"
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/navigation_drawer_menu_project"
                     android:id="@+id/textView11"
                     android:layout_alignBottom="@+id/txt_projectname"
@@ -89,7 +89,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/status"
                     android:id="@+id/textView14"
                     android:layout_alignBottom="@+id/txt_deparment"
@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/create_by"
                     android:id="@+id/textView15"
                     android:layout_alignBottom="@+id/txt_create_by"

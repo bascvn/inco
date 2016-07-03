@@ -149,4 +149,6 @@
     <string name="discard_changes_keep">KEEP</string>
     <string name="discard_changes_ok">DISCARD</string>
     <string name="waiting_uploading">Please waiting file upload...</string>
+    <string name="version">Version %s</string>
+
 </resources>

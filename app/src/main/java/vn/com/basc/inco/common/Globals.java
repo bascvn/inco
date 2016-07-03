@@ -4,8 +4,13 @@ package vn.com.basc.inco.common;
  * Created by User on 22/05/2016.
  */
 public class Globals {
+
+
     public static String PRE_FIX_API;
     public static String PROTOCOL;
+
+    public static String API_GET_COMPANY;
+    public static String LOGO_PATH = "logo";
     public static String API_LOGIN;
     public static String LOGIN_EMAIL;
     public static String LOGIN_PASS;
@@ -88,6 +93,7 @@ public class Globals {
     static {
         PRE_FIX_API ="";
         PROTOCOL = "http://www.kiemtraduan.net/";
+        API_GET_COMPANY = "getcompanies.php";
         API_LOGOUT = PRE_FIX_API+"/index.php/mobile/logout";
         API_REFRESH_TOKEN = PRE_FIX_API+"/index.php/mobile/refreshtoken";
         API_LOGIN = PRE_FIX_API+"/mobile_api/gateway.php?controller=auth.login";
@@ -156,7 +162,5 @@ public class Globals {
         NEW_TIECKT_USER = "tickets[users_id]";
         EXTRA_NOTIFY ="extra_notification[]";
         TYPE_BIND_PARAMATER = "bind_type";
-
-
     }
 }

@@ -28,7 +28,7 @@
     <string name="label">Nhãn</string>
     <string name="priority">Ưu Tiên</string>
     <string name="assigned_to">Đã Giao Cho</string>
-    <string name="department">Ban</string>
+    <string name="department">Bộ Phận</string>
     <string name="type_your_comment">Nhập ghi chú của bạn</string>
     <string name="subject">Tiêu đề</string>
     <string name="description">Miêu tả</string>
@@ -149,5 +149,7 @@
     <string name="discard_changes_keep">Giữ</string>
     <string name="discard_changes_ok">Đồng ý</string>
     <string name="waiting_uploading">Chờ upload file...</string>
+    <string name="version">Phiên bản %s</string>
+
 
 </resources>

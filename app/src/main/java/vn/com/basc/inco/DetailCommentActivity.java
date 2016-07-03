@@ -16,6 +16,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -103,6 +104,11 @@ public class DetailCommentActivity extends AppCompatActivity implements View.OnC
 
         startDownload(attachment);
     }
+    private String getMimeFromFileName(String fileName) {
+        MimeTypeMap map = MimeTypeMap.getSingleton();
+        String ext = MimeTypeMap.getFileExtensionFromUrl(fileName);
+        return map.getMimeTypeFromExtension(ext);
+    }
     public void startDownload(Attachment attachment) {
         DownloadManager mManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         INCOApplication  incoApplication = (INCOApplication) getApplication();
@@ -110,6 +116,7 @@ public class DetailCommentActivity extends AppCompatActivity implements View.OnC
         DownloadManager.Request mRqRequest = new DownloadManager.Request(
                 Uri.parse(url));
         mRqRequest.setTitle(attachment.getFile());
+        mRqRequest.setMimeType(getMimeFromFileName(attachment.getFile()));
         mRqRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if(attachment.getInfo()!= null) {
             mRqRequest.setDescription(attachment.getInfo());

@@ -90,7 +90,6 @@ public class INCOApplication extends Application {
         public <T> void addToRequestQueue(Request<T> req) {
             // set the default tag if tag is empty
             req.setTag(TAG);
-
             getRequestQueue().add(req);
         }
 
@@ -202,8 +201,14 @@ public class INCOApplication extends Application {
             SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
             return settings.getString(COMPANY_ADDRESS,"");
         }
+        public String getUrlLogo(String logo){
+            return Globals.PROTOCOL+Globals.LOGO_PATH+"/"+logo;
+        }
         public String getUrlApi(String api){
             return Globals.PROTOCOL+getCompanyAddress()+api;
+        }
+        public String getUrlGetCompany(){
+            return Globals.PROTOCOL+Globals.API_GET_COMPANY;
         }
         public String getAvatarUrl(String avatar){
             return Globals.PROTOCOL+getCompanyAddress()+"/"+Globals.AVATAR_PATH+"/"+avatar;

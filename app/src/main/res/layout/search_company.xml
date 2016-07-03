@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    >
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:layout_marginRight="8dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/img_logo"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="inco"
+        android:textStyle="bold"
+        android:id="@+id/txt_client_code"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/img_logo"
+        android:layout_toEndOf="@+id/img_logo" />
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Incodemo company"
+        android:textStyle="italic"
+        android:id="@+id/txt_comany_name"
+        android:layout_below="@+id/txt_client_code"
+        android:layout_alignLeft="@+id/txt_client_code"
+        android:layout_alignStart="@+id/txt_client_code" />
+</RelativeLayout>

@@ -20,12 +20,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -41,9 +44,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,8 +61,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.com.basc.inco.adapter.CompanyAdapter;
 import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
+import vn.com.basc.inco.model.Company;
+import vn.com.basc.inco.model.ProjectItem;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -68,7 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
+    private List<Company> companies;
+    private CompanyAdapter companyAdapter;
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -86,36 +97,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private EditText mComnayView;
+    private AutoCompleteTextView mComnayView;
     private LinearLayout mContent;
     private CheckBox mRemember;
+    private TextView mVersion;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-   // private GoogleApiClient client;
+    //private GoogleApiClient client;
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    // private GoogleApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mComnayView = (EditText) findViewById(R.id.company);
+        mComnayView = (AutoCompleteTextView) findViewById(R.id.company);
         mContent = (LinearLayout) findViewById(R.id.main_login);
         mRemember = (CheckBox) findViewById(R.id.remember);
         mPasswordView = (EditText) findViewById(R.id.password);
-
+        mVersion = (TextView)findViewById(R.id.txt_version);
         populateAutoComplete();
         final INCOApplication incoApplication = (INCOApplication) getApplication();
-        if(incoApplication.getTokenAccess().length()>0){
+        if (incoApplication.getTokenAccess().length() > 0) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
+        mVersion.setText(getVersion());
         mRemember.setChecked(incoApplication.getRemember());
-        if(incoApplication.getRemember()) {
+        if (incoApplication.getRemember()) {
             mEmailView.setText(incoApplication.getEmail());
-           // mPasswordView.setText(incoApplication.getPassWord());
+            // mPasswordView.setText(incoApplication.getPassWord());
             mComnayView.setText(incoApplication.getCompanyAddress());
         }
         mRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -145,11 +163,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-/*        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();*/
-    }
+        mComnayView.setThreshold(0);
+        companies = new ArrayList<Company>();
+        companyAdapter = new CompanyAdapter(getApplicationContext(),R.layout.search_company);
+        mComnayView.setAdapter(companyAdapter);
+        mComnayView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+    public String getVersion(){
+        int versionCode = BuildConfig.VERSION_CODE;
+        String versionName = BuildConfig.VERSION_NAME;
+        String verison = String.format(getResources().getString(R.string.version),versionName+" - "+ String.valueOf(versionCode));
+        return verison;
+    }
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -230,7 +266,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mEmailView;
             cancel = true;
         }
-        if(TextUtils.isEmpty(company)){
+        if (TextUtils.isEmpty(company)) {
             mComnayView.setError(getString(R.string.error_field_required));
             focusView = mComnayView;
             cancel = true;
@@ -243,10 +279,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            ((INCOApplication)getApplication()).saveCompanyAddress(company);
-             showProgress(true);
+            ((INCOApplication) getApplication()).saveCompanyAddress(company);
+            showProgress(true);
 
-            loginAction(email,password);
+            loginAction(email, password);
         }
     }
 
@@ -342,6 +378,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        //client.connect();
 
      /*   // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -357,11 +396,37 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Uri.parse("android-app://vn.com.basc.inco/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);*/
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://vn.com.basc.inco/http/host/path")
+        );
+       // AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://vn.com.basc.inco/http/host/path")
+        );
+      //  AppIndex.AppIndexApi.end(client, viewAction);
 
    /*     // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -377,6 +442,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();*/
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+       // client.disconnect();
     }
 
 
@@ -451,26 +519,92 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
-    public void loginAction(final String email,final String password){
-        Log.d("response","loginAction");
-      //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
-        String url = ((INCOApplication)getApplication()).getUrlApi(Globals.API_LOGIN);
-        Log.d("response","url:"+url );
+
+    public void getCompanies( String reach) {
+        Log.d("response", "loginAction");
+        //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        String url = INCOApplication.getInstance().getUrlGetCompany();
+        Log.d("response", "url:" + url);
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("login", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))) {
+                        Log.e("login", "STATUS_TAG:");
+                    } else {
+                        String productStr = obj.getString(INCOResponse.DATA_TAG);
+                        Log.d("kienbk1910", productStr);
+                        Gson gson = new Gson();
+                        List<Company> data = (List<Company>) gson.fromJson(productStr,
+                                new TypeToken<List<Company>>() {
+                                }.getType());
+                      companies.clear();
+                        Log.d("kienbk1910", "company size: "+data.size());
+                        companies.addAll(data);
+                        Log.d("kienbk1910", "companies size: "+companies.size());
+                        companyAdapter.notifyDataSetChanged();
+                    }
+                }catch (JSONException e){
+                    Log.e("login", "JSONException:"+e.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              /*  NetworkResponse response = error.networkResponse;
+                error.hashCode();
+                Log.d("response",String.valueOf(response.statusCode));
+                if(response != null && response.data != null){
+                    Log.d("response",String.valueOf(response.statusCode));
+                    switch(response.statusCode){
+
+                        case 400:
+
+                            break;
+                    }
+                    //Additional cases
+                }*/
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+       /* int socketTimeout = 10000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);*/
+        // queue.add(request);
+
+        INCOApplication.getInstance().addToRequestQueue(request);
+    }
+
+    public void loginAction(final String email, final String password) {
+        Log.d("response", "loginAction");
+        //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        String url = ((INCOApplication) getApplication()).getUrlApi(Globals.API_LOGIN);
+        Log.d("response", "url:" + url);
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("login",response);
+                Log.e("login", response);
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))){
+                    if (INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))) {
                         mPasswordView.setError(getString(R.string.error_password));
                         showProgress(false);
-                    }else{
+                    } else {
 
                         JSONObject data = new JSONObject(obj.getString(INCOResponse.DATA_TAG));
                         String token = data.getString(INCOResponse.TOKEN_TAG);
                         INCOApplication app = (INCOApplication) getApplication();
-                        Log.e("kien",token);
+                        Log.e("kien", token);
                         app.saveTokenAccess(token);
                         showProgress(false);
                         String user = data.getString(INCOResponse.USER_TAG);
@@ -510,12 +644,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         .setAction("Action", null).show();
                 showProgress(false);
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put(Globals.LOGIN_EMAIL,email);
-                params.put(Globals.LOGIN_PASS,password);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(Globals.LOGIN_EMAIL, email);
+                params.put(Globals.LOGIN_PASS, password);
                 InstanceID instanceID = InstanceID.getInstance(LoginActivity.this);
                 String device_id = "";
                 try {
@@ -532,8 +666,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
        /* int socketTimeout = 10000;//30 seconds - change to what you want
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);*/
-       // queue.add(request);
-       INCOApplication.getInstance().addToRequestQueue(request);
+        // queue.add(request);
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
 }
 

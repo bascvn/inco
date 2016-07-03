@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -70,6 +72,8 @@ public class DetailBaseComponentFragment extends Fragment {
     private NetworkImageView avatar;
     private LinearLayout fileContainer;
     private CardView detailCardView;
+    private ProgressBar progressBar;
+    private LinearLayout parent;
 
     public DetailBaseComponentFragment() {
         // Required empty public constructor
@@ -108,9 +112,20 @@ public class DetailBaseComponentFragment extends Fragment {
         mDate  = (TextView) view.findViewById(R.id.txt_create_at);
         avatar  = (NetworkImageView) view.findViewById(R.id.im_avatar);
         avatar.setDefaultImageResId(R.mipmap.ic_account_circle_white_48dp);
+        progressBar = (ProgressBar) view.findViewById(R.id.loading_progress);
+        parent = (LinearLayout) view.findViewById(R.id.parent_content);
         getDetailComponent();
         return view;
     }
+    private  void showLoading(){
+        progressBar.setVisibility(View.VISIBLE);
+        parent.setVisibility(View.GONE);
+    }
+    private  void hideLoading(){
+        parent.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+    }
+
     private void loadAvatarImage(String avatar, NetworkImageView imageView){
         String url = ((INCOApplication)getActivity().getApplication()).getAvatarUrl(avatar);
         ImageLoader imageLoader = CustomVolleyRequest.getInstance(this.getActivity().getApplicationContext())
@@ -119,6 +134,11 @@ public class DetailBaseComponentFragment extends Fragment {
                 R.mipmap.ic_account_circle_white_48dp, R.mipmap.ic_account_circle_white_48dp));
         imageView.setImageUrl(url, imageLoader);
     }
+    private String getMimeFromFileName(String fileName) {
+        MimeTypeMap map = MimeTypeMap.getSingleton();
+        String ext = MimeTypeMap.getFileExtensionFromUrl(fileName);
+        return map.getMimeTypeFromExtension(ext);
+    }
     public void startDownload(Attachment attachment) {
         DownloadManager mManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
         INCOApplication  incoApplication = (INCOApplication) getActivity().getApplication();
@@ -126,6 +146,7 @@ public class DetailBaseComponentFragment extends Fragment {
         DownloadManager.Request mRqRequest = new DownloadManager.Request(
                 Uri.parse(url));
         mRqRequest.setTitle(attachment.getFile());
+        mRqRequest.setMimeType(getMimeFromFileName(attachment.getFile()));
         mRqRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if(attachment.getInfo()!= null) {
             mRqRequest.setDescription(attachment.getInfo());
@@ -255,6 +276,7 @@ public class DetailBaseComponentFragment extends Fragment {
         detailCardView.addView(v);
     }
     private void getDetailComponent()  {
+        showLoading();
         String url ="";
         if(type == ComponentType.PROJECT) {
             url = ((INCOApplication) getActivity().getApplication()).getUrlApi(Globals.API_GET_PROJECT);
@@ -331,6 +353,7 @@ public class DetailBaseComponentFragment extends Fragment {
                     Log.d("kienbk1910",e.toString());
 
                 }
+                hideLoading();
 
             }
         }, new Response.ErrorListener() {
