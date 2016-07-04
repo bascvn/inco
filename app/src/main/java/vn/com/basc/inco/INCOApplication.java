@@ -213,4 +213,10 @@ public class INCOApplication extends Application {
         public String getAvatarUrl(String avatar){
             return Globals.PROTOCOL+getCompanyAddress()+"/"+Globals.AVATAR_PATH+"/"+avatar;
         }
+    public String getVersion(){
+        int versionCode = BuildConfig.VERSION_CODE;
+        String versionName = BuildConfig.VERSION_NAME;
+        String verison = String.format(getResources().getString(R.string.version),versionName+"("+ String.valueOf(versionCode)+")");
+        return verison;
+    }
 }

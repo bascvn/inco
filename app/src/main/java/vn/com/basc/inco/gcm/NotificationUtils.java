@@ -114,12 +114,9 @@ public class NotificationUtils {
         if(push.getAttach() != null && push.getAttach().length() >0){
             mBuilder.setSubText(push.getAttach());
         }
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        bigText.bigText("Android is a Linux-based operating system designed primarily for touchscreen mobile devices such as smartphones and tablet computers. Initially developed by Android, Inc., which Google backed financially and later bought in 2005,[12] Android was unveiled in 2007 along with the founding of the Open Handset Alliance: a consortium of hardware, software, and telecommunication companies devoted to advancing open standards for mobile devices.[13] The first Android-powered phone was sold in October 2008");
-        bigText.setBigContentTitle("Android");
 
-        notification = mBuilder.setStyle(bigText)
-                .setContentIntent(resultPendingIntent)
+
+        notification = mBuilder.setContentIntent(resultPendingIntent)
                 .setSound(alarmSound)
                 // .setStyle(inboxStyle)
                 //.setWhen(getTimeMilliSec(timeStamp))

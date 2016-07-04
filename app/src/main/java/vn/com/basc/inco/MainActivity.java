@@ -77,6 +77,7 @@ public class MainActivity extends INCOActivity
     private TicketFragment tickFragment;
     private DiscussionFragment discussionFragment;
     private ProfileFragment profileFragment;
+    private TextView mVersion;
     NavigationView navigationView;
    // FloatingActionButton fab;
     private MainFragmentINCO mainFragmentINCO;
@@ -101,6 +102,8 @@ public class MainActivity extends INCOActivity
 
          navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        mVersion = (TextView) navigationView.findViewById(R.id.txt_version);
+        mVersion.setText(INCOApplication.getInstance().getVersion());
         preMenuItem = (MenuItem) navigationView.getMenu().findItem(R.id.nav_camera);
         preMenuItem.setChecked(true);
         //setNavItemCount(R.id.nav_camera, 10);

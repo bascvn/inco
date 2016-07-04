@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
-        mVersion.setText(getVersion());
+        mVersion.setText(INCOApplication.getInstance().getVersion());
         mRemember.setChecked(incoApplication.getRemember());
         if (incoApplication.getRemember()) {
             mEmailView.setText(incoApplication.getEmail());
@@ -180,12 +180,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
     }
-    public String getVersion(){
-        int versionCode = BuildConfig.VERSION_CODE;
-        String versionName = BuildConfig.VERSION_NAME;
-        String verison = String.format(getResources().getString(R.string.version),versionName+" - "+ String.valueOf(versionCode));
-        return verison;
-    }
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;

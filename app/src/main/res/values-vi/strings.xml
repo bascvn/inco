@@ -149,7 +149,7 @@
     <string name="discard_changes_keep">Giữ</string>
     <string name="discard_changes_ok">Đồng ý</string>
     <string name="waiting_uploading">Chờ upload file...</string>
-    <string name="version">Phiên bản %s</string>
+
 
 
 </resources>
