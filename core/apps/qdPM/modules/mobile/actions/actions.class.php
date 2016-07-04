@@ -113,7 +113,7 @@ class mobileActions extends sfActions
       }
     }
   }
-   public function executeIndex(sfWebRequest $request)
+  /* public function executeIndex(sfWebRequest $request)
   {
      
     $this->tasks_comments = Doctrine_Core::getTable('TasksComments')
@@ -217,7 +217,7 @@ class mobileActions extends sfActions
       ->fetchArray();
     var_dump($this->tokens );
     exit(); 
-  }
+  }*/
   /******************** new ticket ******************************************/
   public function executeNewticket(sfWebRequest $request)
   {
