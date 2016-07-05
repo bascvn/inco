@@ -140,7 +140,7 @@
      	}
      	
      	$projects=array();
-     	$main_sql .= "ORDER BY projects.name LIMIT $limit OFFSET $offset";
+     	$main_sql .= "ORDER BY projects.created_at DESC LIMIT $limit OFFSET $offset";
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {
@@ -190,7 +190,7 @@
         $where_arr->pushAND("tasks.name LIKE '%$search%'");
      	$projects=array();
      
-     	$main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tasks.name LIMIT $limit OFFSET $offset";
+     	$main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tasks.created_at DESC  LIMIT $limit OFFSET $offset";
 
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
@@ -275,7 +275,7 @@
         $where_arr->pushAND("tickets.name LIKE '%$search%'");
         $projects=array();
        
-        $main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tickets.name LIMIT $limit OFFSET $offset";
+        $main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tickets.created_at DESC  LIMIT $limit OFFSET $offset";
          if ($result=mysqli_query($con,$main_sql)){
             if (mysqli_num_rows($result) > 0) {
                  while($row = mysqli_fetch_assoc($result)) {
@@ -321,7 +321,7 @@
         $where_arr->pushAND("discussions.name LIKE '%$search%'");
         $projects=array();
        
-        $main_sql .= " WHERE ".$where_arr->toString()." ORDER BY discussions.name LIMIT $limit OFFSET $offset";
+        $main_sql .= " WHERE ".$where_arr->toString()." ORDER BY discussions.id DESC  LIMIT $limit OFFSET $offset";
          if ($result=mysqli_query($con,$main_sql)){
             if (mysqli_num_rows($result) > 0) {
                  while($row = mysqli_fetch_assoc($result)) {
