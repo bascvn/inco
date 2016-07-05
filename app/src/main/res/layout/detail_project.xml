@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Open"
-                android:id="@+id/txt_deparment">
+                android:id="@+id/txt_status">
 
             </TextView>
         </LinearLayout>

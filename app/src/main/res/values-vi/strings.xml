@@ -149,7 +149,10 @@
     <string name="discard_changes_keep">Giữ</string>
     <string name="discard_changes_ok">Đồng ý</string>
     <string name="waiting_uploading">Chờ upload file...</string>
-
+    <string name="create_at">Ngày tạo</string>
+    <string name="data_empty">Không có dữ liệu</string>
+    <string name="please_reload">Hãy thử tại lại.</string>
+    <string name="reload">TẢI LẠI</string>
 
 
 </resources>

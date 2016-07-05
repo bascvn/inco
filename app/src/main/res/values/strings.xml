@@ -141,7 +141,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_new_ticket">New Ticket</string>
-    <string name="title_activity_detail_base_component">DetailBaseComponentActivity</string>
+    <string name="title_activity_detail_base_component"></string>
     <string name="title_activity_push">Notifications</string>
     <string name="logout_confirm">Do you log out?</string>
     <string name="discard_changes">Discard Changes</string>
@@ -150,5 +150,9 @@
     <string name="discard_changes_ok">DISCARD</string>
     <string name="waiting_uploading">Please waiting file upload...</string>
     <string name="version">INCO v %s</string>
+    <string name="create_at">Create at</string>
+    <string name="data_empty">Data Empty</string>
+    <string name="please_reload">Please reload again.</string>
+    <string name="reload">RELOAD</string>
 
 </resources>

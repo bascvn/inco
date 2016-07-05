@@ -218,7 +218,7 @@ public class DetailBaseComponentFragment extends Fragment {
         v = inflater.inflate(R.layout.detail_task, null);
         TextView id = (TextView) v.findViewById(R.id.txt_id);
         TextView label = (TextView) v.findViewById(R.id.txt_label);
-        TextView status = (TextView) v.findViewById(R.id.txt_deparment);
+        TextView status = (TextView) v.findViewById(R.id.txt_type);
        TextView priority = (TextView) v.findViewById(R.id.txt_priority);
         TextView type = (TextView) v.findViewById(R.id.txt_type);
         LinearLayout team = (LinearLayout) v.findViewById(R.id.layout_team);
@@ -260,7 +260,7 @@ public class DetailBaseComponentFragment extends Fragment {
         LayoutInflater inflater = (LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.detail_project, null);
         TextView id = (TextView) v.findViewById(R.id.txt_id);
-        TextView status = (TextView) v.findViewById(R.id.txt_deparment);
+        TextView status = (TextView) v.findViewById(R.id.txt_type);
         TextView type = (TextView) v.findViewById(R.id.txt_type);
         LinearLayout team = (LinearLayout) v.findViewById(R.id.layout_team);
         id.setText(detail.getId());

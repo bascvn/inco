@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Data Empy"
+        android:text="@string/data_empty"
         android:id="@+id/txt_error"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -18,7 +18,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reload"
+        android:text="@string/reload"
         android:textColor="@color/colorPrimary"
         android:id="@+id/btn_reload"
         android:layout_below="@+id/textView"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Please reload again "
+        android:text="@string/please_reload"
         android:id="@+id/textView"
         android:layout_below="@+id/txt_error"
         android:layout_centerHorizontal="true"

@@ -11,68 +11,126 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/cv">
 
-        <RelativeLayout
-            android:padding="3px"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:gravity="center_vertical"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="9999"
-                android:id="@+id/id_project"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/name_project"
-                android:text="InCon"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="2dip"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#0d638f"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/id_project"
-                android:layout_toEndOf="@+id/id_project" />
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/txt_projectname"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:textColor="#0d638f"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
+                    android:id="@+id/name_project"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#FFE0E0E0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="2dip"
-                android:text="LongNguyen"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#736F6E"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/name_project"
-                android:layout_alignLeft="@+id/name_project"
-                android:layout_alignStart="@+id/name_project" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Kien Pham"
-                android:id="@+id/txt_create_at"
-                android:textColor="#2a6496"
-                android:layout_alignTop="@+id/txt_projectname"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txt_create_at"
+                        android:text="Project Name"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Priority"
+                        android:id="@+id/txt_type"
+                        android:layout_below="@+id/txt_create_at"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/create_at"
+                        android:id="@+id/textView9"
+                        android:layout_alignTop="@+id/txt_create_at"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/department"
+                        android:id="@+id/textView10"
+                        android:layout_below="@+id/textView9"
+                        android:layout_alignLeft="@+id/textView9"
+                        android:layout_alignStart="@+id/textView9" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="txt"
+                        android:id="@+id/txt_create_by"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@+id/txt_status"
+                        android:layout_alignParentRight="true"
+                        />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Status"
+
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/txt_status"
+                        android:layout_below="@+id/txt_type"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/status"
+                        android:id="@+id/textView12"
+                        android:layout_alignBottom="@+id/txt_status"
+                        android:layout_alignLeft="@+id/textView10"
+                        android:layout_alignStart="@+id/textView10" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/create_by"
+                        android:id="@+id/textView13"
+                        android:layout_below="@+id/textView12"
+                        android:layout_alignLeft="@+id/textView10"
+                        android:layout_alignStart="@+id/textView10" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
+
+
 </LinearLayout>

@@ -60,10 +60,12 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         if (holder instanceof ProjectViewHolder) {
             final ProjectViewHolder projectViewHolder = (ProjectViewHolder) holder;
             projectViewHolder.mItem = (ProjectItem) mValues.get(position);
-            projectViewHolder.mIdView.setText(projectViewHolder.mItem.id);
             projectViewHolder.mNameView.setText(projectViewHolder.mItem.name);
             projectViewHolder.mCreateBy.setText(projectViewHolder.mItem.created_by);
             projectViewHolder.mCreateAt.setText(projectViewHolder.mItem.created_at);
+            projectViewHolder.mStatus.setText(projectViewHolder.mItem.status);
+            projectViewHolder.mType.setText(projectViewHolder.mItem.type);
+
             projectViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,19 +87,21 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     public class ProjectViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mNameView;
         public final TextView mCreateBy;
         public final TextView mCreateAt;
+        public final TextView mStatus;
+        public final TextView mType;
         public ProjectItem mItem;
         public final CardView mCardView;
         public ProjectViewHolder(View view) {
             super(view);
             mView = view;
             mCardView = (CardView) view.findViewById(R.id.cv);
-            mIdView = (TextView) mCardView.findViewById(R.id.id_project);
+            mStatus = (TextView) view.findViewById(R.id.txt_status);
+            mType = (TextView) view.findViewById(R.id.txt_type);
             mNameView = (TextView) mCardView.findViewById(R.id.name_project);
-            mCreateBy =(TextView) mCardView.findViewById(R.id.txt_projectname);
+            mCreateBy =(TextView) mCardView.findViewById(R.id.txt_create_by);
             mCreateAt = (TextView) mCardView.findViewById(R.id.txt_create_at);
         }
 

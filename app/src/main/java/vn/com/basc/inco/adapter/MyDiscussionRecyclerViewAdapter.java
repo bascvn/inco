@@ -98,8 +98,8 @@ public class MyDiscussionRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
             mView = view;
             mCardView = (CardView) view.findViewById(R.id.cv);
             mDiscussionNameView = (TextView) mCardView.findViewById(R.id.discussion_name);
-            mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_projectname);
-            mStatusView =(TextView) mCardView.findViewById(R.id.txt_deparment);
+            mProjectNameView = (TextView) mCardView.findViewById(R.id.txt_create_at);
+            mStatusView =(TextView) mCardView.findViewById(R.id.txt_type);
             mCreateByView = (TextView) mCardView.findViewById(R.id.txt_create_by);
         }
 
