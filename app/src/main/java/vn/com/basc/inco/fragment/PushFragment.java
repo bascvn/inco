@@ -121,7 +121,11 @@ public class PushFragment extends Fragment implements MainFragmentINCO {
                     }
                 }
         );
-
+        if(pushList.size() == 0){
+            emptyState(true);
+        }else{
+            emptyState(false);
+        }
         return view;
     }
 
@@ -156,6 +160,11 @@ public class PushFragment extends Fragment implements MainFragmentINCO {
 
         pushList.addAll(INCOApplication.getInstance().myDatabase.getPushes());
         mRecyclerView.getAdapter().notifyDataSetChanged();
+        if(pushList.size() == 0){
+            emptyState(true);
+        }else{
+            emptyState(false);
+        }
         mySwipeRefreshLayout.setRefreshing(false);
 
 

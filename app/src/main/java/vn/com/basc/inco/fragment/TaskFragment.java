@@ -291,14 +291,16 @@ public class TaskFragment extends Fragment implements MainFragmentINCO{
     @Override
     public void searchList(String key) {
         hasMore =false;
-        int size = projects.size();
-        if(size > 0 ){
-            projects.clear();
-            mRecyclerView.getAdapter().notifyItemRangeRemoved(0,size);
-        }
-        // this.notifyItemRangeRemoved(0, size);
+        if(projects != null) {
+            int size = projects.size();
+            if (size > 0) {
+                projects.clear();
+                mRecyclerView.getAdapter().notifyItemRangeRemoved(0, size);
+            }
+            // this.notifyItemRangeRemoved(0, size);
 
-        getListProject(key);
+            getListProject(key);
+        }
         hasMore =true;
     }
 

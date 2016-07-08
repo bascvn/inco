@@ -91,7 +91,7 @@ public class INCODatabase extends SQLiteOpenHelper {
     }
     public Cursor getCursorPush() {
         database = getReadableDatabase();
-        Cursor c = database.query(PUSH_TABLE_NAME, null, null, null, null, null, PUSH_ID  + " DESC");
+        Cursor c = database.query(PUSH_TABLE_NAME, null, null, null, null, null, PUSH_ID  + " DESC","0,100");
         return c;
     }
     public int getNumberPush(){

@@ -3,7 +3,9 @@ package vn.com.basc.inco;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
    
 import android.support.v4.app.Fragment;
@@ -28,11 +30,14 @@ import vn.com.basc.inco.fragment.TaskFragment;
 import vn.com.basc.inco.fragment.TaskFragment.OnListTaskFragmentInteractionListener;
 import vn.com.basc.inco.fragment.TicketFragment;
 import vn.com.basc.inco.model.DiscussionItem;
+import vn.com.basc.inco.model.MainFragmentINCO;
 import vn.com.basc.inco.model.TaskItem;
 import vn.com.basc.inco.model.TicketItem;
 
 public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
-        OnListTaskFragmentInteractionListener,TicketFragment.OnListTicketragmentInteractionListener,DiscussionFragment.OnListDiscussionFragmentInteractionListener {
+        OnListTaskFragmentInteractionListener,TicketFragment.OnListTicketragmentInteractionListener,
+        DiscussionFragment.OnListDiscussionFragmentInteractionListener,
+        SearchView.OnQueryTextListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,6 +56,9 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     private TabLayout tabLayout;
     private String id;
     private String name;
+    private TaskFragment taskFragment = null;
+    private TicketFragment ticketFragment = null;
+    private DiscussionFragment discussionFragment = null;
     FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +132,10 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project, menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -199,6 +211,20 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
         startActivity(intent);
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        MainFragmentINCO inco = (MainFragmentINCO)(mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem()));
+        inco.searchList(query);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        MainFragmentINCO inco = (MainFragmentINCO)(mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem()));
+        inco.searchList(newText);
+        return true;
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -217,13 +243,22 @@ public class ProjectActivity extends AppCompatActivity implements TabLayout.OnTa
 
             if(position == 0){
                 fab.hide();
-                return TaskFragment.newInstance(1,id);
+                if(taskFragment == null){
+                    taskFragment = TaskFragment.newInstance(1,id);
+                }
+                return taskFragment;
             }else if(position == 1){
                 fab.show();
-                return TicketFragment.newInstance(1,id);
+                if(ticketFragment == null){
+                    ticketFragment = TicketFragment.newInstance(1,id);
+                }
+                return ticketFragment;
             }
             fab.hide();
-            return DiscussionFragment.newInstance(1,id);
+            if(discussionFragment == null){
+                discussionFragment = DiscussionFragment.newInstance(1,id);
+            }
+            return discussionFragment;
         }
 
         @Override

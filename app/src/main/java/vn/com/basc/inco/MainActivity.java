@@ -137,13 +137,20 @@ public class MainActivity extends INCOActivity
             super.onBackPressed();
         }
     }
+    MenuItem item_search = null;
+    MenuItem item_fresh = null;
+    private void showSearchItem(boolean isShow){
+        item_fresh.setVisible(isShow);
+        item_search.setVisible(isShow);
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        final MenuItem item = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        item_search = menu.findItem(R.id.action_search);
+        item_fresh = menu.findItem(R.id.menu_refresh);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item_search);
         searchView.setOnQueryTextListener(this);
 
 
@@ -177,7 +184,11 @@ public class MainActivity extends INCOActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-
+        if(id == R.id.nav_share ){
+            showSearchItem(false);
+        }else {
+            showSearchItem(true);
+        }
         if (id == R.id.nav_camera) {
             // Handle the camera action
             initProjectFragment();
