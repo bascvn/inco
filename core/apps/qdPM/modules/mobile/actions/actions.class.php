@@ -113,7 +113,7 @@ class mobileActions extends sfActions
       }
     }
   }
-  /* public function executeIndex(sfWebRequest $request)
+  /*public function executeIndex(sfWebRequest $request)
   {
      
     $this->tasks_comments = Doctrine_Core::getTable('TasksComments')
@@ -217,7 +217,8 @@ class mobileActions extends sfActions
       ->fetchArray();
     var_dump($this->tokens );
     exit(); 
-  }*/
+  }
+  */
   /******************** new ticket ******************************************/
   public function executeNewticket(sfWebRequest $request)
   {
@@ -675,6 +676,10 @@ class mobileActions extends sfActions
   }
 /****************** getdetail component *******************************/ 
 public function executeDiscussions(sfWebRequest $request){
+   if(!$this->setUserToken($request->getParameter('token'))){
+         $this->reponeError(); 
+        exit();
+    }  
   $this->projects = Doctrine_Core::getTable('Projects')->createQuery()->addWhere('id=?',$request->getParameter('projects_id'))->fetchOne();
    if(!$this->projects){
       $this->reponeError(); 

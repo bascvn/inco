@@ -127,7 +127,8 @@
 	    		}	
 	     	}
 	     	  mysqli_free_result($result);
-	     }
+	     }else{
+         }
 	     return null;
      }
       function get_list_project($user_id,$access_control,$search,$offset,$limit,$con){
@@ -155,22 +156,9 @@
      }
 
      function get_list_task($user,$project_id,$search,$offset,$limit,$con){
-     	$main_sql ="SELECT 
-     		tasks.id AS id,
-     		tasks.name AS name,
-     		projects.name AS projects,
-     		tasks_priority.name AS tasks_priority,
-     		users.name AS assigned_to,
-     		tasks_status.name AS tasks_status,
-             projects.id AS  projects_id
-     		 FROM tasks 
-     		LEFT JOIN projects ON tasks.projects_id = projects.id 
-     		LEFT JOIN tasks_priority ON tasks.tasks_type_id=tasks_priority.id 
-     		LEFT JOIN users ON tasks.assigned_to=users.id 
-     		LEFT JOIN users AS users2 ON tasks.created_by=users2.id 
-     		LEFT JOIN tasks_status oN tasks.tasks_status_id = tasks_status.id ";
+     	$main_sql ="SELECT tasks.id AS id,tasks.name AS name,projects.name AS projects,tasks_priority.name AS tasks_priority,users.name AS assigned_to,tasks_status.name AS tasks_status,projects.id AS  projects_id FROM tasks LEFT JOIN projects ON tasks.projects_id = projects.id LEFT JOIN tasks_priority ON tasks.tasks_type_id=tasks_priority.id LEFT JOIN users ON tasks.assigned_to=users.id LEFT JOIN users AS users2 ON tasks.created_by=users2.id LEFT JOIN tasks_status oN tasks.tasks_status_id = tasks_status.id ";
 
-        $user_id = $user['id'];
+        $user_id = $user['user_id'];
         $access_project  = $user['allow_manage_projects'];
         $access_task = $user['allow_manage_tasks'];
      	$where_arr = new SqlWhereHepper();
@@ -181,7 +169,7 @@
             }
      	} else{
             if($access_project == UserAccess::VIEW_OWN_ONLY){
-                $where_arr->pushAND("(find_in_set('$user_id',projects.team) > 0 OR projects.created_by = $user_id)");
+                $where_arr->pushAND("(find_in_set($user_id,projects.team) > 0 OR projects.created_by = $user_id)");
             }
             if($access_task == UserAccess::VIEW_OWN_ONLY){
                 $where_arr->pushAND("( find_in_set($user_id,tasks.assigned_to) >0 OR tasks.created_by = $user_id)");
@@ -189,9 +177,8 @@
         }	
         $where_arr->pushAND("tasks.name LIKE '%$search%'");
      	$projects=array();
-     
+   
      	$main_sql .= " WHERE ".$where_arr->toString()." ORDER BY tasks.created_at DESC  LIMIT $limit OFFSET $offset";
-
      	 if ($result=mysqli_query($con,$main_sql)){
 	     	if (mysqli_num_rows($result) > 0) {
 	     		 while($row = mysqli_fetch_assoc($result)) {
@@ -255,7 +242,7 @@
                 LEFT JOIN users ON users.id = tickets.users_id 
                 LEFT JOIN projects ON projects.id= tickets.projects_id";
 
-        $user_id = $user['id'];
+        $user_id = $user['user_id'];
         $access_project  = $user['allow_manage_projects'];
         $access_ticket = $user['allow_manage_tickets'];
         $where_arr = new SqlWhereHepper();
@@ -301,7 +288,7 @@
              LEFT JOIN users ON users.id = discussions.users_id 
              LEFT JOIN discussions_status ON discussions.discussions_status_id = discussions_status.id";
 
-        $user_id = $user['id'];
+        $user_id = $user['user_id'];
         $access_project  = $user['allow_manage_projects'];
         $access_discussion = $user['allow_manage_discussions'];
         $where_arr = new SqlWhereHepper();
