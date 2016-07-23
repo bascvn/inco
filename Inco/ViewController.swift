@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             print(response.result)   // result of response serialization
             
             if let JSON = response.result.value {
-                print("JSON: \(JSON)")
+                print("JSON kien: \(JSON)")
                     let inco = IncoResponse(data: JSON as! NSDictionary)
                    
                     if inco.isOK(){
