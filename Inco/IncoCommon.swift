@@ -10,6 +10,7 @@ import Foundation
 
 class IncoCommon {
     static let CLIENT_ID = "company"
+    static let NUMBER_ITEMS_LOADING = 5
     
     static func saveToken(token:String) {
         let userDefaults = NSUserDefaults.standardUserDefaults()

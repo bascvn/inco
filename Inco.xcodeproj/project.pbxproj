@@ -11,6 +11,18 @@
 		846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66271D3E5A5B0015CCFB /* CommonMess.swift */; };
 		846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66291D3E6A4E0015CCFB /* IncoApi.swift */; };
 		846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A662B1D3E7C560015CCFB /* IncoResponse.swift */; };
+		846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */; };
+		846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */; };
+		846DAF5C1D44B9D7008D8D5F /* project.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846DAF5B1D44B9D7008D8D5F /* project.storyboard */; };
+		846DAFE11D44E691008D8D5F /* TabProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */; };
+		846DAFE31D44E6D4008D8D5F /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */; };
+		846DAFE51D44E6E3008D8D5F /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */; };
+		846DAFE71D44E6FC008D8D5F /* DisccustionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */; };
+		846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE81D44EDA6008D8D5F /* TaskCellTableViewCell.swift */; };
+		846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DAFE91D44EDA6008D8D5F /* TaskCellTableViewCell.xib */; };
+		846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFEC1D44F733008D8D5F /* TaskCell.swift */; };
+		846DAFEF1D450A25008D8D5F /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFEE1D450A25008D8D5F /* UIViewControllerExtensions.swift */; };
+		846DAFF21D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFF11D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift */; };
 		84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84743B051D3D003400270587 /* MMDrawerBarButtonItem.m */; };
 		84743B0E1D3D003400270587 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84743B071D3D003400270587 /* MMDrawerController.m */; };
 		84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 84743B0A1D3D003400270587 /* MMDrawerVisualState.m */; };
@@ -67,6 +79,18 @@
 		846A66271D3E5A5B0015CCFB /* CommonMess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMess.swift; sourceTree = "<group>"; };
 		846A66291D3E6A4E0015CCFB /* IncoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoApi.swift; sourceTree = "<group>"; };
 		846A662B1D3E7C560015CCFB /* IncoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoResponse.swift; sourceTree = "<group>"; };
+		846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMoreCell.swift; sourceTree = "<group>"; };
+		846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingMoreCell.xib; sourceTree = "<group>"; };
+		846DAF5B1D44B9D7008D8D5F /* project.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = project.storyboard; sourceTree = "<group>"; };
+		846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabProjectViewController.swift; sourceTree = "<group>"; };
+		846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
+		846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisccustionViewController.swift; sourceTree = "<group>"; };
+		846DAFE81D44EDA6008D8D5F /* TaskCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCellTableViewCell.swift; sourceTree = "<group>"; };
+		846DAFE91D44EDA6008D8D5F /* TaskCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskCellTableViewCell.xib; sourceTree = "<group>"; };
+		846DAFEC1D44F733008D8D5F /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		846DAFEE1D450A25008D8D5F /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		846DAFF11D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENMBadgedBarButtonItem.swift; sourceTree = "<group>"; };
 		84743B031D3D003400270587 /* Inco-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Inco-Bridging-Header.h"; sourceTree = "<group>"; };
 		84743B041D3D003400270587 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		84743B051D3D003400270587 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
@@ -166,6 +190,37 @@
 			name = common;
 			sourceTree = "<group>";
 		};
+		846DAF551D4459E9008D8D5F /* TableCell */ = {
+			isa = PBXGroup;
+			children = (
+				846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */,
+				846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */,
+				846DAFE81D44EDA6008D8D5F /* TaskCellTableViewCell.swift */,
+				846DAFE91D44EDA6008D8D5F /* TaskCellTableViewCell.xib */,
+			);
+			name = TableCell;
+			sourceTree = "<group>";
+		};
+		846DAF5A1D44B9AF008D8D5F /* ProjectTabs */ = {
+			isa = PBXGroup;
+			children = (
+				846DAF5B1D44B9D7008D8D5F /* project.storyboard */,
+				846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */,
+				846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */,
+				846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */,
+				846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */,
+			);
+			name = ProjectTabs;
+			sourceTree = "<group>";
+		};
+		846DAFF01D450EDC008D8D5F /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				846DAFF11D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
 		84743B011D3CFCE400270587 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +254,7 @@
 			children = (
 				84743B1A1D3D19ED00270587 /* LeftMenuItem.swift */,
 				849C1A5E1D4103E30097A933 /* ProjectCell.swift */,
+				846DAFEC1D44F733008D8D5F /* TaskCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,6 +284,9 @@
 		848CE74F1D3BB64500558E9E /* Inco */ = {
 			isa = PBXGroup;
 			children = (
+				846DAFF01D450EDC008D8D5F /* CustomView */,
+				846DAF5A1D44B9AF008D8D5F /* ProjectTabs */,
+				846DAF551D4459E9008D8D5F /* TableCell */,
 				846A66241D3E57F60015CCFB /* common */,
 				84743B191D3D199C00270587 /* Model */,
 				84743B021D3D001B00270587 /* MMDrawerController */,
@@ -235,6 +294,7 @@
 				84C9A3681D3BE3EE008A0FC5 /* SearchCompany */,
 				848CE7501D3BB64500558E9E /* AppDelegate.swift */,
 				848CE7521D3BB64500558E9E /* ViewController.swift */,
+				846DAFEE1D450A25008D8D5F /* UIViewControllerExtensions.swift */,
 				848CE7541D3BB64500558E9E /* Main.storyboard */,
 				848CE75A1D3BB64500558E9E /* Assets.xcassets */,
 				848CE75C1D3BB64500558E9E /* LaunchScreen.storyboard */,
@@ -386,8 +446,11 @@
 			files = (
 				848CE75E1D3BB64500558E9E /* LaunchScreen.storyboard in Resources */,
 				84C9A36C1D3BE445008A0FC5 /* SearchCompanyController.xib in Resources */,
+				846DAF5C1D44B9D7008D8D5F /* project.storyboard in Resources */,
 				848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */,
+				846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */,
 				848CE7561D3BB64500558E9E /* Main.storyboard in Resources */,
+				846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,23 +599,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				84743B161D3D038600270587 /* LeftSideViewController.swift in Sources */,
+				846DAFE71D44E6FC008D8D5F /* DisccustionViewController.swift in Sources */,
+				846DAFF21D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift in Sources */,
 				848CE7531D3BB64500558E9E /* ViewController.swift in Sources */,
+				846DAFE11D44E691008D8D5F /* TabProjectViewController.swift in Sources */,
 				84C9A36B1D3BE445008A0FC5 /* SearchCompanyController.swift in Sources */,
 				84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */,
 				846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */,
 				846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */,
 				849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */,
 				849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */,
+				846DAFE31D44E6D4008D8D5F /* TaskViewController.swift in Sources */,
 				846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */,
+				846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */,
 				84743B101D3D003400270587 /* UIViewController+MMDrawerController.m in Sources */,
 				848CE7591D3BB64500558E9E /* Inco.xcdatamodeld in Sources */,
+				846DAFE51D44E6E3008D8D5F /* TicketViewController.swift in Sources */,
 				8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */,
 				84743B0E1D3D003400270587 /* MMDrawerController.m in Sources */,
 				84743B181D3D15C200270587 /* LeftMenuItemTableViewCell.swift in Sources */,
 				84743B1B1D3D19ED00270587 /* LeftMenuItem.swift in Sources */,
+				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
 				846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */,
+				846DAFEF1D450A25008D8D5F /* UIViewControllerExtensions.swift in Sources */,
 				84743B121D3D00C800270587 /* MainViewController.swift in Sources */,
 				848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */,
+				846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */,
 				84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

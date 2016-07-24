@@ -9,13 +9,27 @@
 import UIKit
 import Alamofire
 
-class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate{
+class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate{
     var projects = [ProjectCell]()
-    
+    var loadingcell :LoadingMoreCell!
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+
     @IBOutlet weak var mSearchBar: UISearchBar!
     @IBOutlet weak var mTableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.hideKeyboardWhenTappedAround()
+        // loading state
+        indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+
+        indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        indicator.bringSubviewToFront(self.view)
+        indicator.startAnimating()
+        // register loading more
+         mTableview.registerNib(UINib(nibName: "LoadingMoreCell", bundle: nil), forCellReuseIdentifier: "LoadingMoreCell")
+        mTableview.tableFooterView = UIView(frame: CGRectZero)
         getProjectList()
         // Do any additional setup after loading the view.
     }
@@ -32,43 +46,93 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
-        return projects.count;
+        if projects.count == 0 {
+            
+            return 1
+        }
+        if projects.count < IncoCommon.NUMBER_ITEMS_LOADING {
+            return projects.count
+        }
+        return projects.count+1
         
     }
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
-          let item =  projects[indexPath.row]
+       
+        if projects.count == 0 {
+            let loadingcell = tableView.dequeueReusableCellWithIdentifier("LoadingMoreCell", forIndexPath: indexPath) as! LoadingMoreCell
+                loadingcell.setEmptyState(true)
+            return loadingcell;
+        }else if projects.count < IncoCommon.NUMBER_ITEMS_LOADING {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
+            let item =  projects[indexPath.row]
             cell.mProjectName.text = item.name
             cell.mType.text = item.type
             cell.mStatus.text = item.status
             cell.mCreateAt.text = item.createAt
             cell.mCreateBy.text = item.createBy
-        return cell
+            return cell;
+
+        }else {
+            if indexPath.row == projects.count {
+                let loadingcell = tableView.dequeueReusableCellWithIdentifier("LoadingMoreCell", forIndexPath: indexPath) as! LoadingMoreCell
+               
+                    loadingcell.setEmptyState(false)
+                return loadingcell;
+            }else{
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
+                let item =  projects[indexPath.row]
+                cell.mProjectName.text = item.name
+                cell.mType.text = item.type
+                cell.mStatus.text = item.status
+                cell.mCreateAt.text = item.createAt
+                cell.mCreateBy.text = item.createBy
+                return cell;
+            
+            }
+        
+        }
+       
     }
     internal  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        switch indexPath.row {
-        case 0:
-            break
-        case 5:
-            break
-            
-        default:
-            
-            break
-            
+       
+        self.loadingcell = tableView.cellForRowAtIndexPath(indexPath) as? LoadingMoreCell
+        if self.loadingcell != nil {
+            loadingcell.setLoading(true)
+            getProjectList()
+            return
         }
+    
+        let projectStoryboard: UIStoryboard = UIStoryboard(name: "project", bundle: nil)
+            
+        let projectTabs = projectStoryboard.instantiateViewControllerWithIdentifier("TabProjectViewController") as! TabProjectViewController
+        self.navigationController?.pushViewController(projectTabs, animated: true)
+    
+    }
+    internal func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.projects.removeAll();
+        self.indicator.startAnimating()
+        self.getProjectList()
+    }
+
+    internal func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.view.endEditing(true)
+        self.projects.removeAll();
+        self.indicator.startAnimating()
+        self.getProjectList()
     }
     internal func updateSearchResultsForSearchController(searchController: UISearchController){
+       
         
     }
     internal func getProjectList(){
         let token = IncoCommon.getToken() as String
           print("token: \(token)")
         let parameters:[String:AnyObject] = [IncoApi.TOKEN_PARAMETER:token,
-                                             IncoApi.OFFSET_PARAMETER:"0",
-                                             IncoApi.LIMIT_PARAMETER :"30",
-                                             IncoApi.SEARCH_PARAMETER :""
+                                             IncoApi.OFFSET_PARAMETER:self.projects.count,
+                                             IncoApi.LIMIT_PARAMETER :IncoCommon.NUMBER_ITEMS_LOADING,
+                                             IncoApi.SEARCH_PARAMETER :self.mSearchBar.text!
                                              ]
         Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_PROJECT_LIST),parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request
@@ -83,8 +147,13 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     for item in inco.data {
                         self.projects.append(ProjectCell.createCell(item))
                     }
-                    
-                    self.mTableview.reloadData()
+                    self.indicator.stopAnimating()
+                    self.indicator.hidesWhenStopped = true
+                  
+                    if self.loadingcell != nil{
+                        self.loadingcell.setLoading(false)
+                    }
+                      self.mTableview.reloadData()
                 }
                 
             }
@@ -92,7 +161,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
 
     }
-
+ 
     /*
     // MARK: - Navigation
 
