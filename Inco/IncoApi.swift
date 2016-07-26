@@ -16,11 +16,14 @@ class IncoApi {
     static let LOGIN_DEVICE_ID  = "device_id"
     static let LOGIN_DEVICE_TYPE    =  "device_type"
     static let API_PROJECT_LIST = "/mobile_api/gateway.php?controller=project.get_list"
+    static let API_TASK_LIST =  "/mobile_api/gateway.php?controller=task.get_list"
+    static let API_TICKET_LIST = "/mobile_api/gateway.php?controller=tickets.get_list"
+    static let API_DISCUSSION_LIST = "/mobile_api/gateway.php?controller=discussions.get_list"
     static let TOKEN_PARAMETER = "token"
     static let OFFSET_PARAMETER = "offset"
     static let LIMIT_PARAMETER = "limit"
     static let SEARCH_PARAMETER = "search"
-    
+    static let AVATAR_PATH = "/uploads/users"
     // getlist project
     
     static func getLogin(company:String) -> String {
@@ -28,5 +31,8 @@ class IncoApi {
     }
     static func getApi(api: String) -> String {
         return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+api
+    }
+    static func getAvatar(avatar:String) -> String  {
+        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+AVATAR_PATH+"/"+avatar
     }
 }

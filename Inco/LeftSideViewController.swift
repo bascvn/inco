@@ -8,9 +8,16 @@
 
 import UIKit
 
+import Alamofire
+import AlamofireImage
 
 class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
+    @IBOutlet weak var mAvatar: UIImageView!
+    
+    @IBOutlet weak var mVersion: UILabel!
+    @IBOutlet weak var mEmail: UILabel!
+    @IBOutlet weak var mName: UILabel!
     var menus: [LeftMenuItem] = [ LeftMenuItem(icon: "project",subject: "Project"),
                                   LeftMenuItem(icon: "task",subject: "Task"),
                                   LeftMenuItem(icon: "ticket",subject: "Ticket"),
@@ -22,7 +29,15 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        mVersion.text = IncoCommon.getVersion()
+        let user = IncoCommon.getUsrInfo()! as NSDictionary
+        self.mEmail.text = user.valueForKey("email") as? String
+        self.mName.text  = user.valueForKey("name") as? String
+        let avatar = user.valueForKey("photo") as? String
+        if avatar != nil{
+            let downloadURL = NSURL(string: IncoApi.getAvatar(avatar!))
+                mAvatar.af_setImageWithURL(downloadURL!)
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -59,7 +74,22 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
     }
     internal  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         switch indexPath.row {
-        case 0:
+        case 0,1,2,3:
+            let mainViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
+                as! MainViewController
+            let mainNavContoller = UINavigationController(rootViewController: mainViewController)
+            let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            if indexPath.row == 1 {
+                    mainViewController.type = ComponentType.TASKS
+            }else if indexPath.row == 2{
+                mainViewController.type = ComponentType.TICKET
+
+            }else if indexPath.row == 3{
+                mainViewController.type = ComponentType.DISCUSSTION
+            }else{
+            }
+            appDelegate.centerContainer?.centerViewController = mainNavContoller
+            appDelegate.centerContainer?.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
             break
         case 5:
             let callActionHandler = { (action:UIAlertAction!) -> Void in

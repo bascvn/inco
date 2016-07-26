@@ -10,14 +10,18 @@ import UIKit
 import Alamofire
 
 class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate{
-    var projects = [ProjectCell]()
+    var projects = [BaseComponentCell]()
     var loadingcell :LoadingMoreCell!
+    var type:ComponentType = ComponentType.PROJECT
+    
     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
 
     @IBOutlet weak var mSearchBar: UISearchBar!
     @IBOutlet weak var mTableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set title
+        self.setTitleView(type)
         //self.hideKeyboardWhenTappedAround()
         // loading state
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
@@ -29,6 +33,9 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         indicator.startAnimating()
         // register loading more
          mTableview.registerNib(UINib(nibName: "LoadingMoreCell", bundle: nil), forCellReuseIdentifier: "LoadingMoreCell")
+         mTableview.registerNib(UINib(nibName: "TaskCellTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskCellTableViewCell")
+        mTableview.registerNib(UINib(nibName: "TicketTableViewCell", bundle: nil), forCellReuseIdentifier: "TicketTableViewCell")
+         mTableview.registerNib(UINib(nibName: "DiscussionTableViewCell", bundle: nil), forCellReuseIdentifier: "DiscussionTableViewCell")
         mTableview.tableFooterView = UIView(frame: CGRectZero)
         getProjectList()
         // Do any additional setup after loading the view.
@@ -63,16 +70,8 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 loadingcell.setEmptyState(true)
             return loadingcell;
         }else if projects.count < IncoCommon.NUMBER_ITEMS_LOADING {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
-            let item =  projects[indexPath.row]
-            cell.mProjectName.text = item.name
-            cell.mType.text = item.type
-            cell.mStatus.text = item.status
-            cell.mCreateAt.text = item.createAt
-            cell.mCreateBy.text = item.createBy
-            return cell;
-
+             return self.createCell(type, item: self.projects[indexPath.row], tableView: tableView, cellForRowAtIndexPath: indexPath)
+          
         }else {
             if indexPath.row == projects.count {
                 let loadingcell = tableView.dequeueReusableCellWithIdentifier("LoadingMoreCell", forIndexPath: indexPath) as! LoadingMoreCell
@@ -80,15 +79,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     loadingcell.setEmptyState(false)
                 return loadingcell;
             }else{
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
-                let item =  projects[indexPath.row]
-                cell.mProjectName.text = item.name
-                cell.mType.text = item.type
-                cell.mStatus.text = item.status
-                cell.mCreateAt.text = item.createAt
-                cell.mCreateBy.text = item.createBy
-                return cell;
+               return self.createCell(type, item: self.projects[indexPath.row], tableView: tableView, cellForRowAtIndexPath: indexPath)
             
             }
         
@@ -134,7 +125,8 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                                              IncoApi.LIMIT_PARAMETER :IncoCommon.NUMBER_ITEMS_LOADING,
                                              IncoApi.SEARCH_PARAMETER :self.mSearchBar.text!
                                              ]
-        Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_PROJECT_LIST),parameters: parameters) .responseJSON { response in // 1
+        let url = self.getAPI(self.type)
+        Alamofire.request(.POST, url,parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request
             print(response.response) // URL response
             print(response.data)     // server data
@@ -145,7 +137,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let inco = IncoResponse(data: JSON as! NSDictionary)
                 if inco.isOK(){
                     for item in inco.data {
-                        self.projects.append(ProjectCell.createCell(item))
+                        self.addItemToList(item)
                     }
                     self.indicator.stopAnimating()
                     self.indicator.hidesWhenStopped = true
@@ -161,7 +153,84 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
 
     }
- 
+    func setTitleView(type:ComponentType)  {
+        switch type {
+        case ComponentType.PROJECT:
+            self.title = "Projects"
+        case ComponentType.TASKS:
+            self.title = "Tasks"
+        case ComponentType.TICKET:
+            self.title = "Tickets"
+        case ComponentType.DISCUSSTION:
+            self.title = "Discussions"
+        }
+    }
+    func addItemToList(item:NSDictionary)  {
+        switch type {
+        case ComponentType.PROJECT:
+            self.projects.append(ProjectCell.createCell(item))
+        case ComponentType.TASKS:
+            self.projects.append(TaskCell.createCell(item))
+        case ComponentType.TICKET:
+            self.projects.append(TicketCell.createCell(item))
+        case ComponentType.DISCUSSTION:
+            self.projects.append(DiscussionCell.createCell(item))
+        }
+    }
+    func getAPI(type: ComponentType) -> String {
+        var url:String?
+        switch type {
+            case ComponentType.PROJECT:
+                 url = IncoApi.getApi(IncoApi.API_PROJECT_LIST)
+            case ComponentType.TASKS:
+                 url = IncoApi.getApi(IncoApi.API_TASK_LIST)
+            case ComponentType.TICKET:
+                 url = IncoApi.getApi(IncoApi.API_TICKET_LIST)
+            case ComponentType.DISCUSSTION:
+                url = IncoApi.getApi(IncoApi.API_DISCUSSION_LIST)
+        }
+        return url!
+    }
+    func createCell(type:ComponentType,item:BaseComponentCell,tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell:UITableViewCell
+        switch type {
+        case ComponentType.PROJECT:
+            cell  = tableView.dequeueReusableCellWithIdentifier("projectcell", forIndexPath: indexPath) as! ProjectViewCell
+            let item =  item as! ProjectCell
+            (cell as! ProjectViewCell).mProjectName.text = item.name
+            (cell as! ProjectViewCell).mType.text = item.type
+            (cell as! ProjectViewCell).mStatus.text = item.status
+            (cell as! ProjectViewCell).mCreateAt.text = item.createAt
+            (cell as! ProjectViewCell).mCreateBy.text = item.createBy
+        
+        case ComponentType.TASKS:
+            cell  = tableView.dequeueReusableCellWithIdentifier("TaskCellTableViewCell", forIndexPath: indexPath) as! TaskCellTableViewCell
+            let item =  item as! TaskCell
+           (cell as! TaskCellTableViewCell).mTaskName.text = item.name
+            (cell as! TaskCellTableViewCell).mStatus.text = item.tasks_status
+            (cell as! TaskCellTableViewCell).mPriority.text = item.tasks_priority
+            (cell as! TaskCellTableViewCell).mAssignTo.text = item.assigned_to
+            (cell as! TaskCellTableViewCell).mProjectName.text = item.projects
+        case ComponentType.TICKET:
+            cell  = tableView.dequeueReusableCellWithIdentifier("TicketTableViewCell", forIndexPath: indexPath) as! TicketTableViewCell
+            let item =  item as! TicketCell
+            (cell as! TicketTableViewCell).mProjectName.text = item.project
+            (cell as! TicketTableViewCell).mStatus.text = item.tickets_status
+            (cell as! TicketTableViewCell).mCreateBy.text = item.create_by
+            (cell as! TicketTableViewCell).mDepartment.text = item.departments
+            (cell as! TicketTableViewCell).mTicketName.text = item.name
+        case ComponentType.DISCUSSTION:
+            cell  = tableView.dequeueReusableCellWithIdentifier("DiscussionTableViewCell", forIndexPath: indexPath) as! DiscussionTableViewCell
+            let item =  item as! DiscussionCell
+            (cell as! DiscussionTableViewCell).mDiscussionName.text = item.name
+            (cell as! DiscussionTableViewCell).mProjectName.text = item.projects
+            (cell as! DiscussionTableViewCell).mCreateBy.text = item.create_by
+            (cell as! DiscussionTableViewCell).mStatusName.text = item.status
+
+            
+        }
+        return cell
+    }
     /*
     // MARK: - Navigation
 

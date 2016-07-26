@@ -1,27 +1,22 @@
 //
-//  TaskCellTableViewCell.swift
+//  TicketTableViewCell.swift
 //  Inco
 //
-//  Created by admin on 7/24/16.
+//  Created by admin on 7/26/16.
 //  Copyright © 2016 Ban Sac. All rights reserved.
 //
 
 import UIKit
 
-class TaskCellTableViewCell: UITableViewCell {
+class TicketTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var mTaskName: UILabel!
-    
     @IBOutlet weak var mProjectName: UILabel!
     
+    @IBOutlet weak var mDepartment: UILabel!
+    
+    @IBOutlet weak var mCreateBy: UILabel!
     @IBOutlet weak var mStatus: UILabel!
-    
-    
-    @IBOutlet weak var mPriority: UILabel!
-    
-    
-    @IBOutlet weak var mAssignTo: UILabel!
-    
+    @IBOutlet weak var mTicketName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

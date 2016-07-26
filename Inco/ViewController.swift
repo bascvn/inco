@@ -17,10 +17,25 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mCompany: UITextField!
     
+    @IBOutlet weak var mVersion: UILabel!
+    
+    @IBOutlet weak var mRemeber: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view, typically from a nib.
+        if IncoCommon.isRemember() == true{
+           mRemeber.setOn(true, animated: true)
+           let user = IncoCommon.getUsrInfo()! as NSDictionary
+           // if user != nil{
+                mCompany.text = IncoCommon.getClientID();
+                mEmail.text = user.valueForKey("email") as? String
+            //}
+        }else{
+            mRemeber.setOn(false, animated: true)
+
+        }
+        mVersion.text = IncoCommon.getVersion()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +69,8 @@ class ViewController: UIViewController {
                         if token.characters.count > 0{
                             IncoCommon.saveToken(token)
                             IncoCommon.saveClientID(self.mCompany.text!)
+                            IncoCommon.saveUserInfo(data[0].valueForKey("user") as! NSDictionary)
+                            IncoCommon.setRemember(self.mRemeber.on)
                             self.loginSucess()
                             return
                         }

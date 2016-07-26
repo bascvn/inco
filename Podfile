@@ -6,6 +6,7 @@ target 'Inco' do
   use_frameworks!
   pod "TextFieldEffects"
   pod 'Alamofire', '~> 3.4'
+  pod 'AlamofireImage'
   # Pods for Inco
 
   target 'IncoTests' do

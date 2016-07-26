@@ -17,8 +17,8 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkn-ms-4TG">
                         <rect key="frame" x="16" y="16" width="395" height="28"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                        <color key="textColor" red="0.050980392156862744" green="0.38823529411764707" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXr-fR-VaN">
@@ -92,6 +92,13 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Wkn-ms-4TG" secondAttribute="trailing" constant="8" id="zhM-hC-DTG"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="mAssignTo" destination="HbM-9Z-bbA" id="z6H-SH-Y9Z"/>
+                <outlet property="mPriority" destination="n7J-MT-WJK" id="jfg-qx-DN1"/>
+                <outlet property="mProjectName" destination="d6T-ay-o6V" id="Wsp-hf-tKf"/>
+                <outlet property="mStatus" destination="Hlk-Nl-KXp" id="gjO-ll-74F"/>
+                <outlet property="mTaskName" destination="Wkn-ms-4TG" id="KWq-p5-bIv"/>
+            </connections>
             <point key="canvasLocation" x="325.5" y="383"/>
         </tableViewCell>
     </objects>
