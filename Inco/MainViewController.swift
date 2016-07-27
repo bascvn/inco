@@ -37,6 +37,9 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         mTableview.registerNib(UINib(nibName: "TicketTableViewCell", bundle: nil), forCellReuseIdentifier: "TicketTableViewCell")
          mTableview.registerNib(UINib(nibName: "DiscussionTableViewCell", bundle: nil), forCellReuseIdentifier: "DiscussionTableViewCell")
         mTableview.tableFooterView = UIView(frame: CGRectZero)
+        //
+        //self.mTableview.rowHeight = UITableViewAutomaticDimension
+       // self.mTableview.estimatedRowHeight = 200
         getProjectList()
         // Do any additional setup after loading the view.
     }
@@ -94,7 +97,33 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             getProjectList()
             return
         }
-    
+        switch self.type {
+            case ComponentType.TASKS:
+                let tabBarController = DetailTabBarViewController()
+                tabBarController.title = (self.projects[indexPath.row] as! TaskCell).name
+            
+                let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
+                
+                let detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTableViewController") as! DetailTableViewController
+                detail.item = self.projects[indexPath.row] as! TaskCell
+                let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
+                let controllers = [detail,comment]
+                tabBarController.viewControllers = controllers
+                let firstImage = UIImage(named: "tabs_ticket")
+                let secondImage = UIImage(named: "tabs_discusstion")
+                detail.tabBarItem = UITabBarItem(
+                    title: "d",
+                    image: firstImage,
+                    tag: 1)
+                comment.tabBarItem = UITabBarItem(
+                    title: "d",
+                    image: secondImage,
+                    tag:2)
+                self.navigationController?.pushViewController(tabBarController, animated: true)
+                return
+            default: break
+        
+        }
         let projectStoryboard: UIStoryboard = UIStoryboard(name: "project", bundle: nil)
             
         let projectTabs = projectStoryboard.instantiateViewControllerWithIdentifier("TabProjectViewController") as! TabProjectViewController
@@ -102,7 +131,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     }
     internal func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.projects.removeAll();
+        self.projects.removeAll()
         self.indicator.startAnimating()
         self.getProjectList()
     }

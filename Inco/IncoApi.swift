@@ -19,6 +19,10 @@ class IncoApi {
     static let API_TASK_LIST =  "/mobile_api/gateway.php?controller=task.get_list"
     static let API_TICKET_LIST = "/mobile_api/gateway.php?controller=tickets.get_list"
     static let API_DISCUSSION_LIST = "/mobile_api/gateway.php?controller=discussions.get_list"
+    static let API_GET_TASK = "/index.php/mobile/tasks"
+    
+    static let ID_PARAMETER = "id"
+    static let PROJECT_ID_PARAMETER = "projects_id"
     static let TOKEN_PARAMETER = "token"
     static let OFFSET_PARAMETER = "offset"
     static let LIMIT_PARAMETER = "limit"

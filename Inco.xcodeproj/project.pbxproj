@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73901D48D89E00E95A71 /* DetailTabBarViewController.swift */; };
+		845A73931D48D89E00E95A71 /* DetailTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */; };
+		845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */; };
+		845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */; };
+		845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */; };
+		845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */; };
+		845A73A31D48F34700E95A71 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A21D48F34700E95A71 /* Attachment.swift */; };
+		845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A41D48F4D800E95A71 /* DetailBaseComponent.swift */; };
+		845A73A71D48F88900E95A71 /* DetailTaskComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A61D48F88900E95A71 /* DetailTaskComponent.swift */; };
+		845A73A91D48F98500E95A71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A81D48F98500E95A71 /* User.swift */; };
 		846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66251D3E58B20015CCFB /* ErrorMess.swift */; };
 		846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66271D3E5A5B0015CCFB /* CommonMess.swift */; };
 		846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66291D3E6A4E0015CCFB /* IncoApi.swift */; };
@@ -82,6 +92,16 @@
 		6EB910AAD84334FA20D8DCD3 /* Pods-Inco.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inco.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Inco/Pods-Inco.debug.xcconfig"; sourceTree = "<group>"; };
 		79BAA288602D22EBF747F872 /* Pods-IncoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IncoUITests/Pods-IncoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C187C2B21BBE80532735970 /* Pods-IncoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IncoUITests/Pods-IncoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		845A73901D48D89E00E95A71 /* DetailTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTabBarViewController.swift; sourceTree = "<group>"; };
+		845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTabBarViewController.xib; sourceTree = "<group>"; };
+		845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
+		845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewController.xib; sourceTree = "<group>"; };
+		845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = detailcomponent.storyboard; sourceTree = "<group>"; };
+		845A73A21D48F34700E95A71 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		845A73A41D48F4D800E95A71 /* DetailBaseComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBaseComponent.swift; sourceTree = "<group>"; };
+		845A73A61D48F88900E95A71 /* DetailTaskComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTaskComponent.swift; sourceTree = "<group>"; };
+		845A73A81D48F98500E95A71 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		846A66251D3E58B20015CCFB /* ErrorMess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMess.swift; sourceTree = "<group>"; };
 		846A66271D3E5A5B0015CCFB /* CommonMess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMess.swift; sourceTree = "<group>"; };
 		846A66291D3E6A4E0015CCFB /* IncoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoApi.swift; sourceTree = "<group>"; };
@@ -192,6 +212,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		845A738F1D48D85800E95A71 /* DetailComponent */ = {
+			isa = PBXGroup;
+			children = (
+				845A73901D48D89E00E95A71 /* DetailTabBarViewController.swift */,
+				845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */,
+				845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */,
+				845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */,
+				845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */,
+				845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */,
+			);
+			name = DetailComponent;
+			sourceTree = "<group>";
+		};
 		846A66241D3E57F60015CCFB /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +309,10 @@
 				84AF2B711D477F1300F31080 /* BaseComponentCell.swift */,
 				84AF2B771D47A10400F31080 /* TicketCell.swift */,
 				84AF2B791D47A3C000F31080 /* DiscussionCell.swift */,
+				845A73A21D48F34700E95A71 /* Attachment.swift */,
+				845A73A41D48F4D800E95A71 /* DetailBaseComponent.swift */,
+				845A73A61D48F88900E95A71 /* DetailTaskComponent.swift */,
+				845A73A81D48F98500E95A71 /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -305,6 +342,7 @@
 		848CE74F1D3BB64500558E9E /* Inco */ = {
 			isa = PBXGroup;
 			children = (
+				845A738F1D48D85800E95A71 /* DetailComponent */,
 				846DAFF01D450EDC008D8D5F /* CustomView */,
 				846DAF5A1D44B9AF008D8D5F /* ProjectTabs */,
 				846DAF551D4459E9008D8D5F /* TableCell */,
@@ -470,10 +508,13 @@
 				846DAF5C1D44B9D7008D8D5F /* project.storyboard in Resources */,
 				848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */,
 				846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */,
+				845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */,
+				845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */,
 				848CE7561D3BB64500558E9E /* Main.storyboard in Resources */,
 				846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */,
 				84AF2B761D47932D00F31080 /* TicketTableViewCell.xib in Resources */,
 				84AF2B7E1D47A53400F31080 /* DiscussionTableViewCell.xib in Resources */,
+				845A73931D48D89E00E95A71 /* DetailTabBarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +668,8 @@
 				848CE7531D3BB64500558E9E /* ViewController.swift in Sources */,
 				846DAFE11D44E691008D8D5F /* TabProjectViewController.swift in Sources */,
 				84C9A36B1D3BE445008A0FC5 /* SearchCompanyController.swift in Sources */,
+				845A73A71D48F88900E95A71 /* DetailTaskComponent.swift in Sources */,
+				845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */,
 				84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */,
 				846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */,
 				846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */,
@@ -641,10 +684,13 @@
 				84AF2B721D477F1300F31080 /* BaseComponentCell.swift in Sources */,
 				846DAFE51D44E6E3008D8D5F /* TicketViewController.swift in Sources */,
 				84AF2B7A1D47A3C000F31080 /* DiscussionCell.swift in Sources */,
+				845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */,
 				8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */,
 				84743B0E1D3D003400270587 /* MMDrawerController.m in Sources */,
 				84743B181D3D15C200270587 /* LeftMenuItemTableViewCell.swift in Sources */,
+				845A73A31D48F34700E95A71 /* Attachment.swift in Sources */,
 				84743B1B1D3D19ED00270587 /* LeftMenuItem.swift in Sources */,
+				845A73A91D48F98500E95A71 /* User.swift in Sources */,
 				84AF2B7D1D47A53400F31080 /* DiscussionTableViewCell.swift in Sources */,
 				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
 				846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */,
@@ -653,7 +699,9 @@
 				848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */,
 				84AF2B751D47932D00F31080 /* TicketTableViewCell.swift in Sources */,
 				846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */,
+				845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */,
 				84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */,
+				845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
