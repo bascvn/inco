@@ -25,7 +25,6 @@ class DetailTaskComponent: DetailBaseComponent {
         init(data:NSDictionary){
             self.id = data.valueForKey("id") as? String
             self.label = data.valueForKey("label") as? String
-            self.label = data.valueForKey("users") as? String
             self.status = data.valueForKey("status") as? String
             self.priority = data.valueForKey("priority") as? String
             self.type = data.valueForKey("type") as? String

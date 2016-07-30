@@ -12,5 +12,5 @@ enum ComponentType {
     case PROJECT, TASKS, TICKET , DISCUSSTION
 }
 class BaseComponentCell{
-    
+    var id:String?
 }

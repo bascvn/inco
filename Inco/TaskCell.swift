@@ -8,7 +8,7 @@
 
 import Foundation
 class TaskCell : BaseComponentCell{
-        var id :String?
+      //  var id :String?
         var name :String?
         var projects :String?
         var tasks_priority:String?

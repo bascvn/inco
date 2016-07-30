@@ -31,6 +31,10 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.view.addSubview(indicator)
         indicator.bringSubviewToFront(self.view)
         indicator.startAnimating()
+       // self.mTableview.estimatedRowHeight = 44
+        //self.mTableview.rowHeight = UITableViewAutomaticDimension
+        
+
         // register loading more
          mTableview.registerNib(UINib(nibName: "LoadingMoreCell", bundle: nil), forCellReuseIdentifier: "LoadingMoreCell")
          mTableview.registerNib(UINib(nibName: "TaskCellTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskCellTableViewCell")
@@ -105,18 +109,20 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
                 
                 let detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTableViewController") as! DetailTableViewController
-                detail.item = self.projects[indexPath.row] as! TaskCell
+                detail.item = self.projects[indexPath.row] as? TaskCell
                 let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
+                comment.type = self.type
+                comment.id = self.projects[indexPath.row].id!
                 let controllers = [detail,comment]
                 tabBarController.viewControllers = controllers
                 let firstImage = UIImage(named: "tabs_ticket")
                 let secondImage = UIImage(named: "tabs_discusstion")
                 detail.tabBarItem = UITabBarItem(
-                    title: "d",
+                    title: "",
                     image: firstImage,
                     tag: 1)
                 comment.tabBarItem = UITabBarItem(
-                    title: "d",
+                    title: "",
                     image: secondImage,
                     tag:2)
                 self.navigationController?.pushViewController(tabBarController, animated: true)

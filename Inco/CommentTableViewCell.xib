@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentTableViewCell" rowHeight="179" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="Inco" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="347" height="179"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="347" height="178"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_default" translatesAutoresizingMaskIntoConstraints="NO" id="kPZ-ju-ggb">
+                        <rect key="frame" x="8" y="8" width="50" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="5xm-q6-GxM"/>
+                            <constraint firstAttribute="height" constant="60" id="hbo-kt-ADV"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pham Duc Kien" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rm0-yq-t61">
+                        <rect key="frame" x="66" y="8" width="273" height="20"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                        <color key="textColor" red="0.050980392159999999" green="0.38823529410000002" blue="0.56078431370000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3u7-ja-G5G">
+                        <rect key="frame" x="8" y="76" width="331" height="94"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-07-12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BN-VB-5wJ">
+                        <rect key="frame" x="66" y="36" width="273" height="17"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="kPZ-ju-ggb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="3tx-od-HRv"/>
+                    <constraint firstItem="3u7-ja-G5G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="7X7-di-bme"/>
+                    <constraint firstItem="3u7-ja-G5G" firstAttribute="top" secondItem="kPZ-ju-ggb" secondAttribute="bottom" constant="8" id="IJe-WH-BYE"/>
+                    <constraint firstAttribute="bottom" secondItem="3u7-ja-G5G" secondAttribute="bottom" constant="8" id="SIN-QN-AeW"/>
+                    <constraint firstItem="2BN-VB-5wJ" firstAttribute="leading" secondItem="kPZ-ju-ggb" secondAttribute="trailing" constant="8" id="Woc-tP-QbR"/>
+                    <constraint firstAttribute="trailing" secondItem="Rm0-yq-t61" secondAttribute="trailing" constant="8" id="ZaL-9h-9Pg"/>
+                    <constraint firstItem="Rm0-yq-t61" firstAttribute="leading" secondItem="kPZ-ju-ggb" secondAttribute="trailing" constant="8" id="g0y-ZP-3Fq"/>
+                    <constraint firstItem="kPZ-ju-ggb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="j1q-lx-h6Z"/>
+                    <constraint firstAttribute="trailing" secondItem="3u7-ja-G5G" secondAttribute="trailing" constant="8" id="pDH-b9-7zn"/>
+                    <constraint firstItem="2BN-VB-5wJ" firstAttribute="top" secondItem="Rm0-yq-t61" secondAttribute="bottom" constant="8" id="vFW-Ud-hSO"/>
+                    <constraint firstAttribute="trailing" secondItem="2BN-VB-5wJ" secondAttribute="trailing" constant="8" id="vqT-IZ-vU6"/>
+                    <constraint firstItem="Rm0-yq-t61" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="yMi-n8-erK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mAvatar" destination="kPZ-ju-ggb" id="xhl-eQ-43z"/>
+                <outlet property="mCreateAt" destination="2BN-VB-5wJ" id="qWk-uK-rVz"/>
+                <outlet property="mDiscription" destination="3u7-ja-G5G" id="Ymf-cC-13W"/>
+                <outlet property="mName" destination="Rm0-yq-t61" id="CXb-8s-96C"/>
+            </connections>
+            <point key="canvasLocation" x="428.5" y="295.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="avatar_default" width="32" height="32"/>
+    </resources>
+</document>

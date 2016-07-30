@@ -9,7 +9,7 @@
 import Foundation
 
 class TicketCell: BaseComponentCell{
-    var id :String?
+   // var id :String?
     var name :String?
     var departments :String?
     var tickets_status:String?

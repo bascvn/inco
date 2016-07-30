@@ -9,10 +9,12 @@
 import UIKit
 
 class DetailTabBarViewController: UITabBarController {
-
+    var add:UIBarButtonItem?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
+        add = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: nil)
+      // navigationItem.rightBarButtonItem = add
         // Do any additional setup after loading the view.
     }
 
@@ -20,7 +22,14 @@ class DetailTabBarViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.tag == 2{
+            navigationItem.rightBarButtonItems = [add!]
+        }else{
+            navigationItem.rightBarButtonItems = []
+
+        }
+    }
 
     /*
     // MARK: - Navigation

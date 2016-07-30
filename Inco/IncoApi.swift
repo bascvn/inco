@@ -28,6 +28,15 @@ class IncoApi {
     static let LIMIT_PARAMETER = "limit"
     static let SEARCH_PARAMETER = "search"
     static let AVATAR_PATH = "/uploads/users"
+    // comments
+    static let API_COMMENT_OF_TASK = "/mobile_api/gateway.php?controller=task.get_comments"
+    static let API_COMMENT_OF_TICKET = "/mobile_api/gateway.php?controller=tickets.get_comments"
+    static let API_COMMENT_OF_DISCUSSIONS = "/mobile_api/gateway.php?controller=discussions.get_comments"
+    static let API_COMMENT_OF_PROJECT = "/index.php/mobile/projectscomments"
+    static let TASK_ID_PARAMETER = "task_id"
+    static let TICKET_ID_PARAMETER = "ticket_id"
+    static let DISCUSSION_ID_PARAMETER = "discussion_id"
+    
     // getlist project
     
     static func getLogin(company:String) -> String {
