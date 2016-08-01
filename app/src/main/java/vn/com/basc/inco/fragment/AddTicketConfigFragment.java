@@ -238,8 +238,13 @@ public class AddTicketConfigFragment extends Fragment {
                         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerStatus.setAdapter(statusAdapter);
                         spinnerStatus.setSelection(getIndexof(listStatus,ticketForm.ticketsStatusDefault));
-                        buildLayoutUser(ticketForm.users);
+                        if(ticketForm.users == null){
+
+                        }else {
+                            buildLayoutUser(ticketForm.users);
+                        }
                         buildNotifyLayout(ticketForm.notify);
+
                     }
                 } catch (JSONException e) {
 

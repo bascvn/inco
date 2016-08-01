@@ -153,6 +153,11 @@
     <string name="data_empty">Không có dữ liệu</string>
     <string name="please_reload">Hãy thử tại lại.</string>
     <string name="reload">TẢI LẠI</string>
-
+    <string name="alert">Thông Báo</string>
+    <string name="company_not_exits">Tài Khoản công ty không tồn tại.</string>
+    <string name="have_new_version">Đã có phiên bản %s mới</string>
+    <string name="update">Cập Nhật</string>
+    <string name="version">INCO v %s</string>
+    <string name="id">ID</string>
 
 </resources>

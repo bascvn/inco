@@ -1,19 +1,38 @@
 package vn.com.basc.inco;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import vn.com.basc.inco.common.Globals;
+import vn.com.basc.inco.common.INCOResponse;
 import vn.com.basc.inco.database.INCODatabase;
+import vn.com.basc.inco.model.Company;
 import vn.com.basc.inco.model.User;
 
 /**
@@ -189,6 +208,19 @@ public class INCOApplication extends Application {
             // Commit the edits!
             editor.commit();
         }
+        public  void saveVersionBuild(String version){
+            SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("version", version);
+            // Commit the edits!
+            editor.commit();
+        }
+        public String getVersionBuild(){
+            SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
+            Gson gson = new Gson();
+            String version = settings.getString("version","0");
+             return version;
+        }
         public User getUserInfo(){
             SharedPreferences settings = getSharedPreferences(INCO_USER_CONFIG, 0);
             Gson gson = new Gson();
@@ -205,18 +237,146 @@ public class INCOApplication extends Application {
             return Globals.PROTOCOL+Globals.LOGO_PATH+"/"+logo;
         }
         public String getUrlApi(String api){
-            return Globals.PROTOCOL+getCompanyAddress()+api;
+            return Globals.NEW_PROTOCOL+getCompanyAddress()+"."+Globals.NEW_DOMAIN+"/"+getCompanyAddress()+api;
         }
         public String getUrlGetCompany(){
             return Globals.PROTOCOL+Globals.API_GET_COMPANY;
         }
+        public String getUrlGetCompanyStatus(){
+            return Globals.PROTOCOL+Globals.API_GET_COMPANY_STATUS;
+        }
         public String getAvatarUrl(String avatar){
-            return Globals.PROTOCOL+getCompanyAddress()+"/"+Globals.AVATAR_PATH+"/"+avatar;
+            return Globals.NEW_PROTOCOL+getCompanyAddress()+"."+Globals.NEW_DOMAIN+"/"+getCompanyAddress()+"/"+Globals.AVATAR_PATH+"/"+avatar;
         }
     public String getVersion(){
         int versionCode = BuildConfig.VERSION_CODE;
         String versionName = BuildConfig.VERSION_NAME;
         String verison = String.format(getResources().getString(R.string.version),versionName+"("+ String.valueOf(versionCode)+")");
         return verison;
+    }
+    public void checkCompanyStatus(final String ClientCode, final Activity activity){
+
+        //  RequestQueue queue = Volley.newRequestQueue(getBaseContext());
+        final String url = this.getUrlGetCompanyStatus();
+        Log.d("response", "url:" + url);
+        Log.d("response", "ClientCode:" + ClientCode);
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("login", response);
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))) {
+                        new AlertDialog.Builder(activity)
+                                .setTitle(R.string.alert)
+                                .setMessage(R.string.company_not_exits)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setPositiveButton(android.R.string.yes, null).show();
+                                //.setNegativeButton(android.R.string.no, null).show();
+                    } else {
+                        String productStr = obj.getString(INCOResponse.DATA_TAG);
+                        Log.d("kienbk1910", productStr);
+                        Gson gson = new Gson();
+                        final Company data = (Company) gson.fromJson(productStr,
+                                new TypeToken<Company>() {
+                                }.getType());
+                        if(data.getStatus() != null && data.getStatus().equals("0")){
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.alert)
+                                    .setMessage(data.getMsg())
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            INCOApplication.getInstance().myDatabase.cleanDatabase();
+
+                                            INCOApplication.getInstance().removeToken();
+                                            Intent intent = new Intent(activity, LoginActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                        }
+                                    }).show();
+                        }else {
+                            if (data.getStatus() != null && !data.getStatus().equals("1")) {
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.alert)
+                                        .setMessage(data.getMsg())
+                                        .setIcon(R.mipmap.ic_launcher)
+                                        .setPositiveButton(android.R.string.yes, null)
+                                        .show();
+                            } else {
+                                if(data.getBuildNumber() == null){
+                                    return;
+                                }
+                                int version = Integer.parseInt(data.getBuildNumber());
+                                if(version > BuildConfig.VERSION_CODE && !INCOApplication.getInstance().getVersionBuild().equals(data.getBuildNumber())) {
+                                    String verison = String.format(getResources().getString(R.string.have_new_version),data.getAndroid_ver());
+
+                                    new AlertDialog.Builder(activity)
+                                            .setTitle(R.string.alert)
+                                            .setMessage(verison )
+                                            .setIcon(R.mipmap.ic_launcher)
+                                            .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        Intent myIntent =new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl_android()));
+                                                        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        startActivity(myIntent);
+                                                    }catch (Exception e){
+
+                                                    }
+                                                }
+                                            })
+                                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    INCOApplication.getInstance().saveVersionBuild(data.getBuildNumber());
+
+                                                }
+                                            }).show();
+                                }
+                            }
+                        }
+
+                    }
+                }catch (JSONException e){
+                    Log.e("login", "JSONException:"+e.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              /*  NetworkResponse response = error.networkResponse;
+                error.hashCode();
+                Log.d("response",String.valueOf(response.statusCode));
+                if(response != null && response.data != null){
+                    Log.d("response",String.valueOf(response.statusCode));
+                    switch(response.statusCode){
+
+                        case 400:
+
+                            break;
+                    }
+                    //Additional cases
+                }*/
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put(Globals.CLIENT_CODE,ClientCode);
+
+                return params;
+            }
+        };
+       /* int socketTimeout = 10000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);*/
+        // queue.add(request);
+
+        INCOApplication.getInstance().addToRequestQueue(request);
     }
 }

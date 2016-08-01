@@ -22,14 +22,19 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import vn.com.basc.inco.INCOApplication;
 import vn.com.basc.inco.R;
+import vn.com.basc.inco.common.Globals;
 import vn.com.basc.inco.common.INCOResponse;
 import vn.com.basc.inco.model.Company;
 import vn.com.basc.inco.network.CustomVolleyRequest;
@@ -91,15 +96,33 @@ public class CompanyAdapter extends ArrayAdapter<Company> {
                 if (constraint != null) {
                     URL url = null;
                     try {
-                        url = new URL(INCOApplication.getInstance().getUrlGetCompany()+"?search="+constraint.toString());
-                        URLConnection jc = url.openConnection();
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(jc.getInputStream()));
+                        Map<String,Object> params = new LinkedHashMap<>();
+                        params.put(Globals.SEARCH_WORD, constraint.toString());
+
+                        StringBuilder postData = new StringBuilder();
+                        for (Map.Entry<String,Object> param : params.entrySet()) {
+                            if (postData.length() != 0) postData.append('&');
+                            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                            postData.append('=');
+                            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                        }
+                        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+                        url = new URL(INCOApplication.getInstance().getUrlGetCompany());
+                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                        conn.setRequestMethod("POST");
+                        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                        conn.setDoOutput(true);
+                         conn.getOutputStream().write(postDataBytes);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                         StringBuilder sb = new StringBuilder();
                         String line = null;
                         while ((line = reader.readLine()) != null)
                         {
                             sb.append(line + "\n");
                         }
+                        Log.e("new","len:"+sb.toString().length());
+                        Log.e("new","json:"+sb.toString());
                         JSONObject obj = new JSONObject(sb.toString());
                         if (INCOResponse.isError(obj.getString(INCOResponse.STATUS_TAG))) {
                             Log.e("login", "STATUS_TAG:");

@@ -115,7 +115,7 @@ public class MainActivity extends INCOActivity
         INCOApplication myApplication = (INCOApplication) getApplication();
         User user = myApplication.getUserInfo();
 
-
+        myApplication.checkCompanyStatus(myApplication.getCompanyAddress(),this);
         if(user != null && user.getName()!= null){
             mUserName.setText(user.getName());
         }
@@ -232,7 +232,7 @@ public class MainActivity extends INCOActivity
             public void onResponse(String response) {
                     Log.d("kienbk1910","logout : "+response);
                 INCOApplication.getInstance().myDatabase.cleanDatabase();
-
+                INCOApplication.getInstance().saveVersionBuild("0");
                 (( INCOApplication) getApplication()).removeToken();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);

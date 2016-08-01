@@ -19,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 
 import java.io.IOException;
@@ -297,12 +298,15 @@ public class NotificationUtils {
 
     // Playing notification sound
     public void playNotificationSound() {
+        Log.d("playNotificationSound","run");
+
         try {
             Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                     + "://" + INCOApplication.getInstance().getApplicationContext().getPackageName() + "/raw/notification");
             Ringtone r = RingtoneManager.getRingtone(INCOApplication.getInstance().getApplicationContext(), alarmSound);
             r.play();
         } catch (Exception e) {
+            Log.d("playNotificationSound",e.toString());
             e.printStackTrace();
         }
     }

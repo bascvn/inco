@@ -47,6 +47,9 @@ public class GcmIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         String key = intent.getStringExtra(KEY);
+        if(key == null){
+            key ="";
+        }
         switch (key) {
             case SUBSCRIBE:
                 // subscribe to a topic

@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        mComnayView.setThreshold(0);
+        mComnayView.setThreshold(3);
         companies = new ArrayList<Company>();
         companyAdapter = new CompanyAdapter(getApplicationContext(),R.layout.search_company);
         mComnayView.setAdapter(companyAdapter);
@@ -276,8 +276,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             ((INCOApplication) getApplication()).saveCompanyAddress(company);
             showProgress(true);
-
+            INCOApplication.getInstance().checkCompanyStatus(mComnayView.getText().toString(),this);
             loginAction(email, password);
+
         }
     }
 
@@ -635,7 +636,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //Additional cases
                 }*/
 
-                Snackbar.make(mContent, error.toString(), Snackbar.LENGTH_LONG)
+                Snackbar.make(mContent, R.string.company_not_exits, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 showProgress(false);
             }

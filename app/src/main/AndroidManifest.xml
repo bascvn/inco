@@ -23,10 +23,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <permission
-        android:name="info.androidhive.incotest.permission.C2D_MESSAGE"
+        android:name="vn.bansac.inco.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="info.androidhive.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="vn.bansac.inco.permission.C2D_MESSAGE" />
 
     <!-- END Added for GCM -->
     <application
@@ -99,7 +99,7 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="vn.com.basc.inco" />
             </intent-filter>
         </receiver>

@@ -154,5 +154,9 @@
     <string name="data_empty">Data Empty</string>
     <string name="please_reload">Please reload again.</string>
     <string name="reload">RELOAD</string>
+    <string name="alert">Alert</string>
+    <string name="company_not_exits">Company not exits</string>
+    <string name="have_new_version"> New version %s available.</string>
+    <string name="update">Update</string>
 
 </resources>

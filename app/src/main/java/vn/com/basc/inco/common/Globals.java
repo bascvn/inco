@@ -10,6 +10,7 @@ public class Globals {
     public static String PROTOCOL;
 
     public static String API_GET_COMPANY;
+    public static String API_GET_COMPANY_STATUS;
     public static String LOGO_PATH = "logo";
     public static String API_LOGIN;
     public static String LOGIN_EMAIL;
@@ -26,6 +27,7 @@ public class Globals {
     public static String SEARCH_PARAMETER;
     public static String TICKET_ID_PARAMETER;
     public static String TYPE_BIND_PARAMATER;
+    public static String CLIENT_CODE;
     public static String API_TASK_LIST;
     public static String PROJECT_ID_PARAMETER;
     public static String ID_PARAMETER;
@@ -89,11 +91,15 @@ public class Globals {
     public static int MAX_SIZE_UPLOAD = 5*1024*1024;
     public static String API_REFRESH_TOKEN;
 
+    public static String NEW_PROTOCOL = "http://";
+    public static String NEW_DOMAIN  = "kiemtraduan.net";
+    public static String SEARCH_WORD = "SearchWord";
     public static final String PUSH_NOTIFICATION = "vn.com.bsc.incotest.pushNotification";
     static {
         PRE_FIX_API ="";
         PROTOCOL = "http://www.kiemtraduan.net/";
-        API_GET_COMPANY = "getcompanies.php";
+        API_GET_COMPANY = "gateway.php?controller=client.get_clients";
+        API_GET_COMPANY_STATUS ="gateway.php?controller=client.get_client_staus";
         API_LOGOUT = PRE_FIX_API+"/index.php/mobile/logout";
         API_REFRESH_TOKEN = PRE_FIX_API+"/index.php/mobile/refreshtoken";
         API_LOGIN = PRE_FIX_API+"/mobile_api/gateway.php?controller=auth.login";
@@ -142,7 +148,7 @@ public class Globals {
         ADD_TASK_COMM_DES ="tasks_comments[description]";
         ADD_COMMENT_PRO_ID = "projects_id";
         ADD_TASK_ID ="tasks_id";
-
+        CLIENT_CODE = "ClientCode";
         ADD_TICKET_COMM_ID ="tickets_comments[tickets_id]";
         ADD_TICKET_COMM_BY ="tickets_comments[users_id]";
         ADD_TICKET_ID ="tickets_id";

@@ -331,6 +331,7 @@ public class DetailBaseComponentFragment extends Fragment {
                             mDate.setText(detail.getCreate_at());
                             loadAvatarImage(detail.getPhoto(),avatar);
                             List<Attachment> attachments = detail.getAttachments();
+                            Log.e("attachments", String.valueOf(attachments.size()));
                             for (int i = 0; i<attachments.size();i++){
                                 fileContainer.addView(createViewDownload(attachments.get(i)));
                             }
