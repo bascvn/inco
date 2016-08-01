@@ -169,9 +169,9 @@ CREATE TABLE IF NOT EXISTS `tasks_types` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO tasks_types VALUES
-('1','Change Priority Rate (Hourly rate $25.00)','0','1','1'),
-('2','Changes (Hourly rate $15.00)','0',NULL,'1'),
-('3','Defects (Hourly rate $0.00)','0',NULL,'1');
+('1','Analyze','0','1','1'),
+('2','Implement','0',NULL,'1'),
+('3','Test','0',NULL,'1');
 
 CREATE TABLE IF NOT EXISTS `tickets_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -268,6 +268,12 @@ CREATE TABLE IF NOT EXISTS `departments` (
   CONSTRAINT `fk_departments_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT IGNORE INTO `departments` (`id`, `name`, `sort_order`, `active`, `users_id`) VALUES 
+(1, 'Tech', NULL, 1, 1),
+(2, 'Sale', NULL, 0, 1),
+(3, 'Finance', NULL, 0, 1),
+(4, 'HR', NULL, 0, 1),
+(5, 'Admid Board', NULL, 0, 1);
 CREATE TABLE IF NOT EXISTS `events` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `event_name` text NOT NULL,
@@ -570,7 +576,7 @@ CREATE TABLE IF NOT EXISTS `discussions_reports` (
   CONSTRAINT `discussions_reports_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `mobile_tokens` (
+CREATE TABLE IF NOT EXISTS `mobile_tokens` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `device_id` text NOT NULL,
@@ -585,7 +591,7 @@ ALTER TABLE `mobile_tokens`
 ALTER TABLE `mobile_tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
-  CREATE TABLE `device_types` (
+  CREATE TABLE IF NOT EXISTS `device_types` (
   `id` int(3) NOT NULL,
   `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
