@@ -13,11 +13,31 @@ class DetailTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
       //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
-        add = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: nil)
+        
+        add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(DetailTabBarViewController.openAddComment))
       // navigationItem.rightBarButtonItem = add
         // Do any additional setup after loading the view.
     }
+    func openAddComment() {
+        let tabBarController = CommentTabBarViewController()
+        
+        let comment = CommentViewController(nibName: "CommentViewController", bundle: nil)
+        let file = FilesTableViewController(nibName: "FilesTableViewController", bundle: nil)
 
+        let controllers = [comment,file]
+        tabBarController.viewControllers = controllers
+        let firstImage = UIImage(named: "ic_description")
+        let secondImage = UIImage(named: "tabs_discusstion")
+        comment.tabBarItem = UITabBarItem(
+            title: "",
+            image: firstImage,
+            tag: 1)
+        file.tabBarItem = UITabBarItem(
+            title: "",
+            image: secondImage,
+            tag:2)
+        self.navigationController?.pushViewController(tabBarController, animated: false)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -123,7 +123,11 @@ class CommentsTableViewController: UITableViewController {
         cell.mCreateAt.text = item.created_at
         let downloadURL = NSURL(string: IncoApi.getAvatar(item.avatar!))
         cell.mAvatar.af_setImageWithURL(downloadURL!)
-        cell.mDiscription.text = item.description
+        let attrStr = try! NSAttributedString(
+            data: (item.description!.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: true)!),
+            options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+            documentAttributes: nil)
+        cell.mDiscription.attributedText = attrStr
         return cell
     }
     
