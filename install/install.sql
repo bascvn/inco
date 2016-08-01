@@ -268,12 +268,6 @@ CREATE TABLE IF NOT EXISTS `departments` (
   CONSTRAINT `fk_departments_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT IGNORE INTO `departments` (`id`, `name`, `sort_order`, `active`, `users_id`) VALUES 
-(1, 'Tech', NULL, 1, 1),
-(2, 'Sale', NULL, 0, 1),
-(3, 'Finance', NULL, 0, 1),
-(4, 'HR', NULL, 0, 1),
-(5, 'Admid Board', NULL, 0, 1);
 CREATE TABLE IF NOT EXISTS `events` (
   `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `event_name` text NOT NULL,
