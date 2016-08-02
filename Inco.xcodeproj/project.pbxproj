@@ -37,6 +37,7 @@
 		84743B161D3D038600270587 /* LeftSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84743B151D3D038600270587 /* LeftSideViewController.swift */; };
 		84743B181D3D15C200270587 /* LeftMenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84743B171D3D15C200270587 /* LeftMenuItemTableViewCell.swift */; };
 		84743B1B1D3D19ED00270587 /* LeftMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84743B1A1D3D19ED00270587 /* LeftMenuItem.swift */; };
+		84833AAE1D508E14003AA10C /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84833AAD1D508E14003AA10C /* CommentViewController.swift */; };
 		848806171D4B78660081E740 /* UserItemUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848806161D4B78660081E740 /* UserItemUIView.swift */; };
 		848806191D4B78C30081E740 /* UserItemUIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848806181D4B78C30081E740 /* UserItemUIView.xib */; };
 		848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7501D3BB64500558E9E /* AppDelegate.swift */; };
@@ -65,7 +66,6 @@
 		84B91A9B1D4DC76200122245 /* DetailDiscussionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */; };
 		84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */; };
 		84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */; };
-		84B91AA31D4DF5B100122245 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA11D4DF5B100122245 /* CommentViewController.swift */; };
 		84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA21D4DF5B100122245 /* CommentViewController.xib */; };
 		84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */; };
 		84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */; };
@@ -147,6 +147,7 @@
 		84743B151D3D038600270587 /* LeftSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSideViewController.swift; sourceTree = "<group>"; };
 		84743B171D3D15C200270587 /* LeftMenuItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuItemTableViewCell.swift; sourceTree = "<group>"; };
 		84743B1A1D3D19ED00270587 /* LeftMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuItem.swift; sourceTree = "<group>"; };
+		84833AAD1D508E14003AA10C /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		848806161D4B78660081E740 /* UserItemUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItemUIView.swift; sourceTree = "<group>"; };
 		848806181D4B78C30081E740 /* UserItemUIView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserItemUIView.xib; sourceTree = "<group>"; };
 		848CE74D1D3BB64500558E9E /* Inco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inco.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,7 +182,6 @@
 		84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiscussionComponent.swift; sourceTree = "<group>"; };
 		84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectComponent.swift; sourceTree = "<group>"; };
 		84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshProtocol.swift; path = ../../../RefreshProtocol.swift; sourceTree = "<group>"; };
-		84B91AA11D4DF5B100122245 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		84B91AA21D4DF5B100122245 /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewController.xib; sourceTree = "<group>"; };
 		84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
 		84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilesTableViewController.xib; sourceTree = "<group>"; };
@@ -435,7 +435,7 @@
 		84B91AA01D4DF53600122245 /* AddComments */ = {
 			isa = PBXGroup;
 			children = (
-				84B91AA11D4DF5B100122245 /* CommentViewController.swift */,
+				84833AAD1D508E14003AA10C /* CommentViewController.swift */,
 				84B91AA21D4DF5B100122245 /* CommentViewController.xib */,
 				84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */,
 				84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */,
@@ -762,9 +762,9 @@
 				845A73A71D48F88900E95A71 /* DetailTaskComponent.swift in Sources */,
 				845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */,
 				84B91A8F1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift in Sources */,
-				84B91AA31D4DF5B100122245 /* CommentViewController.swift in Sources */,
 				84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */,
 				846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */,
+				84833AAE1D508E14003AA10C /* CommentViewController.swift in Sources */,
 				846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */,
 				849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */,
 				84AF2B781D47A10400F31080 /* TicketCell.swift in Sources */,
