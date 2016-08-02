@@ -112,21 +112,28 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             case ComponentType.TASKS,ComponentType.TICKET,ComponentType.DISCUSSTION:
                 let tabBarController = DetailTabBarViewController()
                 tabBarController.title = (self.projects[indexPath.row] ).name
-            
+                tabBarController.type = self.type
+                tabBarController.iD = self.projects[indexPath.row].id!
                 let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
                 var detail:UITableViewController
                 if type == ComponentType.TASKS {
                     detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTableViewController") as! DetailTableViewController
                       (detail as! DetailTableViewController).item = self.projects[indexPath.row] as? TaskCell
+                    tabBarController.projectID = ((self.projects[indexPath.row] as? TaskCell)?.projects_id)!
+
                 }else if type == ComponentType.TICKET {
                       detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTicketTableViewController") as! DetailTicketTableViewController
                     (detail as! DetailTicketTableViewController).item = self.projects[indexPath.row] as? TicketCell
+                    tabBarController.projectID = ((self.projects[indexPath.row] as? TicketCell)?.projects_id)!
 
                 }else if type == ComponentType.DISCUSSTION{
                      detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailDiscussionTableViewController") as! DetailDiscussionTableViewController
                      (detail as! DetailDiscussionTableViewController).item = self.projects[indexPath.row] as? DiscussionCell
+                    tabBarController.projectID = ((self.projects[indexPath.row] as? DiscussionCell)?.projects_id)!
+
                 }else{
                         detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailProjectTableViewController") as! DetailProjectTableViewController
+                    tabBarController.projectID = self.projects[indexPath.row].id!
                 }
               
                 let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
