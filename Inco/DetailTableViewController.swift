@@ -35,10 +35,22 @@ class DetailTableViewController: UITableViewController {
     
     @IBOutlet weak var createAt: UILabel!
     @IBOutlet weak var mContainerCell: UIView!
+    
+    
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        let x = UIScreen.mainScreen().applicationFrame.size.width/2;
+        let y = UIScreen.mainScreen().applicationFrame.size.height/2;
+        indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
+        indicator.center.x = x
+        indicator.center.y = y
+        self.tableView.addSubview(indicator)
+        indicator.bringSubviewToFront(self.tableView)
         
         getDetail()
         // Uncomment the following line to preserve selection between presentations
@@ -129,6 +141,8 @@ class DetailTableViewController: UITableViewController {
             options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
+        self.mDiscription.font = UIFont.systemFontOfSize(15.0)
+
         self.mId.text = self.detail?.id
         self.mLabel.text = self.detail?.detail.label
         print("label:\(self.detail?.detail.label)")
@@ -189,7 +203,8 @@ class DetailTableViewController: UITableViewController {
                     self.populateInfo()
                     self.tableView.reloadData()
                 }
-                
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
             }
             return
         }

@@ -21,6 +21,7 @@ class DetailDiscussionTableViewController: UITableViewController {
     
     @IBOutlet weak var mAssignTo: UIView!
     
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
      var detail:DetailDiscussionComponent?
      var item:DiscussionCell?
     override func viewDidLoad() {
@@ -33,6 +34,15 @@ class DetailDiscussionTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        let x = UIScreen.mainScreen().applicationFrame.size.width/2;
+        let y = UIScreen.mainScreen().applicationFrame.size.height/2;
+        indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
+        indicator.center.x = x
+        indicator.center.y = y
+        self.tableView.addSubview(indicator)
+        indicator.bringSubviewToFront(self.tableView)
+
         self.loadDetailTicket()
     }
 
@@ -55,6 +65,7 @@ class DetailDiscussionTableViewController: UITableViewController {
             options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
+         self.mDiscription.font = UIFont.systemFontOfSize(15.0)
         if self.detail?.detail.assigendTo.count > 0 {
             var  count = 0
             var frame = self.mAssignTo.frame
@@ -106,7 +117,8 @@ class DetailDiscussionTableViewController: UITableViewController {
                     self.populateInfo()
                     self.tableView.reloadData()
                 }
-                
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
             }
             return
         }

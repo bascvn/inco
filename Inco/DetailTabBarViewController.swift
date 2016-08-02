@@ -10,6 +10,9 @@ import UIKit
 
 class DetailTabBarViewController: UITabBarController {
     var add:UIBarButtonItem?
+    var type:ComponentType = ComponentType.PROJECT
+    var projectID = ""
+    var iD = ""
     override func viewDidLoad() {
         super.viewDidLoad()
       //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
@@ -23,8 +26,14 @@ class DetailTabBarViewController: UITabBarController {
         
         let comment = CommentViewController(nibName: "CommentViewController", bundle: nil)
         let file = FilesTableViewController(nibName: "FilesTableViewController", bundle: nil)
+        file.type = self.type
 
         let controllers = [comment,file]
+        tabBarController.fileView = file
+        tabBarController.commentView = comment
+        tabBarController.id = self.iD
+        tabBarController.projectID = self.projectID
+        tabBarController.type = self.type
         tabBarController.viewControllers = controllers
         let firstImage = UIImage(named: "ic_description")
         let secondImage = UIImage(named: "tabs_discusstion")
@@ -36,7 +45,7 @@ class DetailTabBarViewController: UITabBarController {
             title: "",
             image: secondImage,
             tag:2)
-        self.navigationController?.pushViewController(tabBarController, animated: false)
+        self.navigationController?.pushViewController(tabBarController, animated: true)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -28,6 +28,7 @@ class DetailTicketTableViewController: UITableViewController {
     @IBOutlet weak var mNameUserDeparment: UILabel!
     var detail:DetailTicketComponent?
     
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,6 +40,16 @@ class DetailTicketTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
 
+        indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        let x = UIScreen.mainScreen().applicationFrame.size.width/2;
+        let y = UIScreen.mainScreen().applicationFrame.size.height/2;
+        indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
+        indicator.center.x = x
+        indicator.center.y = y
+        self.tableView.addSubview(indicator)
+        indicator.bringSubviewToFront(self.tableView)
+
+        
         self.loadDetailTicket()
     }
 
@@ -66,6 +77,7 @@ class DetailTicketTableViewController: UITableViewController {
             options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
+         self.mDiscription.font = UIFont.systemFontOfSize(15.0)
         
     }
     func loadDetailTicket() {
@@ -89,7 +101,8 @@ class DetailTicketTableViewController: UITableViewController {
                     self.populateInfo()
                     self.tableView.reloadData()
                 }
-                
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
             }
             return
         }

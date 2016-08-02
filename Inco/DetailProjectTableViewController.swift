@@ -20,6 +20,9 @@ class DetailProjectTableViewController: UITableViewController {
     @IBOutlet weak var mName: UILabel!
     @IBOutlet weak var mAvatar: UIImageView!
     @IBOutlet weak var mDiscription: UILabel!
+    
+     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +33,16 @@ class DetailProjectTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        let x = UIScreen.mainScreen().applicationFrame.size.width/2;
+        let y = UIScreen.mainScreen().applicationFrame.size.height/2;
+        indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
+        indicator.center.x = x
+        indicator.center.y = y
+        self.tableView.addSubview(indicator)
+        indicator.bringSubviewToFront(self.tableView)
+        
         self.loadDetailProject()
     }
     @IBOutlet weak var mTeam: UIView!
@@ -53,6 +66,8 @@ class DetailProjectTableViewController: UITableViewController {
             options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
+        self.mDiscription.font = UIFont.systemFontOfSize(15.0)
+
         if self.detail?.detail.team.count > 0 {
             var  count = 0
             var frame = self.mTeam.frame
@@ -104,7 +119,8 @@ class DetailProjectTableViewController: UITableViewController {
                     self.populateInfo()
                     self.tableView.reloadData()
                 }
-                
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
             }
             return
         }

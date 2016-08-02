@@ -130,6 +130,7 @@ class CommentsTableViewController: UITableViewController {
             options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
             documentAttributes: nil)
         cell.mDiscription.attributedText = attrStr
+         cell.mDiscription.font = UIFont.systemFontOfSize(15.0)
         return cell
     }
     
