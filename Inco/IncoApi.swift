@@ -49,6 +49,31 @@ class IncoApi {
     
     static let  TYPE_BIND_PARAMATER = "bind_type"
     
+    // add comments
+    static let API_ADD_COMMENT_OF_TASK = "/index.php/mobile/addcommenttask"
+    static let API_ADD_COMMENT_OF_TICKET = "/index.php/mobile/addcommentticket"
+    static let API_ADD_COMMENT_OF_DISCUSS = "/index.php/mobile/addcommentdiscussion"
+    static let API_ADD_COMMENT_OF_PROJECT = "/index.php/mobile/addcommentproject"
+    
+    static let ADD_PROJECT_COMM_ID = "projects_comments[projects_id]"
+    static let ADD_PROJECT_COMM_BY = "projects_comments[created_by]"
+    static let ADD_PROJECT_COMM_DES = "projects_comments[description]"
+    
+    static let ADD_TASK_COMM_ID = "tasks_comments[tasks_id]"
+    static let ADD_TASK_COMM_BY = "tasks_comments[created_by]"
+    static let ADD_TASK_COMM_DES = "tasks_comments[description]"
+    static let ADD_COMMENT_PRO_ID = "projects_id"
+    static let ADD_TASK_ID = "tasks_id"
+    static let CLIENT_CODE = "ClientCode"
+    static let ADD_TICKET_COMM_ID = "tickets_comments[tickets_id]"
+    static let ADD_TICKET_COMM_BY = "tickets_comments[users_id]"
+    static let ADD_TICKET_ID = "tickets_id"
+    static let ADD_TICKET_DES = "tickets_comments[description]"
+    
+    static let ADD_DISCUSS_COM_ID = "discussions_comments[discussions_id]"
+    static let ADD_DISCUSS_COMM_BY = "discussions_comments[users_id]"
+    static let ADD_DISCUSS_ID = "discussions_id"
+    static let ADD_DISCUSS_DES = "discussions_comments[description]"
     // getlist project
     
     static func getLogin(company:String) -> String {

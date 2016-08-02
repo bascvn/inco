@@ -80,6 +80,11 @@ class IncoCommon {
         print("dataSave nil")
         return nil
     }
+    static func getUserId() -> String{
+      let info = IncoCommon.getUsrInfo()
+      return (info?.valueForKey("id"))! as! String
+    
+    }
     static func getVersion() -> String{
         let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
         let build = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
