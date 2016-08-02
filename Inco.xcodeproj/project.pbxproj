@@ -21,13 +21,9 @@
 		846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66271D3E5A5B0015CCFB /* CommonMess.swift */; };
 		846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A66291D3E6A4E0015CCFB /* IncoApi.swift */; };
 		846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A662B1D3E7C560015CCFB /* IncoResponse.swift */; };
+		846BBA3A1D4F78F100E7C020 /* CompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846BBA391D4F78F100E7C020 /* CompanyTableViewController.swift */; };
 		846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */; };
 		846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */; };
-		846DAF5C1D44B9D7008D8D5F /* project.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846DAF5B1D44B9D7008D8D5F /* project.storyboard */; };
-		846DAFE11D44E691008D8D5F /* TabProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */; };
-		846DAFE31D44E6D4008D8D5F /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */; };
-		846DAFE51D44E6E3008D8D5F /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */; };
-		846DAFE71D44E6FC008D8D5F /* DisccustionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */; };
 		846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFE81D44EDA6008D8D5F /* TaskCellTableViewCell.swift */; };
 		846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846DAFE91D44EDA6008D8D5F /* TaskCellTableViewCell.xib */; };
 		846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846DAFEC1D44F733008D8D5F /* TaskCell.swift */; };
@@ -44,7 +40,6 @@
 		848806171D4B78660081E740 /* UserItemUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848806161D4B78660081E740 /* UserItemUIView.swift */; };
 		848806191D4B78C30081E740 /* UserItemUIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848806181D4B78C30081E740 /* UserItemUIView.xib */; };
 		848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7501D3BB64500558E9E /* AppDelegate.swift */; };
-		848CE7531D3BB64500558E9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7521D3BB64500558E9E /* ViewController.swift */; };
 		848CE7561D3BB64500558E9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848CE7541D3BB64500558E9E /* Main.storyboard */; };
 		848CE7591D3BB64500558E9E /* Inco.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7571D3BB64500558E9E /* Inco.xcdatamodeld */; };
 		848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 848CE75A1D3BB64500558E9E /* Assets.xcassets */; };
@@ -61,8 +56,27 @@
 		84AF2B7A1D47A3C000F31080 /* DiscussionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF2B791D47A3C000F31080 /* DiscussionCell.swift */; };
 		84AF2B7D1D47A53400F31080 /* DiscussionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF2B7B1D47A53400F31080 /* DiscussionTableViewCell.swift */; };
 		84AF2B7E1D47A53400F31080 /* DiscussionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AF2B7C1D47A53400F31080 /* DiscussionTableViewCell.xib */; };
-		84C9A36B1D3BE445008A0FC5 /* SearchCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C9A3691D3BE445008A0FC5 /* SearchCompanyController.swift */; };
-		84C9A36C1D3BE445008A0FC5 /* SearchCompanyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C9A36A1D3BE445008A0FC5 /* SearchCompanyController.xib */; };
+		84B91A8D1D4D85BD00122245 /* DetailTicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A8C1D4D85BD00122245 /* DetailTicketTableViewController.swift */; };
+		84B91A8F1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A8E1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift */; };
+		84B91A911D4D8C0300122245 /* DetailProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */; };
+		84B91A931D4D965E00122245 /* DetailTicketComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A921D4D965E00122245 /* DetailTicketComponent.swift */; };
+		84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */; };
+		84B91A971D4DBACF00122245 /* ProjectTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */; };
+		84B91A9B1D4DC76200122245 /* DetailDiscussionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */; };
+		84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */; };
+		84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */; };
+		84B91AA31D4DF5B100122245 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA11D4DF5B100122245 /* CommentViewController.swift */; };
+		84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA21D4DF5B100122245 /* CommentViewController.xib */; };
+		84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */; };
+		84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */; };
+		84B91AAB1D4DF6F100122245 /* CommentTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */; };
+		84B91AAC1D4DF6F100122245 /* CommentTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */; };
+		84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */; };
+		84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */; };
+		84B91AB31D4E148A00122245 /* UploadFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AB21D4E148A00122245 /* UploadFile.swift */; };
+		84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2982E1D4F7F8800D36886 /* ViewController.swift */; };
+		84C298321D4F88E800D36886 /* CompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C298311D4F88E800D36886 /* CompanyTableViewCell.swift */; };
+		84C298341D4F897800D36886 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C298331D4F897800D36886 /* Company.swift */; };
 		84E855F81D4CD4F6007F6B6C /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E855F61D4CD4F6007F6B6C /* CommentTableViewCell.swift */; };
 		84E855F91D4CD4F6007F6B6C /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E855F71D4CD4F6007F6B6C /* CommentTableViewCell.xib */; };
 		84E855FB1D4CDAB0007F6B6C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E855FA1D4CDAB0007F6B6C /* CommentCell.swift */; };
@@ -111,13 +125,9 @@
 		846A66271D3E5A5B0015CCFB /* CommonMess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonMess.swift; sourceTree = "<group>"; };
 		846A66291D3E6A4E0015CCFB /* IncoApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoApi.swift; sourceTree = "<group>"; };
 		846A662B1D3E7C560015CCFB /* IncoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoResponse.swift; sourceTree = "<group>"; };
+		846BBA391D4F78F100E7C020 /* CompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewController.swift; sourceTree = "<group>"; };
 		846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingMoreCell.swift; sourceTree = "<group>"; };
 		846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingMoreCell.xib; sourceTree = "<group>"; };
-		846DAF5B1D44B9D7008D8D5F /* project.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = project.storyboard; sourceTree = "<group>"; };
-		846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabProjectViewController.swift; sourceTree = "<group>"; };
-		846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
-		846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
-		846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisccustionViewController.swift; sourceTree = "<group>"; };
 		846DAFE81D44EDA6008D8D5F /* TaskCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCellTableViewCell.swift; sourceTree = "<group>"; };
 		846DAFE91D44EDA6008D8D5F /* TaskCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskCellTableViewCell.xib; sourceTree = "<group>"; };
 		846DAFEC1D44F733008D8D5F /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
@@ -141,7 +151,6 @@
 		848806181D4B78C30081E740 /* UserItemUIView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserItemUIView.xib; sourceTree = "<group>"; };
 		848CE74D1D3BB64500558E9E /* Inco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848CE7501D3BB64500558E9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		848CE7521D3BB64500558E9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		848CE7551D3BB64500558E9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		848CE7581D3BB64500558E9E /* Inco.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Inco.xcdatamodel; sourceTree = "<group>"; };
 		848CE75A1D3BB64500558E9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -163,8 +172,27 @@
 		84AF2B791D47A3C000F31080 /* DiscussionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionCell.swift; sourceTree = "<group>"; };
 		84AF2B7B1D47A53400F31080 /* DiscussionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscussionTableViewCell.swift; sourceTree = "<group>"; };
 		84AF2B7C1D47A53400F31080 /* DiscussionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussionTableViewCell.xib; sourceTree = "<group>"; };
-		84C9A3691D3BE445008A0FC5 /* SearchCompanyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCompanyController.swift; sourceTree = "<group>"; };
-		84C9A36A1D3BE445008A0FC5 /* SearchCompanyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCompanyController.xib; sourceTree = "<group>"; };
+		84B91A8C1D4D85BD00122245 /* DetailTicketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTicketTableViewController.swift; sourceTree = "<group>"; };
+		84B91A8E1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiscussionTableViewController.swift; sourceTree = "<group>"; };
+		84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectTableViewController.swift; sourceTree = "<group>"; };
+		84B91A921D4D965E00122245 /* DetailTicketComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTicketComponent.swift; sourceTree = "<group>"; };
+		84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTabBarViewController.swift; sourceTree = "<group>"; };
+		84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectTabBarViewController.xib; sourceTree = "<group>"; };
+		84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiscussionComponent.swift; sourceTree = "<group>"; };
+		84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectComponent.swift; sourceTree = "<group>"; };
+		84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshProtocol.swift; path = ../../../RefreshProtocol.swift; sourceTree = "<group>"; };
+		84B91AA11D4DF5B100122245 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		84B91AA21D4DF5B100122245 /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewController.xib; sourceTree = "<group>"; };
+		84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
+		84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilesTableViewController.xib; sourceTree = "<group>"; };
+		84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTabBarViewController.swift; sourceTree = "<group>"; };
+		84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTabBarViewController.xib; sourceTree = "<group>"; };
+		84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileCell.swift; sourceTree = "<group>"; };
+		84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadFileCell.xib; sourceTree = "<group>"; };
+		84B91AB21D4E148A00122245 /* UploadFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFile.swift; sourceTree = "<group>"; };
+		84C2982E1D4F7F8800D36886 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84C298311D4F88E800D36886 /* CompanyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewCell.swift; sourceTree = "<group>"; };
+		84C298331D4F897800D36886 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		84E855F61D4CD4F6007F6B6C /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		84E855F71D4CD4F6007F6B6C /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		84E855FA1D4CDAB0007F6B6C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -231,6 +259,9 @@
 				845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */,
 				845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */,
 				845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */,
+				84B91A8C1D4D85BD00122245 /* DetailTicketTableViewController.swift */,
+				84B91A8E1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift */,
+				84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */,
 			);
 			name = DetailComponent;
 			sourceTree = "<group>";
@@ -250,6 +281,8 @@
 		846DAF551D4459E9008D8D5F /* TableCell */ = {
 			isa = PBXGroup;
 			children = (
+				84C298301D4F888D00D36886 /* CompanyCell */,
+				84B91AAD1D4DFF8100122245 /* UploadFileCell */,
 				84E855F51D4CD4E6007F6B6C /* CommentTableViewCell */,
 				846DAF561D445B65008D8D5F /* LoadingMoreCell.swift */,
 				846DAF571D445B65008D8D5F /* LoadingMoreCell.xib */,
@@ -266,11 +299,8 @@
 		846DAF5A1D44B9AF008D8D5F /* ProjectTabs */ = {
 			isa = PBXGroup;
 			children = (
-				846DAF5B1D44B9D7008D8D5F /* project.storyboard */,
-				846DAFE01D44E691008D8D5F /* TabProjectViewController.swift */,
-				846DAFE21D44E6D4008D8D5F /* TaskViewController.swift */,
-				846DAFE41D44E6E3008D8D5F /* TicketViewController.swift */,
-				846DAFE61D44E6FC008D8D5F /* DisccustionViewController.swift */,
+				84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */,
+				84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */,
 			);
 			name = ProjectTabs;
 			sourceTree = "<group>";
@@ -291,6 +321,8 @@
 				84743B111D3D00C800270587 /* MainViewController.swift */,
 				84743B171D3D15C200270587 /* LeftMenuItemTableViewCell.swift */,
 				849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */,
+				84743B151D3D038600270587 /* LeftSideViewController.swift */,
+				84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */,
 			);
 			name = MainViewController;
 			sourceTree = "<group>";
@@ -326,6 +358,11 @@
 				845A73A61D48F88900E95A71 /* DetailTaskComponent.swift */,
 				845A73A81D48F98500E95A71 /* User.swift */,
 				84E855FA1D4CDAB0007F6B6C /* CommentCell.swift */,
+				84B91A921D4D965E00122245 /* DetailTicketComponent.swift */,
+				84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */,
+				84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */,
+				84B91AB21D4E148A00122245 /* UploadFile.swift */,
+				84C298331D4F897800D36886 /* Company.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -355,6 +392,7 @@
 		848CE74F1D3BB64500558E9E /* Inco */ = {
 			isa = PBXGroup;
 			children = (
+				84B91AA01D4DF53600122245 /* AddComments */,
 				845A738F1D48D85800E95A71 /* DetailComponent */,
 				846DAFF01D450EDC008D8D5F /* CustomView */,
 				846DAF5A1D44B9AF008D8D5F /* ProjectTabs */,
@@ -365,7 +403,7 @@
 				84743B011D3CFCE400270587 /* MainViewController */,
 				84C9A3681D3BE3EE008A0FC5 /* SearchCompany */,
 				848CE7501D3BB64500558E9E /* AppDelegate.swift */,
-				848CE7521D3BB64500558E9E /* ViewController.swift */,
+				84C2982E1D4F7F8800D36886 /* ViewController.swift */,
 				846DAFEE1D450A25008D8D5F /* UIViewControllerExtensions.swift */,
 				848CE7541D3BB64500558E9E /* Main.storyboard */,
 				848CE75A1D3BB64500558E9E /* Assets.xcassets */,
@@ -394,12 +432,40 @@
 			path = IncoUITests;
 			sourceTree = "<group>";
 		};
+		84B91AA01D4DF53600122245 /* AddComments */ = {
+			isa = PBXGroup;
+			children = (
+				84B91AA11D4DF5B100122245 /* CommentViewController.swift */,
+				84B91AA21D4DF5B100122245 /* CommentViewController.xib */,
+				84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */,
+				84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */,
+				84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */,
+				84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */,
+			);
+			name = AddComments;
+			sourceTree = "<group>";
+		};
+		84B91AAD1D4DFF8100122245 /* UploadFileCell */ = {
+			isa = PBXGroup;
+			children = (
+				84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */,
+				84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */,
+			);
+			name = UploadFileCell;
+			sourceTree = "<group>";
+		};
+		84C298301D4F888D00D36886 /* CompanyCell */ = {
+			isa = PBXGroup;
+			children = (
+				84C298311D4F88E800D36886 /* CompanyTableViewCell.swift */,
+			);
+			name = CompanyCell;
+			sourceTree = "<group>";
+		};
 		84C9A3681D3BE3EE008A0FC5 /* SearchCompany */ = {
 			isa = PBXGroup;
 			children = (
-				84743B151D3D038600270587 /* LeftSideViewController.swift */,
-				84C9A3691D3BE445008A0FC5 /* SearchCompanyController.swift */,
-				84C9A36A1D3BE445008A0FC5 /* SearchCompanyController.xib */,
+				846BBA391D4F78F100E7C020 /* CompanyTableViewController.swift */,
 			);
 			name = SearchCompany;
 			sourceTree = "<group>";
@@ -526,18 +592,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B91AAC1D4DF6F100122245 /* CommentTabBarViewController.xib in Resources */,
 				848CE75E1D3BB64500558E9E /* LaunchScreen.storyboard in Resources */,
-				84C9A36C1D3BE445008A0FC5 /* SearchCompanyController.xib in Resources */,
-				846DAF5C1D44B9D7008D8D5F /* project.storyboard in Resources */,
+				84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */,
 				848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */,
 				846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */,
 				845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */,
 				845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */,
 				848CE7561D3BB64500558E9E /* Main.storyboard in Resources */,
+				84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */,
 				846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */,
 				84AF2B761D47932D00F31080 /* TicketTableViewCell.xib in Resources */,
 				84AF2B7E1D47A53400F31080 /* DiscussionTableViewCell.xib in Resources */,
+				84B91A971D4DBACF00122245 /* ProjectTabBarViewController.xib in Resources */,
 				84E855F91D4CD4F6007F6B6C /* CommentTableViewCell.xib in Resources */,
+				84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */,
 				845A73931D48D89E00E95A71 /* DetailTabBarViewController.xib in Resources */,
 				848806191D4B78C30081E740 /* UserItemUIView.xib in Resources */,
 			);
@@ -687,49 +756,60 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B91A911D4D8C0300122245 /* DetailProjectTableViewController.swift in Sources */,
 				84743B161D3D038600270587 /* LeftSideViewController.swift in Sources */,
-				846DAFE71D44E6FC008D8D5F /* DisccustionViewController.swift in Sources */,
 				846DAFF21D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift in Sources */,
-				848CE7531D3BB64500558E9E /* ViewController.swift in Sources */,
-				846DAFE11D44E691008D8D5F /* TabProjectViewController.swift in Sources */,
-				84C9A36B1D3BE445008A0FC5 /* SearchCompanyController.swift in Sources */,
 				845A73A71D48F88900E95A71 /* DetailTaskComponent.swift in Sources */,
 				845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */,
+				84B91A8F1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift in Sources */,
+				84B91AA31D4DF5B100122245 /* CommentViewController.swift in Sources */,
 				84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */,
 				846A66281D3E5A5B0015CCFB /* CommonMess.swift in Sources */,
 				846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */,
 				849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */,
 				84AF2B781D47A10400F31080 /* TicketCell.swift in Sources */,
 				849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */,
-				846DAFE31D44E6D4008D8D5F /* TaskViewController.swift in Sources */,
 				846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */,
 				846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */,
 				84743B101D3D003400270587 /* UIViewController+MMDrawerController.m in Sources */,
 				848CE7591D3BB64500558E9E /* Inco.xcdatamodeld in Sources */,
 				84AF2B721D477F1300F31080 /* BaseComponentCell.swift in Sources */,
-				846DAFE51D44E6E3008D8D5F /* TicketViewController.swift in Sources */,
+				84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */,
+				84B91AAB1D4DF6F100122245 /* CommentTabBarViewController.swift in Sources */,
 				84AF2B7A1D47A3C000F31080 /* DiscussionCell.swift in Sources */,
 				845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */,
+				84B91AB31D4E148A00122245 /* UploadFile.swift in Sources */,
 				8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */,
 				84743B0E1D3D003400270587 /* MMDrawerController.m in Sources */,
 				84E855F81D4CD4F6007F6B6C /* CommentTableViewCell.swift in Sources */,
 				84743B181D3D15C200270587 /* LeftMenuItemTableViewCell.swift in Sources */,
 				845A73A31D48F34700E95A71 /* Attachment.swift in Sources */,
 				84743B1B1D3D19ED00270587 /* LeftMenuItem.swift in Sources */,
+				846BBA3A1D4F78F100E7C020 /* CompanyTableViewController.swift in Sources */,
 				845A73A91D48F98500E95A71 /* User.swift in Sources */,
 				84AF2B7D1D47A53400F31080 /* DiscussionTableViewCell.swift in Sources */,
 				84E855FB1D4CDAB0007F6B6C /* CommentCell.swift in Sources */,
 				848806171D4B78660081E740 /* UserItemUIView.swift in Sources */,
+				84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */,
 				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
 				846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */,
 				846DAFEF1D450A25008D8D5F /* UIViewControllerExtensions.swift in Sources */,
+				84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */,
+				84B91A9B1D4DC76200122245 /* DetailDiscussionComponent.swift in Sources */,
+				84C298321D4F88E800D36886 /* CompanyTableViewCell.swift in Sources */,
 				84743B121D3D00C800270587 /* MainViewController.swift in Sources */,
 				848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */,
 				84AF2B751D47932D00F31080 /* TicketTableViewCell.swift in Sources */,
 				846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */,
+				84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */,
+				84B91A931D4D965E00122245 /* DetailTicketComponent.swift in Sources */,
+				84C298341D4F897800D36886 /* Company.swift in Sources */,
 				845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */,
 				84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */,
+				84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */,
+				84B91A8D1D4D85BD00122245 /* DetailTicketTableViewController.swift in Sources */,
 				845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */,
+				84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

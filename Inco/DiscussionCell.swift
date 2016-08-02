@@ -10,7 +10,7 @@ import Foundation
 
 class DiscussionCell: BaseComponentCell{
   //  var id :String?
-    var name :String?
+    //var name :String?
     var status :String?
     var projects:String?
     var create_by:String?

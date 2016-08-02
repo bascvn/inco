@@ -21,9 +21,11 @@ class CommentsTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
-        
+        let x = UIScreen.mainScreen().applicationFrame.size.width/2;
+        let y = UIScreen.mainScreen().applicationFrame.size.height/2;
         indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
-        indicator.center = self.tableView.center
+        indicator.center.x = x
+          indicator.center.y = y
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
         indicator.startAnimating()

@@ -73,7 +73,8 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
         let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
             as! ViewController
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.window?.rootViewController = loginViewController
+          let mainNavContoller = UINavigationController(rootViewController: loginViewController)
+        appDelegate.window?.rootViewController = mainNavContoller
     
     }
     internal  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){

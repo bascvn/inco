@@ -9,11 +9,11 @@
 import UIKit
 import Alamofire
 
-class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate{
+class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate,RefreshProtocol{
     var projects = [BaseComponentCell]()
     var loadingcell :LoadingMoreCell!
     var type:ComponentType = ComponentType.PROJECT
-    
+    var projectId:String = ""
     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
 
     @IBOutlet weak var mSearchBar: UISearchBar!
@@ -26,7 +26,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         // loading state
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
 
-        indicator.frame = CGRectMake(0.0, 0.0, 10.0, 10.0)
+        indicator.frame = CGRectMake(0.0, 0.0, 30.0, 30.0)
         indicator.center = self.view.center
         self.view.addSubview(indicator)
         indicator.bringSubviewToFront(self.view)
@@ -47,7 +47,14 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         getProjectList()
         // Do any additional setup after loading the view.
     }
-
+    @IBAction func refreshClick(sender: AnyObject) {
+        refresh()
+    }
+    func refresh(){
+           indicator.startAnimating()
+           self.projects.removeAll()
+           self.getProjectList()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -102,20 +109,32 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             return
         }
         switch self.type {
-            case ComponentType.TASKS:
+            case ComponentType.TASKS,ComponentType.TICKET,ComponentType.DISCUSSTION:
                 let tabBarController = DetailTabBarViewController()
-                tabBarController.title = (self.projects[indexPath.row] as! TaskCell).name
+                tabBarController.title = (self.projects[indexPath.row] ).name
             
                 let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
-                
-                let detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTableViewController") as! DetailTableViewController
-                detail.item = self.projects[indexPath.row] as? TaskCell
+                var detail:UITableViewController
+                if type == ComponentType.TASKS {
+                    detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTableViewController") as! DetailTableViewController
+                      (detail as! DetailTableViewController).item = self.projects[indexPath.row] as? TaskCell
+                }else if type == ComponentType.TICKET {
+                      detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailTicketTableViewController") as! DetailTicketTableViewController
+                    (detail as! DetailTicketTableViewController).item = self.projects[indexPath.row] as? TicketCell
+
+                }else if type == ComponentType.DISCUSSTION{
+                     detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailDiscussionTableViewController") as! DetailDiscussionTableViewController
+                     (detail as! DetailDiscussionTableViewController).item = self.projects[indexPath.row] as? DiscussionCell
+                }else{
+                        detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailProjectTableViewController") as! DetailProjectTableViewController
+                }
+              
                 let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
                 comment.type = self.type
                 comment.id = self.projects[indexPath.row].id!
                 let controllers = [detail,comment]
                 tabBarController.viewControllers = controllers
-                let firstImage = UIImage(named: "tabs_ticket")
+                let firstImage = UIImage(named: "ic_description")
                 let secondImage = UIImage(named: "tabs_discusstion")
                 detail.tabBarItem = UITabBarItem(
                     title: "",
@@ -126,14 +145,50 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     image: secondImage,
                     tag:2)
                 self.navigationController?.pushViewController(tabBarController, animated: true)
-                return
-            default: break
+            return
+        default: break
+            
         
         }
-        let projectStoryboard: UIStoryboard = UIStoryboard(name: "project", bundle: nil)
-            
-        let projectTabs = projectStoryboard.instantiateViewControllerWithIdentifier("TabProjectViewController") as! TabProjectViewController
-        self.navigationController?.pushViewController(projectTabs, animated: true)
+        let tabBarController = ProjectTabBarViewController()
+        tabBarController.item = self.projects[indexPath.row] as? ProjectCell
+
+        tabBarController.title = (self.projects[indexPath.row] ).name
+        let tasks = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
+            as! MainViewController
+            tasks.type = ComponentType.TASKS
+        let tickets = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
+            as! MainViewController
+        tickets.type = ComponentType.TICKET
+
+        let discussions = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
+            as! MainViewController
+            tasks.projectId = (self.projects[indexPath.row]).id!
+        
+            tickets.projectId = (self.projects[indexPath.row] ).id!
+            discussions.projectId = (self.projects[indexPath.row] ).id!
+
+        
+        discussions.type = ComponentType.DISCUSSTION
+        let controllers = [tasks,tickets,discussions]
+        tabBarController.viewControllers = controllers
+        let firstImage = UIImage(named: "tabs_task")
+        let secondImage = UIImage(named: "tabs_ticket")
+        let threeImage = UIImage(named: "tabs_discusstion")
+        tasks.tabBarItem = UITabBarItem(
+            title: "",
+            image: firstImage,
+            tag: 1)
+        tickets.tabBarItem = UITabBarItem(
+            title: "",
+            image: secondImage,
+            tag:2)
+        discussions.tabBarItem = UITabBarItem(
+            title: "",
+            image: threeImage,
+            tag:3)
+        self.navigationController?.pushViewController(tabBarController, animated: true)
+        
     
     }
     internal func searchBarCancelButtonClicked(searchBar: UISearchBar) {
@@ -155,11 +210,14 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     internal func getProjectList(){
         let token = IncoCommon.getToken() as String
           print("token: \(token)")
-        let parameters:[String:AnyObject] = [IncoApi.TOKEN_PARAMETER:token,
+        var parameters:[String:AnyObject] = [IncoApi.TOKEN_PARAMETER:token,
                                              IncoApi.OFFSET_PARAMETER:self.projects.count,
                                              IncoApi.LIMIT_PARAMETER :IncoCommon.NUMBER_ITEMS_LOADING,
                                              IncoApi.SEARCH_PARAMETER :self.mSearchBar.text!
                                              ]
+        if self.projectId != ""{
+            parameters[IncoApi.PROJECT_ID_PARAMETER] = self.projectId
+        }
         let url = self.getAPI(self.type)
         Alamofire.request(.POST, url,parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request

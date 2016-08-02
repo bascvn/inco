@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-class ViewController: UIViewController {
+class ViewController: UIViewController,CompanyTableDelegate{
 
    
     @IBOutlet weak var mEmail: UITextField!
@@ -43,6 +43,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
+    @IBAction func searchCompany(sender: UIButton) {
+        print("searchCompany")
+
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+         let companyTableViewController = mainStoryboard.instantiateViewControllerWithIdentifier("CompanyTableViewController") as! CompanyTableViewController
+        companyTableViewController.delegate = self
+        self.navigationController?.pushViewController(companyTableViewController, animated: true)
+    }
 
     @IBAction func loginAction(sender: AnyObject) {
         if(!self.validateForm()){
@@ -142,6 +152,9 @@ class ViewController: UIViewController {
             return false;
         }
         return true
+    }
+    func companyslected(clientId:String){
+     self.mCompany.text = clientId
     }
 }
 

@@ -10,6 +10,8 @@ import Foundation
 class IncoApi {
     static let PROTOCOL: String = "http://"
     static let DOMAIN:String    = "kiemtraduan.net"
+    static let API_GET_COMPANY  = "getcompanies.php"
+    
     static let LOGIN_API        = "/mobile_api/gateway.php?controller=auth.login"
     static let LOGIN_EMAIL      = "email"
     static let LOGIN_PASS       = "password"
@@ -19,7 +21,13 @@ class IncoApi {
     static let API_TASK_LIST =  "/mobile_api/gateway.php?controller=task.get_list"
     static let API_TICKET_LIST = "/mobile_api/gateway.php?controller=tickets.get_list"
     static let API_DISCUSSION_LIST = "/mobile_api/gateway.php?controller=discussions.get_list"
+    
+    static let  API_UPLOAD_FILE = "/index.php/mobile/upload"
+    
     static let API_GET_TASK = "/index.php/mobile/tasks"
+    static let API_GET_PROJECT = "/index.php/mobile/projects"
+    static let API_GET_TICKET = "/index.php/mobile/tickets"
+    static let API_GET_DISCUSSIONS = "/index.php/mobile/discussions"
     
     static let ID_PARAMETER = "id"
     static let PROJECT_ID_PARAMETER = "projects_id"
@@ -28,6 +36,7 @@ class IncoApi {
     static let LIMIT_PARAMETER = "limit"
     static let SEARCH_PARAMETER = "search"
     static let AVATAR_PATH = "/uploads/users"
+    
     // comments
     static let API_COMMENT_OF_TASK = "/mobile_api/gateway.php?controller=task.get_comments"
     static let API_COMMENT_OF_TICKET = "/mobile_api/gateway.php?controller=tickets.get_comments"
@@ -36,6 +45,9 @@ class IncoApi {
     static let TASK_ID_PARAMETER = "task_id"
     static let TICKET_ID_PARAMETER = "ticket_id"
     static let DISCUSSION_ID_PARAMETER = "discussion_id"
+    
+    
+    static let  TYPE_BIND_PARAMATER = "bind_type"
     
     // getlist project
     
@@ -47,5 +59,12 @@ class IncoApi {
     }
     static func getAvatar(avatar:String) -> String  {
         return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+AVATAR_PATH+"/"+avatar
+    }
+    static func getCompanies() -> String {
+        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoApi.API_GET_COMPANY
+    }
+    static func getLogoCompany(logo:String) ->String {
+        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/logo/"+logo
+
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 class ProjectCell :BaseComponentCell{
   //  var id :String?
-    var name :String?
+   // var name :String?
     var createAt :String?
     var createBy :String?
     var status :String?

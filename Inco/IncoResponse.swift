@@ -29,7 +29,7 @@ class IncoResponse  {
         }
     }
     func isOK() -> Bool{
-        if self.status == IncoResponse.M_STATUS_OK {
+        if self.status == IncoResponse.M_STATUS_OK  || self.status == "ok" {
             return true
         }
         return false
