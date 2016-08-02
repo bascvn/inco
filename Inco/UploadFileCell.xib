@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UploadFileCell" rowHeight="98" id="KGk-i7-Jjw" customClass="UploadFileCell" customModule="Inco" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Po-PK-cof">
+                        <rect key="frame" x="8" y="16" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="Plq-Xu-whL"/>
+                            <constraint firstAttribute="height" constant="48" id="Y6s-kv-53x"/>
+                        </constraints>
+                        <state key="normal" image="ic_clear"/>
+                    </button>
+                    <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7s2-xz-gZB">
+                        <rect key="frame" x="64" y="16" width="248" height="2"/>
+                        <color key="progressTintColor" red="0.55294117649999996" green="0.76078431369999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </progressView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="File name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPm-r8-Zuv">
+                        <rect key="frame" x="64" y="26" width="248" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IM9-yX-3HE">
+                        <rect key="frame" x="64" y="51" width="240" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IM9-yX-3HE" firstAttribute="leading" secondItem="1Po-PK-cof" secondAttribute="trailing" constant="8" id="3fT-8B-NRO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="IM9-yX-3HE" secondAttribute="trailing" constant="8" id="4jR-jQ-lbe"/>
+                    <constraint firstItem="IM9-yX-3HE" firstAttribute="top" secondItem="nPm-r8-Zuv" secondAttribute="bottom" constant="8" id="9cW-DL-s4z"/>
+                    <constraint firstItem="nPm-r8-Zuv" firstAttribute="leading" secondItem="1Po-PK-cof" secondAttribute="trailing" constant="8" id="PRf-Ss-wbt"/>
+                    <constraint firstItem="1Po-PK-cof" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="c6W-a3-h4I"/>
+                    <constraint firstItem="nPm-r8-Zuv" firstAttribute="top" secondItem="7s2-xz-gZB" secondAttribute="bottom" constant="8" id="jq0-iv-MXr"/>
+                    <constraint firstItem="7s2-xz-gZB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="n1G-1G-35s"/>
+                    <constraint firstItem="7s2-xz-gZB" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="otr-0G-ezQ"/>
+                    <constraint firstItem="IM9-yX-3HE" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" constant="-8" id="qrf-pO-gaZ"/>
+                    <constraint firstItem="1Po-PK-cof" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="vpV-0J-m19"/>
+                    <constraint firstAttribute="trailing" secondItem="nPm-r8-Zuv" secondAttribute="trailing" constant="8" id="yc0-lk-pcr"/>
+                    <constraint firstItem="7s2-xz-gZB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="56" id="zTM-JC-l6Q"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mBtnDelete" destination="1Po-PK-cof" id="YXb-ut-0D0"/>
+                <outlet property="mFileName" destination="nPm-r8-Zuv" id="q6R-Cn-6nd"/>
+                <outlet property="mInfo" destination="IM9-yX-3HE" id="bKp-YX-aMD"/>
+                <outlet property="mProgess" destination="7s2-xz-gZB" id="BUL-Hu-7gL"/>
+            </connections>
+            <point key="canvasLocation" x="300" y="262"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_clear" width="48" height="48"/>
+    </resources>
+</document>
