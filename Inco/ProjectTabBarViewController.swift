@@ -35,6 +35,9 @@ class ProjectTabBarViewController: UITabBarController {
         let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
        comment.type = ComponentType.PROJECT
         comment.id = (self.item?.id)!
+        tabBarController.type  = ComponentType.PROJECT
+        tabBarController.iD = (self.item?.id)!
+        tabBarController.projectID = (self.item?.id)!
         let controllers = [detail,comment]
         tabBarController.viewControllers = controllers
         let firstImage = UIImage(named: "ic_description")
