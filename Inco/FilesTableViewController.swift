@@ -133,6 +133,22 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
                 
         }
     }
+    func isEmptyData() -> Bool {
+        for file in self.uploadlist {
+            if file.status == UploadStatus.OK{
+                return false
+            }
+        }
+        return true
+    }
+    func isFilesUploadFinish() -> Bool  {
+        for file in self.uploadlist {
+            if file.status == UploadStatus.UPLOADING{
+                return false
+            }
+        }
+        return true
+    }
     func getFileByIndex(index:Int) -> Int {
         var count = 0
         for file in self.uploadlist {
@@ -158,6 +174,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
            
             let file = UploadFile()
             file.index = self.index
+            file.status = UploadStatus.UPLOADING
             self.index += 1
             file.fileName = imageUrl.path
             uploadlist.append( file)

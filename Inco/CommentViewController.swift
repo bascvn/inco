@@ -10,6 +10,7 @@ import UIKit
 
 class CommentViewController: UIViewController {
 
+    @IBOutlet weak var mComment: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +21,12 @@ class CommentViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func isEmptyData() -> Bool{
+        if self.mComment.text.characters.count == 0 {
+            return true
+        }
+        return false
+    }
 
     /*
     // MARK: - Navigation
