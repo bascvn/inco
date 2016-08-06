@@ -48,7 +48,9 @@ class IncoApi {
     
     
     static let  TYPE_BIND_PARAMATER = "bind_type"
-    
+    // Ticket 
+    static let API_GET_TICKET_FORM = "/index.php/mobile/ticketform"
+
     // add comments
     static let API_ADD_COMMENT_OF_TASK = "/index.php/mobile/addcommenttask"
     static let API_ADD_COMMENT_OF_TICKET = "/index.php/mobile/addcommentticket"
@@ -75,6 +77,8 @@ class IncoApi {
     static let ADD_DISCUSS_ID = "discussions_id"
     static let ADD_DISCUSS_DES = "discussions_comments[description]"
     // getlist project
+    
+    
     
     static func getLogin(company:String) -> String {
         return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+company+IncoApi.LOGIN_API
