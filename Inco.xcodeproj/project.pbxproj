@@ -47,9 +47,18 @@
 		848CE75E1D3BB64500558E9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848CE75C1D3BB64500558E9E /* LaunchScreen.storyboard */; };
 		848CE7691D3BB64500558E9E /* IncoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7681D3BB64500558E9E /* IncoTests.swift */; };
 		848CE7741D3BB64500558E9E /* IncoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848CE7731D3BB64500558E9E /* IncoUITests.swift */; };
+		84916DA71D559138000D8A68 /* TicketForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84916DA61D559138000D8A68 /* TicketForm.swift */; };
+		84916DA91D559764000D8A68 /* BaseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84916DA81D559764000D8A68 /* BaseItem.swift */; };
+		84916DAB1D55B8AC000D8A68 /* GroupUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84916DAA1D55B8AC000D8A68 /* GroupUser.swift */; };
+		84916DAD1D55D3A4000D8A68 /* CheckBoxUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84916DAC1D55D3A4000D8A68 /* CheckBoxUserView.swift */; };
+		84916DAF1D55D3C1000D8A68 /* CheckBoxUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84916DAE1D55D3C1000D8A68 /* CheckBoxUserView.xib */; };
 		8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491D3791D3F9A8B009BAB5D /* IncoCommon.swift */; };
 		849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */; };
 		849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5E1D4103E30097A933 /* ProjectCell.swift */; };
+		84A1999C1D51A4E000635992 /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1999A1D51A4E000635992 /* TicketViewController.swift */; };
+		84A1999D1D51A4E000635992 /* TicketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A1999B1D51A4E000635992 /* TicketViewController.xib */; };
+		84A199A01D51A5C300635992 /* ContentTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */; };
+		84A199A11D51A5C300635992 /* ContentTicketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */; };
 		84AF2B721D477F1300F31080 /* BaseComponentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF2B711D477F1300F31080 /* BaseComponentCell.swift */; };
 		84AF2B751D47932D00F31080 /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF2B731D47932D00F31080 /* TicketTableViewCell.swift */; };
 		84AF2B761D47932D00F31080 /* TicketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AF2B741D47932D00F31080 /* TicketTableViewCell.xib */; };
@@ -74,6 +83,10 @@
 		84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */; };
 		84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */; };
 		84B91AB31D4E148A00122245 /* UploadFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AB21D4E148A00122245 /* UploadFile.swift */; };
+		84C00A691D534DF400152697 /* AddTicketTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */; };
+		84C00A6A1D534DF400152697 /* AddTicketTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */; };
+		84C00A6E1D5356E300152697 /* ConfigTicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */; };
+		84C00A701D5356ED00152697 /* ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C00A6F1D5356ED00152697 /* ticket.storyboard */; };
 		84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2982E1D4F7F8800D36886 /* ViewController.swift */; };
 		84C298321D4F88E800D36886 /* CompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C298311D4F88E800D36886 /* CompanyTableViewCell.swift */; };
 		84C298341D4F897800D36886 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C298331D4F897800D36886 /* Company.swift */; };
@@ -163,9 +176,18 @@
 		848CE76F1D3BB64500558E9E /* IncoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IncoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		848CE7731D3BB64500558E9E /* IncoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncoUITests.swift; sourceTree = "<group>"; };
 		848CE7751D3BB64500558E9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84916DA61D559138000D8A68 /* TicketForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketForm.swift; sourceTree = "<group>"; };
+		84916DA81D559764000D8A68 /* BaseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseItem.swift; sourceTree = "<group>"; };
+		84916DAA1D55B8AC000D8A68 /* GroupUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupUser.swift; sourceTree = "<group>"; };
+		84916DAC1D55D3A4000D8A68 /* CheckBoxUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxUserView.swift; sourceTree = "<group>"; };
+		84916DAE1D55D3C1000D8A68 /* CheckBoxUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckBoxUserView.xib; sourceTree = "<group>"; };
 		8491D3791D3F9A8B009BAB5D /* IncoCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoCommon.swift; sourceTree = "<group>"; };
 		849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewCell.swift; sourceTree = "<group>"; };
 		849C1A5E1D4103E30097A933 /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
+		84A1999A1D51A4E000635992 /* TicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
+		84A1999B1D51A4E000635992 /* TicketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketViewController.xib; sourceTree = "<group>"; };
+		84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTicketViewController.swift; sourceTree = "<group>"; };
+		84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentTicketViewController.xib; sourceTree = "<group>"; };
 		84AF2B711D477F1300F31080 /* BaseComponentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseComponentCell.swift; sourceTree = "<group>"; };
 		84AF2B731D47932D00F31080 /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
 		84AF2B741D47932D00F31080 /* TicketTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketTableViewCell.xib; sourceTree = "<group>"; };
@@ -190,6 +212,10 @@
 		84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileCell.swift; sourceTree = "<group>"; };
 		84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadFileCell.xib; sourceTree = "<group>"; };
 		84B91AB21D4E148A00122245 /* UploadFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFile.swift; sourceTree = "<group>"; };
+		84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTicketTabBarViewController.swift; sourceTree = "<group>"; };
+		84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTicketTabBarViewController.xib; sourceTree = "<group>"; };
+		84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigTicketTableViewController.swift; sourceTree = "<group>"; };
+		84C00A6F1D5356ED00152697 /* ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ticket.storyboard; sourceTree = "<group>"; };
 		84C2982E1D4F7F8800D36886 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84C298311D4F88E800D36886 /* CompanyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewCell.swift; sourceTree = "<group>"; };
 		84C298331D4F897800D36886 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
@@ -311,6 +337,8 @@
 				846DAFF11D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift */,
 				848806161D4B78660081E740 /* UserItemUIView.swift */,
 				848806181D4B78C30081E740 /* UserItemUIView.xib */,
+				84916DAC1D55D3A4000D8A68 /* CheckBoxUserView.swift */,
+				84916DAE1D55D3C1000D8A68 /* CheckBoxUserView.xib */,
 			);
 			name = CustomView;
 			sourceTree = "<group>";
@@ -363,6 +391,9 @@
 				84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */,
 				84B91AB21D4E148A00122245 /* UploadFile.swift */,
 				84C298331D4F897800D36886 /* Company.swift */,
+				84916DA61D559138000D8A68 /* TicketForm.swift */,
+				84916DA81D559764000D8A68 /* BaseItem.swift */,
+				84916DAA1D55B8AC000D8A68 /* GroupUser.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -392,6 +423,7 @@
 		848CE74F1D3BB64500558E9E /* Inco */ = {
 			isa = PBXGroup;
 			children = (
+				84A199991D51A4B100635992 /* AddTicket */,
 				84B91AA01D4DF53600122245 /* AddComments */,
 				845A738F1D48D85800E95A71 /* DetailComponent */,
 				846DAFF01D450EDC008D8D5F /* CustomView */,
@@ -430,6 +462,21 @@
 				848CE7751D3BB64500558E9E /* Info.plist */,
 			);
 			path = IncoUITests;
+			sourceTree = "<group>";
+		};
+		84A199991D51A4B100635992 /* AddTicket */ = {
+			isa = PBXGroup;
+			children = (
+				84C00A6F1D5356ED00152697 /* ticket.storyboard */,
+				84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */,
+				84A1999A1D51A4E000635992 /* TicketViewController.swift */,
+				84A1999B1D51A4E000635992 /* TicketViewController.xib */,
+				84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */,
+				84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */,
+				84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */,
+				84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */,
+			);
+			name = AddTicket;
 			sourceTree = "<group>";
 		};
 		84B91AA01D4DF53600122245 /* AddComments */ = {
@@ -594,16 +641,21 @@
 			files = (
 				84B91AAC1D4DF6F100122245 /* CommentTabBarViewController.xib in Resources */,
 				848CE75E1D3BB64500558E9E /* LaunchScreen.storyboard in Resources */,
+				84A1999D1D51A4E000635992 /* TicketViewController.xib in Resources */,
 				84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */,
 				848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */,
 				846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */,
 				845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */,
+				84A199A11D51A5C300635992 /* ContentTicketViewController.xib in Resources */,
 				845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */,
 				848CE7561D3BB64500558E9E /* Main.storyboard in Resources */,
 				84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */,
+				84C00A701D5356ED00152697 /* ticket.storyboard in Resources */,
 				846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */,
 				84AF2B761D47932D00F31080 /* TicketTableViewCell.xib in Resources */,
 				84AF2B7E1D47A53400F31080 /* DiscussionTableViewCell.xib in Resources */,
+				84C00A6A1D534DF400152697 /* AddTicketTabBarViewController.xib in Resources */,
+				84916DAF1D55D3C1000D8A68 /* CheckBoxUserView.xib in Resources */,
 				84B91A971D4DBACF00122245 /* ProjectTabBarViewController.xib in Resources */,
 				84E855F91D4CD4F6007F6B6C /* CommentTableViewCell.xib in Resources */,
 				84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */,
@@ -772,11 +824,15 @@
 				846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */,
 				846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */,
 				84743B101D3D003400270587 /* UIViewController+MMDrawerController.m in Sources */,
+				84916DAD1D55D3A4000D8A68 /* CheckBoxUserView.swift in Sources */,
 				848CE7591D3BB64500558E9E /* Inco.xcdatamodeld in Sources */,
 				84AF2B721D477F1300F31080 /* BaseComponentCell.swift in Sources */,
+				84916DA71D559138000D8A68 /* TicketForm.swift in Sources */,
 				84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */,
 				84B91AAB1D4DF6F100122245 /* CommentTabBarViewController.swift in Sources */,
 				84AF2B7A1D47A3C000F31080 /* DiscussionCell.swift in Sources */,
+				84C00A6E1D5356E300152697 /* ConfigTicketTableViewController.swift in Sources */,
+				84C00A691D534DF400152697 /* AddTicketTabBarViewController.swift in Sources */,
 				845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */,
 				84B91AB31D4E148A00122245 /* UploadFile.swift in Sources */,
 				8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */,
@@ -787,11 +843,13 @@
 				84743B1B1D3D19ED00270587 /* LeftMenuItem.swift in Sources */,
 				846BBA3A1D4F78F100E7C020 /* CompanyTableViewController.swift in Sources */,
 				845A73A91D48F98500E95A71 /* User.swift in Sources */,
+				84916DAB1D55B8AC000D8A68 /* GroupUser.swift in Sources */,
 				84AF2B7D1D47A53400F31080 /* DiscussionTableViewCell.swift in Sources */,
 				84E855FB1D4CDAB0007F6B6C /* CommentCell.swift in Sources */,
 				848806171D4B78660081E740 /* UserItemUIView.swift in Sources */,
 				84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */,
 				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
+				84A1999C1D51A4E000635992 /* TicketViewController.swift in Sources */,
 				846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */,
 				846DAFEF1D450A25008D8D5F /* UIViewControllerExtensions.swift in Sources */,
 				84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */,
@@ -801,11 +859,13 @@
 				848CE7511D3BB64500558E9E /* AppDelegate.swift in Sources */,
 				84AF2B751D47932D00F31080 /* TicketTableViewCell.swift in Sources */,
 				846DAFED1D44F733008D8D5F /* TaskCell.swift in Sources */,
+				84A199A01D51A5C300635992 /* ContentTicketViewController.swift in Sources */,
 				84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */,
 				84B91A931D4D965E00122245 /* DetailTicketComponent.swift in Sources */,
 				84C298341D4F897800D36886 /* Company.swift in Sources */,
 				845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */,
 				84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */,
+				84916DA91D559764000D8A68 /* BaseItem.swift in Sources */,
 				84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */,
 				84B91A8D1D4D85BD00122245 /* DetailTicketTableViewController.swift in Sources */,
 				845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */,
