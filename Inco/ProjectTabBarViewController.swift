@@ -11,14 +11,16 @@ import UIKit
 class ProjectTabBarViewController: UITabBarController {
     var refresh:UIBarButtonItem? = nil
     var detail:UIBarButtonItem? = nil
+    var addTicketBtn:UIBarButtonItem? = nil
     var item:ProjectCell?
     override func viewDidLoad() {
         super.viewDidLoad()
         refresh = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh,target:self,action:nil)
         detail = UIBarButtonItem(image: UIImage(named: "ic_description"), style: .Plain, target: self, action: #selector(ProjectTabBarViewController.showDetailProject))
+        addTicketBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(ProjectTabBarViewController.addTicket));
      //   detail = UIBarButtonItem(title: "Detail", style: .Plain, target: self, action: nil)
      //   detail.
-        navigationItem.rightBarButtonItems = [refresh!,detail!]
+        navigationItem.rightBarButtonItems = [refresh!,addTicketBtn!,detail!]
 
         // Do any additional setup after loading the view.
     }
@@ -26,6 +28,35 @@ class ProjectTabBarViewController: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func addTicket()  {
+        let tabBarController = AddTicketTabBarViewController()
+        let ticketStoryboard: UIStoryboard = UIStoryboard(name: "ticket", bundle: nil)
+        let config = ticketStoryboard.instantiateViewControllerWithIdentifier("ConfigTicketTableViewController") as! ConfigTicketTableViewController
+        config.projectId = self.item?.id
+        let content = ContentTicketViewController(nibName: "ContentTicketViewController", bundle: nil)
+        let file = FilesTableViewController(nibName: "CommentsTableViewController", bundle: nil)
+        
+        let controllers = [content,config,file]
+        tabBarController.viewControllers = controllers
+        let firstImage = UIImage(named: "tabs_ticket")
+        let secondImage = UIImage(named: "ic_settings_white")
+        let threeImage = UIImage(named: "ic_attachment_white")
+        
+        content.tabBarItem = UITabBarItem(
+            title: "",
+            image: firstImage,
+            tag: 1)
+        config.tabBarItem = UITabBarItem(
+            title: "",
+            image: secondImage,
+            tag:2)
+        file.tabBarItem = UITabBarItem(
+            title: "",
+            image: threeImage,
+            tag:2)
+        
+        self.navigationController?.pushViewController(tabBarController, animated: true)
     }
     func showDetailProject() {
         let tabBarController = DetailTabBarViewController()
