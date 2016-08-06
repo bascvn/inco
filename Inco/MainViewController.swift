@@ -177,6 +177,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
         
         discussions.type = ComponentType.DISCUSSTION
+        discussions.title = ""
         let controllers = [tasks,tickets,discussions]
         tabBarController.viewControllers = controllers
         let firstImage = UIImage(named: "tabs_task")
