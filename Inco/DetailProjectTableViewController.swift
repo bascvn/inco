@@ -40,9 +40,10 @@ class DetailProjectTableViewController: UITableViewController {
         indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0)
         indicator.center.x = x
         indicator.center.y = y
-        self.tableView.addSubview(indicator)
-        indicator.bringSubviewToFront(self.tableView)
-        
+        self.view.addSubview(indicator)
+        indicator.bringSubviewToFront(self.view)
+        indicator.startAnimating()
+
         self.loadDetailProject()
     }
     @IBOutlet weak var mTeam: UIView!
@@ -120,7 +121,7 @@ class DetailProjectTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
                 self.indicator.stopAnimating()
-                self.indicator.hidesWhenStopped = true
+               self.indicator.hidesWhenStopped = true
             }
             return
         }

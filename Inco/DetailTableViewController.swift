@@ -51,7 +51,8 @@ class DetailTableViewController: UITableViewController {
         indicator.center.y = y
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
-        
+        indicator.startAnimating()
+
         getDetail()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

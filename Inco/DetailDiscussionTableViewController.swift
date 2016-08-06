@@ -42,7 +42,7 @@ class DetailDiscussionTableViewController: UITableViewController {
         indicator.center.y = y
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
-
+        indicator.startAnimating()
         self.loadDetailTicket()
     }
 
