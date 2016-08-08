@@ -13,7 +13,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
     var type = ComponentType.TASKS
     let imagePicker = UIImagePickerController()
     var uploadlist = [UploadFile]()
-       var index = 0
+       var index = 1
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self

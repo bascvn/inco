@@ -17,7 +17,7 @@ class CommentTabBarViewController: UITabBarController {
     var type = ComponentType.PROJECT
     var projectID = ""
     var id = ""
-    
+    var refreshDelegate:RefreshProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,7 +95,9 @@ class CommentTabBarViewController: UITabBarController {
         }
         for item  in (fileView?.uploadlist)! {
             if item.status == UploadStatus.OK {
-                parameters["attachments_info[\(item.id)]"] = item.info
+                print("attachments_info[\(item.id)]")
+                print("item.info[\(item.info)]")
+                parameters["attachments_info["+item.id!+"]"] = item.info
             }
         }
         return parameters
@@ -111,6 +113,17 @@ class CommentTabBarViewController: UITabBarController {
             showAlertFileUploading()
             return
         }
+        let alertController = UIAlertController(title: nil, message: "Please wait\n\n", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        
+        spinnerIndicator.center = CGPointMake(135.0, 65.5)
+        spinnerIndicator.color = UIColor.blackColor()
+        spinnerIndicator.startAnimating()
+        
+        alertController.view.addSubview(spinnerIndicator)
+        self.presentViewController(alertController, animated: false, completion: nil)
+        
         let userId = IncoCommon.getUserId()
         let parameters = self.getParameterApi(self.type, id: self.id, projectID: self.projectID, userId: userId)
         Alamofire.request(.POST, self.getCommentApi(self.type),parameters: parameters) .responseJSON { response in // 1
@@ -127,7 +140,10 @@ class CommentTabBarViewController: UITabBarController {
                 }
              
             }
+            alertController.dismissViewControllerAnimated(false, completion: nil)
+            
             self.navigationController?.popViewControllerAnimated(true)
+            self.refreshDelegate?.refresh()
             return
         }
 

@@ -278,7 +278,7 @@
                                     <constraint firstAttribute="height" constant="40" id="Wyh-HR-O6M"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
                                         <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -294,7 +294,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EIp-8q-aUc">
                                 <rect key="frame" x="150" y="319" width="300" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,7 +336,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AEr-Tb-QTr">
                                 <rect key="frame" x="150" y="374" width="300" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -367,6 +367,10 @@
                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y9m-0L-7gX"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HPt-rx-8e9">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -384,11 +388,13 @@
                             <constraint firstItem="bsT-ib-tTc" firstAttribute="top" secondItem="AEr-Tb-QTr" secondAttribute="bottom" constant="15" id="T2T-bY-50a"/>
                             <constraint firstItem="S8r-MY-VrE" firstAttribute="height" secondItem="AEr-Tb-QTr" secondAttribute="height" id="bpH-ED-wCm"/>
                             <constraint firstItem="6eK-ha-ZWm" firstAttribute="leading" secondItem="oFe-Rw-Bnu" secondAttribute="trailing" constant="14" id="cVd-wP-PWq"/>
+                            <constraint firstItem="HPt-rx-8e9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fNV-GR-NpK"/>
                             <constraint firstItem="bsT-ib-tTc" firstAttribute="width" secondItem="AEr-Tb-QTr" secondAttribute="width" id="hdt-4l-ouS"/>
                             <constraint firstItem="AEr-Tb-QTr" firstAttribute="top" secondItem="EIp-8q-aUc" secondAttribute="bottom" constant="15" id="iFU-Kl-Y3t"/>
                             <constraint firstItem="oFe-Rw-Bnu" firstAttribute="leading" secondItem="AEr-Tb-QTr" secondAttribute="leading" id="iJw-5W-W4F"/>
                             <constraint firstItem="AEr-Tb-QTr" firstAttribute="height" secondItem="C7C-Sm-t5N" secondAttribute="height" id="ihy-6O-okO"/>
                             <constraint firstItem="EIp-8q-aUc" firstAttribute="height" secondItem="C7C-Sm-t5N" secondAttribute="height" id="j5M-N7-eie"/>
+                            <constraint firstItem="HPt-rx-8e9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="kMT-Pa-htf"/>
                             <constraint firstItem="6eK-ha-ZWm" firstAttribute="baseline" secondItem="oFe-Rw-Bnu" secondAttribute="baseline" id="kRg-nZ-V1r"/>
                             <constraint firstItem="EIp-8q-aUc" firstAttribute="top" secondItem="C7C-Sm-t5N" secondAttribute="bottom" constant="15" id="lqS-LO-PeL"/>
                             <constraint firstItem="AEr-Tb-QTr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mPA-eC-NHw"/>
@@ -406,6 +412,7 @@
                     <navigationItem key="navigationItem" id="70N-9G-BSC"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="isLoging" destination="HPt-rx-8e9" id="Gxm-yd-QuQ"/>
                         <outlet property="mCompany" destination="AEr-Tb-QTr" id="vTf-Cg-ZVw"/>
                         <outlet property="mEmail" destination="C7C-Sm-t5N" id="Wnc-Zh-Qzj"/>
                         <outlet property="mPassword" destination="EIp-8q-aUc" id="36d-Ye-yOp"/>

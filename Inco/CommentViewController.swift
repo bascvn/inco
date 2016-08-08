@@ -13,7 +13,7 @@ class CommentViewController: UIViewController {
     @IBOutlet weak var mComment: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.addDoneButtonOnKeyboard()
         // Do any additional setup after loading the view.
     }
 
@@ -27,7 +27,26 @@ class CommentViewController: UIViewController {
         }
         return false
     }
-
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar.barStyle = UIBarStyle.BlackTranslucent
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ContentTicketViewController.doneButtonAction))
+        
+        
+        doneToolbar.items = [flexSpace,done]
+        doneToolbar.sizeToFit()
+        
+        self.mComment.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction()
+    {
+        self.mComment.resignFirstResponder()
+    }
     /*
     // MARK: - Navigation
 
