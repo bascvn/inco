@@ -50,6 +50,18 @@ class IncoApi {
     static let  TYPE_BIND_PARAMATER = "bind_type"
     // Ticket 
     static let API_GET_TICKET_FORM = "/index.php/mobile/ticketform"
+    static let API_NEW_TICKET = "/index.php/mobile/newticket"
+    static let NEW_TICKET_COM_ID = "tickets[projects_id]"
+    static let NEW_TICKET_DEPA_ID = "tickets[departments_id]"
+    static let NEW_TICKET_TYPE_ID = "tickets[tickets_types_id]"
+    static let NEW_TICKET_STATUS_ID = "tickets[tickets_status_id]"
+    static let NEW_TICKET_NAME = "tickets[name]"
+    static let NEW_TICKET_DES = "tickets[description]"
+    static let NEW_TIECKT_USER = "tickets[users_id]"
+    static let EXTRA_NOTIFY = "extra_notification[]"
+
+    // download
+    static let  API_DOWNLOAD_FILE = "/index.php/mobile/download"
 
     // add comments
     static let API_ADD_COMMENT_OF_TASK = "/index.php/mobile/addcommenttask"

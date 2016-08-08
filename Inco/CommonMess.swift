@@ -12,4 +12,7 @@ class CommonMess {
     static let LOGOUT_CONFIRM = "Do you want logout!"
     static let DATA_EMPTY = "Data empty!"
     static let FILE_UPLOADING = "File uploading"
+    static let SUBJECT_EPMPTY = "Subjects empty"
+    static let DISCRIPTION_EMPTY = "Discription empty"
+    static let CONFIG_TICKET   = "Please config info ticket"
 }
