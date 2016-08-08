@@ -8,11 +8,12 @@
 
 import UIKit
 
-class DetailTabBarViewController: UITabBarController {
+class DetailTabBarViewController: UITabBarController,RefreshProtocol{
     var add:UIBarButtonItem?
     var type:ComponentType = ComponentType.PROJECT
     var projectID = ""
     var iD = ""
+    var commentView:CommentsTableViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
       //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
@@ -23,7 +24,7 @@ class DetailTabBarViewController: UITabBarController {
     }
     func openAddComment() {
         let tabBarController = CommentTabBarViewController()
-        
+        tabBarController.refreshDelegate = self
         let comment = CommentViewController(nibName: "CommentViewController", bundle: nil)
         let file = FilesTableViewController(nibName: "FilesTableViewController", bundle: nil)
         file.type = self.type
@@ -35,8 +36,8 @@ class DetailTabBarViewController: UITabBarController {
         tabBarController.projectID = self.projectID
         tabBarController.type = self.type
         tabBarController.viewControllers = controllers
-        let firstImage = UIImage(named: "ic_description")
-        let secondImage = UIImage(named: "tabs_discusstion")
+        let firstImage = UIImage(named: "tabs_discusstion")
+        let secondImage = UIImage(named: "ic_attachment_white")
         comment.tabBarItem = UITabBarItem(
             title: "",
             image: firstImage,
@@ -46,6 +47,12 @@ class DetailTabBarViewController: UITabBarController {
             image: secondImage,
             tag:2)
         self.navigationController?.pushViewController(tabBarController, animated: true)
+    }
+    func refresh() {
+        if self.tabBar.selectedItem?.tag == 2 {
+            self.commentView!.refresh()
+        }
+
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

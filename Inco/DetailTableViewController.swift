@@ -36,8 +36,9 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var createAt: UILabel!
     @IBOutlet weak var mContainerCell: UIView!
     
-    
-    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var preData:UITableViewDataSource?
+
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 44
@@ -52,7 +53,8 @@ class DetailTableViewController: UITableViewController {
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
         indicator.startAnimating()
-
+        preData = self.tableView.dataSource
+        self.tableView.dataSource  = nil
         getDetail()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -202,6 +204,7 @@ class DetailTableViewController: UITableViewController {
                 if inco.isOK(){
                   self.detail = DetailTaskComponent(data: inco.data[0])
                     self.populateInfo()
+                    self.tableView.dataSource = self.preData
                     self.tableView.reloadData()
                 }
                 self.indicator.stopAnimating()

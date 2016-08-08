@@ -21,9 +21,11 @@ class DetailDiscussionTableViewController: UITableViewController {
     
     @IBOutlet weak var mAssignTo: UIView!
     
-    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
      var detail:DetailDiscussionComponent?
      var item:DiscussionCell?
+    var preData:UITableViewDataSource?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,6 +45,8 @@ class DetailDiscussionTableViewController: UITableViewController {
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
         indicator.startAnimating()
+        preData = self.tableView.dataSource
+        self.tableView.dataSource  = nil
         self.loadDetailTicket()
     }
 
@@ -115,6 +119,7 @@ class DetailDiscussionTableViewController: UITableViewController {
                 if inco.isOK(){
                     self.detail = DetailDiscussionComponent (data: inco.data[0])
                     self.populateInfo()
+                    self.tableView.dataSource = self.preData
                     self.tableView.reloadData()
                 }
                 self.indicator.stopAnimating()

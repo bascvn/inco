@@ -27,8 +27,9 @@ class DetailTicketTableViewController: UITableViewController {
     var item:TicketCell?
     @IBOutlet weak var mNameUserDeparment: UILabel!
     var detail:DetailTicketComponent?
-    
-    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var preData:UITableViewDataSource?
+
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,7 +50,8 @@ class DetailTicketTableViewController: UITableViewController {
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
         indicator.startAnimating()
-
+        preData = self.tableView.dataSource
+        self.tableView.dataSource  = nil
         
         self.loadDetailTicket()
     }
@@ -100,6 +102,7 @@ class DetailTicketTableViewController: UITableViewController {
                 if inco.isOK(){
                     self.detail = DetailTicketComponent (data: inco.data[0])
                     self.populateInfo()
+                    self.tableView.dataSource = self.preData
                     self.tableView.reloadData()
                 }
                 self.indicator.stopAnimating()

@@ -21,7 +21,8 @@ class DetailProjectTableViewController: UITableViewController {
     @IBOutlet weak var mAvatar: UIImageView!
     @IBOutlet weak var mDiscription: UILabel!
     
-     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    var preData:UITableViewDataSource?
+     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,8 @@ class DetailProjectTableViewController: UITableViewController {
         self.view.addSubview(indicator)
         indicator.bringSubviewToFront(self.view)
         indicator.startAnimating()
-
+         preData = self.tableView.dataSource
+        self.tableView.dataSource  = nil
         self.loadDetailProject()
     }
     @IBOutlet weak var mTeam: UIView!
@@ -100,6 +102,7 @@ class DetailProjectTableViewController: UITableViewController {
         
     }
     func loadDetailProject() {
+      //  self.tableView.hidden = true
         let token = IncoCommon.getToken() as String
         print("token: \(token)")
         
@@ -118,7 +121,10 @@ class DetailProjectTableViewController: UITableViewController {
                 if inco.isOK(){
                     self.detail = DetailProjectComponent (data: inco.data[0])
                     self.populateInfo()
+                   // self.tableView.hidden = false
+                     self.tableView.dataSource = self.preData
                     self.tableView.reloadData()
+                    
                 }
                 self.indicator.stopAnimating()
                self.indicator.hidesWhenStopped = true

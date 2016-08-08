@@ -11,9 +11,10 @@ import Alamofire
 import AlamofireImage
 class CommentsTableViewController: UITableViewController {
     
-    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     var comments = [CommentCell]()
     var type:ComponentType = ComponentType.PROJECT
+    var loadingcell :LoadingMoreCell!
     var id:String = "0"
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +95,12 @@ class CommentsTableViewController: UITableViewController {
         }
         return parameters
     }
+    func refresh() {
+        indicator.startAnimating()
+        self.comments.removeAll()
+        self.getListComment()
+
+    }
     func getListComment()  {
         let url = self.getApi(self.type)
         let parameters = self.getParameterApi(self.type, id: self.id)
@@ -109,6 +116,9 @@ class CommentsTableViewController: UITableViewController {
                 if inco.isOK(){
                     for item in inco.data {
                         self.comments.append(CommentCell(data: item))
+                    }
+                    if self.loadingcell != nil{
+                        self.loadingcell.setLoading(false)
                     }
                     self.indicator.stopAnimating()
                     self.indicator.hidesWhenStopped = true
@@ -131,6 +141,11 @@ class CommentsTableViewController: UITableViewController {
             documentAttributes: nil)
         cell.mDiscription.attributedText = attrStr
          cell.mDiscription.font = UIFont.systemFontOfSize(15.0)
+        if item.attachments.count > 0 {
+            cell.mFileAttch.hidden = false
+        }else {
+            cell.mFileAttch.hidden = true
+        }
         return cell
     }
     
@@ -160,7 +175,19 @@ class CommentsTableViewController: UITableViewController {
 
     }
     
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.loadingcell = tableView.cellForRowAtIndexPath(indexPath) as? LoadingMoreCell
+        if self.loadingcell != nil {
+            loadingcell.setLoading(true)
+            self.getListComment()
+            return
+        }
+        let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
+        let detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailCommentTableViewController") as! DetailCommentTableViewController
+        detail.item = self.comments[indexPath.row]
+        
+        self.navigationController?.pushViewController(detail, animated: true)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
