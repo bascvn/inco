@@ -8,9 +8,10 @@
 
 import UIKit
 import Alamofire
-class ViewController: UIViewController,CompanyTableDelegate{
+class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
 
    
+    @IBOutlet weak var isLoging: UIActivityIndicatorView!
     @IBOutlet weak var mEmail: UITextField!
     
     @IBOutlet weak var mPassword: UITextField!
@@ -22,6 +23,9 @@ class ViewController: UIViewController,CompanyTableDelegate{
     @IBOutlet weak var mRemeber: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mEmail.delegate = self
+        self.mCompany.delegate = self
+        self.mPassword.delegate = self
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view, typically from a nib.
         if IncoCommon.isRemember() == true{
@@ -36,6 +40,8 @@ class ViewController: UIViewController,CompanyTableDelegate{
 
         }
         mVersion.text = IncoCommon.getVersion()
+        self.isLoging.hidesWhenStopped = true
+        self.isLoging.stopAnimating()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +64,7 @@ class ViewController: UIViewController,CompanyTableDelegate{
         if(!self.validateForm()){
             return
         }
+        self.isLoging.startAnimating()
         let email = self.mEmail.text!
         let pass = self.mPassword.text!
         let parameters:[String:AnyObject] = [IncoApi.LOGIN_DEVICE_ID:"ios device",IncoApi.LOGIN_DEVICE_TYPE:"2",
@@ -82,6 +89,8 @@ class ViewController: UIViewController,CompanyTableDelegate{
                             IncoCommon.saveUserInfo(data[0].valueForKey("user") as! NSDictionary)
                             IncoCommon.setRemember(self.mRemeber.on)
                             self.loginSucess()
+                            self.isLoging.stopAnimating()
+
                             return
                         }
                         
@@ -90,6 +99,8 @@ class ViewController: UIViewController,CompanyTableDelegate{
                 
                 
             }
+            self.isLoging.stopAnimating()
+
             self.showAlertBox(CommonMess.ALERT, mess: ErrorMess.LOGIN_ERROR)
             return
         }
@@ -156,5 +167,10 @@ class ViewController: UIViewController,CompanyTableDelegate{
     func companyslected(clientId:String){
      self.mCompany.text = clientId
     }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
 }
 
