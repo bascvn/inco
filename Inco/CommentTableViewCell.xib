@@ -30,15 +30,22 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3u7-ja-G5G">
                         <rect key="frame" x="8" y="76" width="331" height="94"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-07-12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BN-VB-5wJ">
                         <rect key="frame" x="66" y="36" width="273" height="17"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_attachment_48pt" translatesAutoresizingMaskIntoConstraints="NO" id="vMF-Tq-mDx">
+                        <rect key="frame" x="310" y="8" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="LFa-yz-GFv"/>
+                            <constraint firstAttribute="width" constant="24" id="gTn-T4-6rk"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="kPZ-ju-ggb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="3tx-od-HRv"/>
@@ -49,6 +56,8 @@
                     <constraint firstAttribute="trailing" secondItem="Rm0-yq-t61" secondAttribute="trailing" constant="8" id="ZaL-9h-9Pg"/>
                     <constraint firstItem="Rm0-yq-t61" firstAttribute="leading" secondItem="kPZ-ju-ggb" secondAttribute="trailing" constant="8" id="g0y-ZP-3Fq"/>
                     <constraint firstItem="kPZ-ju-ggb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="j1q-lx-h6Z"/>
+                    <constraint firstAttribute="trailing" secondItem="vMF-Tq-mDx" secondAttribute="trailing" constant="13" id="lvH-ad-tTa"/>
+                    <constraint firstItem="vMF-Tq-mDx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="oIj-J0-xFy"/>
                     <constraint firstAttribute="trailing" secondItem="3u7-ja-G5G" secondAttribute="trailing" constant="8" id="pDH-b9-7zn"/>
                     <constraint firstItem="2BN-VB-5wJ" firstAttribute="top" secondItem="Rm0-yq-t61" secondAttribute="bottom" constant="8" id="vFW-Ud-hSO"/>
                     <constraint firstAttribute="trailing" secondItem="2BN-VB-5wJ" secondAttribute="trailing" constant="8" id="vqT-IZ-vU6"/>
@@ -59,6 +68,7 @@
                 <outlet property="mAvatar" destination="kPZ-ju-ggb" id="xhl-eQ-43z"/>
                 <outlet property="mCreateAt" destination="2BN-VB-5wJ" id="qWk-uK-rVz"/>
                 <outlet property="mDiscription" destination="3u7-ja-G5G" id="Ymf-cC-13W"/>
+                <outlet property="mFileAttch" destination="vMF-Tq-mDx" id="krW-54-96Y"/>
                 <outlet property="mName" destination="Rm0-yq-t61" id="CXb-8s-96C"/>
             </connections>
             <point key="canvasLocation" x="428.5" y="295.5"/>
@@ -66,5 +76,6 @@
     </objects>
     <resources>
         <image name="avatar_default" width="32" height="32"/>
+        <image name="ic_attachment_48pt" width="48" height="48"/>
     </resources>
 </document>

@@ -10,6 +10,7 @@ import UIKit
 
 class CommentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var mFileAttch: UIImageView!
     @IBOutlet weak var mAvatar: UIImageView!
     
     @IBOutlet weak var mDiscription: UILabel!
