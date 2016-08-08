@@ -26,10 +26,12 @@ class ConfigTicketTableViewController: UITableViewController  {
     var ticketForm:TicketForm?
     var heightCreateBy = 0
     var heightNotify = 0
+    var preData:UITableViewDataSource?
 
     var listCheckbox = [UISwitch]()
     var listnotify = [UISwitch]()
-      let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+      let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+    var isConfig = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +49,8 @@ class ConfigTicketTableViewController: UITableViewController  {
         self.tableView.addSubview(indicator)
         indicator.bringSubviewToFront(self.tableView)
         indicator.startAnimating()
+        preData = self.tableView.dataSource
+        self.tableView.dataSource  = nil
         self.loadFormTicket()
     }
 
@@ -87,7 +91,8 @@ class ConfigTicketTableViewController: UITableViewController  {
         // 4
       
         optionMenu.addAction(cancelAction)
-        
+        optionMenu.popoverPresentationController?.sourceView = self.btnDeparment
+        optionMenu.popoverPresentationController?.sourceRect = self.btnDeparment.bounds
         // 5
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
@@ -127,6 +132,8 @@ class ConfigTicketTableViewController: UITableViewController  {
         // 4
         
         optionMenu.addAction(cancelAction)
+        optionMenu.popoverPresentationController?.sourceView = self.btnType
+        optionMenu.popoverPresentationController?.sourceRect = self.btnType.bounds
         
         // 5
         self.presentViewController(optionMenu, animated: true, completion: nil)
@@ -166,6 +173,8 @@ class ConfigTicketTableViewController: UITableViewController  {
         // 4
         
         optionMenu.addAction(cancelAction)
+        optionMenu.popoverPresentationController?.sourceView = self.btStaus
+        optionMenu.popoverPresentationController?.sourceRect = self.btStaus.bounds
         
         // 5
         self.presentViewController(optionMenu, animated: true, completion: nil)
@@ -200,6 +209,7 @@ class ConfigTicketTableViewController: UITableViewController  {
             for itemchild in item.users {
                 let user = CheckBoxUserView(frame: CGRect(x: 0, y: self.heightCreateBy, width: 400, height: 47))
                  user.mLabel.text = itemchild.value
+                 user.tag = Int(itemchild.key!)!
                 if isSet == false {
                     user.mCheckBox.on = true
                     user.mCheckBox.enabled = false
@@ -224,14 +234,17 @@ class ConfigTicketTableViewController: UITableViewController  {
                 let user = CheckBoxUserView(frame: CGRect(x: 0, y: self.heightNotify, width: 400, height: 47))
                 user.mLabel.text = itemchild.value
                 user.mCheckBox.on = false
-                
+                user.tag = Int(itemchild.key!)!
                 listnotify.append(user.mCheckBox)
                
                 self.heightNotify += 47
                 self.mContainNotify.addSubview(user)
             }
         }
+        self.tableView.dataSource = self.preData
+
         self.tableView.reloadData()
+        self.isConfig = true
     
     }
     func changeCreateBy() {
@@ -274,6 +287,35 @@ class ConfigTicketTableViewController: UITableViewController  {
             return
         }
 
+    }
+    func getDeparmentId() -> String {
+        return "\(self.btnDeparment.tag)"
+    }
+    func getStatusId() -> String {
+        return "\(self.btStaus.tag)"
+    }
+    func getTypeId() -> String {
+        return "\(self.btnType.tag)"
+    }
+    func getCreateByID() -> String {
+        for item in self.listCheckbox {
+            if item.on == true {
+                return "\(item.tag)"
+            
+            }
+        
+        }
+        return"0"
+    }
+    func getNotifyID() -> [String] {
+        var result = [String]()
+        for item in self.listnotify {
+            if item.on == true {
+                    result.append("\(item.tag)")
+            }
+            
+        }
+        return result
     }
     // MARK: - Table view data source
 

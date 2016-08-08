@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class AddTicketTabBarViewController: UITabBarController {
-
+    var add:UIBarButtonItem? = nil
+    var send:UIBarButtonItem?
+    var contentView:ContentTicketViewController?
+    var configView:ConfigTicketTableViewController?
+    var fileView:FilesTableViewController?
+    
+    var projectID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(CommentTabBarViewController.selectFile))
+        send = UIBarButtonItem(image: UIImage(named: "ic_send_white"), style: .Plain, target: self, action:#selector(AddTicketTabBarViewController.sendTicket))
+        navigationItem.rightBarButtonItems = [send!]
         // Do any additional setup after loading the view.
     }
 
@@ -20,8 +30,96 @@ class AddTicketTabBarViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.tag == 3 {
+            navigationItem.rightBarButtonItems = [add!,send!]
+        }else{
+            navigationItem.rightBarButtonItems = [send!]
+        }
+    }
+    func showAler(mess: String ) {
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: mess, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func showAlertFileUploading()  {
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.FILE_UPLOADING, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func getParameterApi() -> [String:AnyObject] {
+        let token = IncoCommon.getToken() as String
+        var parameters:[String:AnyObject] =  [:]
+        parameters[IncoApi.TOKEN_PARAMETER] = token
+        parameters[IncoApi.NEW_TICKET_COM_ID] = self.projectID
+        parameters[IncoApi.NEW_TICKET_DEPA_ID] = self.configView?.getDeparmentId()
+        parameters[IncoApi.NEW_TICKET_TYPE_ID] = self.configView?.getTypeId()
+        parameters[IncoApi.NEW_TICKET_STATUS_ID] = self.configView?.getStatusId()
+        parameters[IncoApi.NEW_TIECKT_USER] = IncoCommon.getUserId()
+        parameters[IncoApi.NEW_TICKET_NAME] = self.contentView?.mSubject.text
+        parameters[IncoApi.NEW_TICKET_DES] = self.contentView?.mDiscription.text
+        parameters[IncoApi.ADD_COMMENT_PRO_ID] = self.self.projectID
 
+        for item  in (fileView?.uploadlist)! {
+            if item.status == UploadStatus.OK {
+                print("attachments_info[\(item.id)]")
+                print("item.info[\(item.info)]")
+                parameters["attachments_info["+item.id!+"]"] = item.info
+            }
+        }
+        return parameters
+        
+    }
+
+    func sendTicket() {
+        if self.contentView?.isSubjectEmpty() == true {
+            self.showAler(CommonMess.SUBJECT_EPMPTY)
+            return
+        }
+        if self.contentView?.isDiscriptionEmpty() == true {
+            self.showAler(CommonMess.DISCRIPTION_EMPTY)
+            return
+        }
+        if self.fileView?.isFilesUploadFinish() == false {
+            self.showAlertFileUploading()
+            return
+        }
+        if self.configView?.isConfig == false {
+            self.showAler(CommonMess.CONFIG_TICKET)
+            return
+        }
+        let alertController = UIAlertController(title: nil, message: "Please wait\n\n", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let spinnerIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+        
+        spinnerIndicator.center = CGPointMake(135.0, 65.5)
+        spinnerIndicator.color = UIColor.blackColor()
+        spinnerIndicator.startAnimating()
+        
+        alertController.view.addSubview(spinnerIndicator)
+        self.presentViewController(alertController, animated: false, completion: nil)
+        
+        let parameters = self.getParameterApi()
+        Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_NEW_TICKET),parameters: parameters) .responseJSON { response in // 1
+            print(response.request)  // original URL request
+            print(response.response) // URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+                let inco = IncoResponse(data: JSON as! NSDictionary)
+                if inco.isOK(){
+                    
+                }
+                
+            }
+             alertController.dismissViewControllerAnimated(false, completion: nil)
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
+
+    }
     /*
     // MARK: - Navigation
 
