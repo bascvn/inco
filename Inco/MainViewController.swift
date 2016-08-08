@@ -10,18 +10,22 @@ import UIKit
 import Alamofire
 
 class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate,RefreshProtocol{
+    var isSetTitle = true
     var projects = [BaseComponentCell]()
     var loadingcell :LoadingMoreCell!
     var type:ComponentType = ComponentType.PROJECT
     var projectId:String = ""
-    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-
+    var refreshControl = UIRefreshControl()
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+    
     @IBOutlet weak var mSearchBar: UISearchBar!
     @IBOutlet weak var mTableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // set title
-        self.setTitleView(type)
+        if self.isSetTitle == true {
+            self.setTitleView(type)
+        }
         //self.hideKeyboardWhenTappedAround()
         // loading state
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
@@ -31,6 +35,9 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.view.addSubview(indicator)
         indicator.bringSubviewToFront(self.view)
         indicator.startAnimating()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(MainViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.mTableview?.addSubview(refreshControl)
        // self.mTableview.estimatedRowHeight = 44
         //self.mTableview.rowHeight = UITableViewAutomaticDimension
         
@@ -54,6 +61,10 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
            indicator.startAnimating()
            self.projects.removeAll()
            self.getProjectList()
+    }
+    func refresh(sender:AnyObject) {
+        self.refresh()
+        self.refreshControl.endRefreshing()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,6 +151,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 comment.type = self.type
                 comment.id = self.projects[indexPath.row].id!
                 let controllers = [detail,comment]
+                tabBarController.commentView = comment
                 tabBarController.viewControllers = controllers
                 let firstImage = UIImage(named: "ic_description")
                 let secondImage = UIImage(named: "tabs_discusstion")
@@ -164,9 +176,11 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let tasks = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
             as! MainViewController
             tasks.type = ComponentType.TASKS
+        tasks.isSetTitle = false
         let tickets = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
             as! MainViewController
         tickets.type = ComponentType.TICKET
+        tickets.isSetTitle = false
 
         let discussions = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController")
             as! MainViewController
@@ -175,11 +189,15 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             tickets.projectId = (self.projects[indexPath.row] ).id!
             discussions.projectId = (self.projects[indexPath.row] ).id!
 
-        
+        discussions.isSetTitle = false
+
         discussions.type = ComponentType.DISCUSSTION
         discussions.title = ""
         let controllers = [tasks,tickets,discussions]
         tabBarController.viewControllers = controllers
+        tabBarController.taskview = tasks
+        tabBarController.ticketView = tickets
+        tabBarController.discussionView = discussions
         let firstImage = UIImage(named: "tabs_task")
         let secondImage = UIImage(named: "tabs_ticket")
         let threeImage = UIImage(named: "tabs_discusstion")
