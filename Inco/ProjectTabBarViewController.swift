@@ -20,7 +20,8 @@ class ProjectTabBarViewController: UITabBarController {
         super.viewDidLoad()
         refresh = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh,target:self,action:#selector(ProjectTabBarViewController.refreshView))
         detail = UIBarButtonItem(image: UIImage(named: "ic_description"), style: .Plain, target: self, action: #selector(ProjectTabBarViewController.showDetailProject))
-        addTicketBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(ProjectTabBarViewController.addTicket));
+       // addTicketBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit,target:self,action:#selector(ProjectTabBarViewController.addTicket));
+          addTicketBtn = UIBarButtonItem(image: UIImage(named: "ic_create_white_36pt"), style: .Plain, target: self, action:#selector(ProjectTabBarViewController.addTicket))
      //   detail = UIBarButtonItem(title: "Detail", style: .Plain, target: self, action: nil)
      //   detail.
         navigationItem.rightBarButtonItems = [refresh!,detail!]
@@ -47,12 +48,14 @@ class ProjectTabBarViewController: UITabBarController {
         let config = ticketStoryboard.instantiateViewControllerWithIdentifier("ConfigTicketTableViewController") as! ConfigTicketTableViewController
         config.projectId = self.item?.id
         let content = ContentTicketViewController(nibName: "ContentTicketViewController", bundle: nil)
-        let file = FilesTableViewController(nibName: "CommentsTableViewController", bundle: nil)
-        
+        let commentStoryboard: UIStoryboard = UIStoryboard(name: "addcomment", bundle: nil)
+
+        let file = commentStoryboard.instantiateViewControllerWithIdentifier("FilesTableViewController") as! FilesTableViewController
         let controllers = [content,config,file]
         tabBarController.configView = config
         tabBarController.contentView = content
         tabBarController.fileView = file
+        file.type = ComponentType.NEW_TICKET
         tabBarController.projectID = (self.item?.id)!
         tabBarController.viewControllers = controllers
         let firstImage = UIImage(named: "tabs_ticket")
@@ -70,7 +73,7 @@ class ProjectTabBarViewController: UITabBarController {
         file.tabBarItem = UITabBarItem(
             title: "",
             image: threeImage,
-            tag:2)
+            tag:3)
         
         self.navigationController?.pushViewController(tabBarController, animated: true)
     }
@@ -79,8 +82,8 @@ class ProjectTabBarViewController: UITabBarController {
         let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)
         let detail = projectStoryboard.instantiateViewControllerWithIdentifier("DetailProjectTableViewController") as! DetailProjectTableViewController
         detail.item = self.item
-        let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
-       comment.type = ComponentType.PROJECT
+        let comment = projectStoryboard.instantiateViewControllerWithIdentifier("CommentsTableViewController") as! CommentsTableViewController
+        comment.type = ComponentType.PROJECT
         comment.id = (self.item?.id)!
         tabBarController.type  = ComponentType.PROJECT
         tabBarController.iD = (self.item?.id)!
