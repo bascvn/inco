@@ -11,7 +11,6 @@
 		845A73931D48D89E00E95A71 /* DetailTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */; };
 		845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */; };
 		845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */; };
-		845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */; };
 		845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */; };
 		845A73A31D48F34700E95A71 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A21D48F34700E95A71 /* Attachment.swift */; };
 		845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73A41D48F4D800E95A71 /* DetailBaseComponent.swift */; };
@@ -53,10 +52,13 @@
 		84916DAD1D55D3A4000D8A68 /* CheckBoxUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84916DAC1D55D3A4000D8A68 /* CheckBoxUserView.swift */; };
 		84916DAF1D55D3C1000D8A68 /* CheckBoxUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84916DAE1D55D3C1000D8A68 /* CheckBoxUserView.xib */; };
 		8491D37A1D3F9A8B009BAB5D /* IncoCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8491D3791D3F9A8B009BAB5D /* IncoCommon.swift */; };
+		8497488C1D56EE2300C27CD6 /* DetailCommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497488B1D56EE2300C27CD6 /* DetailCommentTableViewController.swift */; };
+		8497488F1D56FAFC00C27CD6 /* DownloadFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497488E1D56FAFC00C27CD6 /* DownloadFileView.swift */; };
+		849748911D56FB1A00C27CD6 /* DownloadFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849748901D56FB1A00C27CD6 /* DownloadFileView.xib */; };
+		8499A8501D5AD8B90046E3DF /* addcomment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499A84F1D5AD8B90046E3DF /* addcomment.storyboard */; };
 		849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */; };
 		849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5E1D4103E30097A933 /* ProjectCell.swift */; };
 		84A1999C1D51A4E000635992 /* TicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1999A1D51A4E000635992 /* TicketViewController.swift */; };
-		84A1999D1D51A4E000635992 /* TicketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A1999B1D51A4E000635992 /* TicketViewController.xib */; };
 		84A199A01D51A5C300635992 /* ContentTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */; };
 		84A199A11D51A5C300635992 /* ContentTicketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */; };
 		84AF2B721D477F1300F31080 /* BaseComponentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF2B711D477F1300F31080 /* BaseComponentCell.swift */; };
@@ -71,20 +73,15 @@
 		84B91A911D4D8C0300122245 /* DetailProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */; };
 		84B91A931D4D965E00122245 /* DetailTicketComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A921D4D965E00122245 /* DetailTicketComponent.swift */; };
 		84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */; };
-		84B91A971D4DBACF00122245 /* ProjectTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */; };
 		84B91A9B1D4DC76200122245 /* DetailDiscussionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */; };
 		84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */; };
 		84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */; };
-		84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA21D4DF5B100122245 /* CommentViewController.xib */; };
 		84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */; };
-		84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */; };
 		84B91AAB1D4DF6F100122245 /* CommentTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */; };
-		84B91AAC1D4DF6F100122245 /* CommentTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */; };
 		84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */; };
 		84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */; };
 		84B91AB31D4E148A00122245 /* UploadFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AB21D4E148A00122245 /* UploadFile.swift */; };
 		84C00A691D534DF400152697 /* AddTicketTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */; };
-		84C00A6A1D534DF400152697 /* AddTicketTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */; };
 		84C00A6E1D5356E300152697 /* ConfigTicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */; };
 		84C00A701D5356ED00152697 /* ticket.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C00A6F1D5356ED00152697 /* ticket.storyboard */; };
 		84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C2982E1D4F7F8800D36886 /* ViewController.swift */; };
@@ -128,7 +125,6 @@
 		845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailTabBarViewController.xib; sourceTree = "<group>"; };
 		845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
-		845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsTableViewController.xib; sourceTree = "<group>"; };
 		845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = detailcomponent.storyboard; sourceTree = "<group>"; };
 		845A73A21D48F34700E95A71 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		845A73A41D48F4D800E95A71 /* DetailBaseComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBaseComponent.swift; sourceTree = "<group>"; };
@@ -182,12 +178,17 @@
 		84916DAC1D55D3A4000D8A68 /* CheckBoxUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBoxUserView.swift; sourceTree = "<group>"; };
 		84916DAE1D55D3C1000D8A68 /* CheckBoxUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckBoxUserView.xib; sourceTree = "<group>"; };
 		8491D3791D3F9A8B009BAB5D /* IncoCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncoCommon.swift; sourceTree = "<group>"; };
+		8497488B1D56EE2300C27CD6 /* DetailCommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentTableViewController.swift; sourceTree = "<group>"; };
+		8497488E1D56FAFC00C27CD6 /* DownloadFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadFileView.swift; sourceTree = "<group>"; };
+		849748901D56FB1A00C27CD6 /* DownloadFileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadFileView.xib; sourceTree = "<group>"; };
+		8499A84F1D5AD8B90046E3DF /* addcomment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = addcomment.storyboard; sourceTree = "<group>"; };
 		849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewCell.swift; sourceTree = "<group>"; };
 		849C1A5E1D4103E30097A933 /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		84A1999A1D51A4E000635992 /* TicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketViewController.swift; sourceTree = "<group>"; };
-		84A1999B1D51A4E000635992 /* TicketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketViewController.xib; sourceTree = "<group>"; };
 		84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTicketViewController.swift; sourceTree = "<group>"; };
 		84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentTicketViewController.xib; sourceTree = "<group>"; };
+		84A740071D59C62D00ABB472 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Main.strings; sourceTree = "<group>"; };
+		84A740081D59C62E00ABB472 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84AF2B711D477F1300F31080 /* BaseComponentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseComponentCell.swift; sourceTree = "<group>"; };
 		84AF2B731D47932D00F31080 /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
 		84AF2B741D47932D00F31080 /* TicketTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TicketTableViewCell.xib; sourceTree = "<group>"; };
@@ -200,20 +201,15 @@
 		84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectTableViewController.swift; sourceTree = "<group>"; };
 		84B91A921D4D965E00122245 /* DetailTicketComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTicketComponent.swift; sourceTree = "<group>"; };
 		84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTabBarViewController.swift; sourceTree = "<group>"; };
-		84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectTabBarViewController.xib; sourceTree = "<group>"; };
 		84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiscussionComponent.swift; sourceTree = "<group>"; };
 		84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectComponent.swift; sourceTree = "<group>"; };
 		84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshProtocol.swift; path = ../../../RefreshProtocol.swift; sourceTree = "<group>"; };
-		84B91AA21D4DF5B100122245 /* CommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentViewController.xib; sourceTree = "<group>"; };
 		84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
-		84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilesTableViewController.xib; sourceTree = "<group>"; };
 		84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTabBarViewController.swift; sourceTree = "<group>"; };
-		84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTabBarViewController.xib; sourceTree = "<group>"; };
 		84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileCell.swift; sourceTree = "<group>"; };
 		84B91AAF1D4DFFB200122245 /* UploadFileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadFileCell.xib; sourceTree = "<group>"; };
 		84B91AB21D4E148A00122245 /* UploadFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFile.swift; sourceTree = "<group>"; };
 		84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTicketTabBarViewController.swift; sourceTree = "<group>"; };
-		84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTicketTabBarViewController.xib; sourceTree = "<group>"; };
 		84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigTicketTableViewController.swift; sourceTree = "<group>"; };
 		84C00A6F1D5356ED00152697 /* ticket.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ticket.storyboard; sourceTree = "<group>"; };
 		84C2982E1D4F7F8800D36886 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -283,11 +279,11 @@
 				845A73911D48D89E00E95A71 /* DetailTabBarViewController.xib */,
 				845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */,
 				845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */,
-				845A73991D48DA0200E95A71 /* CommentsTableViewController.xib */,
 				845A73A01D48E1AD00E95A71 /* detailcomponent.storyboard */,
 				84B91A8C1D4D85BD00122245 /* DetailTicketTableViewController.swift */,
 				84B91A8E1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift */,
 				84B91A901D4D8C0300122245 /* DetailProjectTableViewController.swift */,
+				8497488B1D56EE2300C27CD6 /* DetailCommentTableViewController.swift */,
 			);
 			name = DetailComponent;
 			sourceTree = "<group>";
@@ -326,7 +322,6 @@
 			isa = PBXGroup;
 			children = (
 				84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */,
-				84B91A951D4DBACF00122245 /* ProjectTabBarViewController.xib */,
 			);
 			name = ProjectTabs;
 			sourceTree = "<group>";
@@ -334,6 +329,7 @@
 		846DAFF01D450EDC008D8D5F /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				849748921D56FB3A00C27CD6 /* DowloadFile */,
 				846DAFF11D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift */,
 				848806161D4B78660081E740 /* UserItemUIView.swift */,
 				848806181D4B78C30081E740 /* UserItemUIView.xib */,
@@ -464,17 +460,24 @@
 			path = IncoUITests;
 			sourceTree = "<group>";
 		};
+		849748921D56FB3A00C27CD6 /* DowloadFile */ = {
+			isa = PBXGroup;
+			children = (
+				8497488E1D56FAFC00C27CD6 /* DownloadFileView.swift */,
+				849748901D56FB1A00C27CD6 /* DownloadFileView.xib */,
+			);
+			name = DowloadFile;
+			sourceTree = "<group>";
+		};
 		84A199991D51A4B100635992 /* AddTicket */ = {
 			isa = PBXGroup;
 			children = (
 				84C00A6F1D5356ED00152697 /* ticket.storyboard */,
 				84C00A6D1D5356E300152697 /* ConfigTicketTableViewController.swift */,
 				84A1999A1D51A4E000635992 /* TicketViewController.swift */,
-				84A1999B1D51A4E000635992 /* TicketViewController.xib */,
 				84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */,
 				84A1999F1D51A5C300635992 /* ContentTicketViewController.xib */,
 				84C00A671D534DF400152697 /* AddTicketTabBarViewController.swift */,
-				84C00A681D534DF400152697 /* AddTicketTabBarViewController.xib */,
 			);
 			name = AddTicket;
 			sourceTree = "<group>";
@@ -483,11 +486,9 @@
 			isa = PBXGroup;
 			children = (
 				84833AAD1D508E14003AA10C /* CommentViewController.swift */,
-				84B91AA21D4DF5B100122245 /* CommentViewController.xib */,
 				84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */,
-				84B91AA61D4DF6AE00122245 /* FilesTableViewController.xib */,
 				84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */,
-				84B91AAA1D4DF6F100122245 /* CommentTabBarViewController.xib */,
+				8499A84F1D5AD8B90046E3DF /* addcomment.storyboard */,
 			);
 			name = AddComments;
 			sourceTree = "<group>";
@@ -639,26 +640,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84B91AAC1D4DF6F100122245 /* CommentTabBarViewController.xib in Resources */,
+				8499A8501D5AD8B90046E3DF /* addcomment.storyboard in Resources */,
 				848CE75E1D3BB64500558E9E /* LaunchScreen.storyboard in Resources */,
-				84A1999D1D51A4E000635992 /* TicketViewController.xib in Resources */,
 				84B91AB11D4DFFB200122245 /* UploadFileCell.xib in Resources */,
 				848CE75B1D3BB64500558E9E /* Assets.xcassets in Resources */,
 				846DAF591D445B65008D8D5F /* LoadingMoreCell.xib in Resources */,
-				845A739B1D48DA0200E95A71 /* CommentsTableViewController.xib in Resources */,
 				84A199A11D51A5C300635992 /* ContentTicketViewController.xib in Resources */,
 				845A73A11D48E1AD00E95A71 /* detailcomponent.storyboard in Resources */,
 				848CE7561D3BB64500558E9E /* Main.storyboard in Resources */,
-				84B91AA81D4DF6AE00122245 /* FilesTableViewController.xib in Resources */,
 				84C00A701D5356ED00152697 /* ticket.storyboard in Resources */,
 				846DAFEB1D44EDA6008D8D5F /* TaskCellTableViewCell.xib in Resources */,
+				849748911D56FB1A00C27CD6 /* DownloadFileView.xib in Resources */,
 				84AF2B761D47932D00F31080 /* TicketTableViewCell.xib in Resources */,
 				84AF2B7E1D47A53400F31080 /* DiscussionTableViewCell.xib in Resources */,
-				84C00A6A1D534DF400152697 /* AddTicketTabBarViewController.xib in Resources */,
 				84916DAF1D55D3C1000D8A68 /* CheckBoxUserView.xib in Resources */,
-				84B91A971D4DBACF00122245 /* ProjectTabBarViewController.xib in Resources */,
 				84E855F91D4CD4F6007F6B6C /* CommentTableViewCell.xib in Resources */,
-				84B91AA41D4DF5B100122245 /* CommentViewController.xib in Resources */,
 				845A73931D48D89E00E95A71 /* DetailTabBarViewController.xib in Resources */,
 				848806191D4B78C30081E740 /* UserItemUIView.xib in Resources */,
 			);
@@ -812,6 +808,7 @@
 				84743B161D3D038600270587 /* LeftSideViewController.swift in Sources */,
 				846DAFF21D450EF1008D8D5F /* ENMBadgedBarButtonItem.swift in Sources */,
 				845A73A71D48F88900E95A71 /* DetailTaskComponent.swift in Sources */,
+				8497488F1D56FAFC00C27CD6 /* DownloadFileView.swift in Sources */,
 				845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */,
 				84B91A8F1D4D8BEE00122245 /* DetailDiscussionTableViewController.swift in Sources */,
 				84743B0D1D3D003400270587 /* MMDrawerBarButtonItem.m in Sources */,
@@ -850,6 +847,7 @@
 				84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */,
 				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
 				84A1999C1D51A4E000635992 /* TicketViewController.swift in Sources */,
+				8497488C1D56EE2300C27CD6 /* DetailCommentTableViewController.swift in Sources */,
 				846A66261D3E58B20015CCFB /* ErrorMess.swift in Sources */,
 				846DAFEF1D450A25008D8D5F /* UIViewControllerExtensions.swift in Sources */,
 				84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */,
@@ -909,6 +907,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				848CE7551D3BB64500558E9E /* Base */,
+				84A740071D59C62D00ABB472 /* vi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -917,6 +916,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				848CE75D1D3BB64500558E9E /* Base */,
+				84A740081D59C62E00ABB472 /* vi */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
