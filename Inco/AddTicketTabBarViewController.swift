@@ -20,7 +20,7 @@ class AddTicketTabBarViewController: UITabBarController {
     var projectID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(CommentTabBarViewController.selectFile))
+        add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(AddTicketTabBarViewController.selectFile))
         send = UIBarButtonItem(image: UIImage(named: "ic_send_white"), style: .Plain, target: self, action:#selector(AddTicketTabBarViewController.sendTicket))
         navigationItem.rightBarButtonItems = [send!]
         // Do any additional setup after loading the view.
@@ -30,9 +30,13 @@ class AddTicketTabBarViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func selectFile()  {
+        
+        self.fileView!.chooseFileUpload()
+    }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.tag == 3 {
-            navigationItem.rightBarButtonItems = [add!,send!]
+            navigationItem.rightBarButtonItems = [send!,add!]
         }else{
             navigationItem.rightBarButtonItems = [send!]
         }
@@ -74,18 +78,25 @@ class AddTicketTabBarViewController: UITabBarController {
     func sendTicket() {
         if self.contentView?.isSubjectEmpty() == true {
             self.showAler(CommonMess.SUBJECT_EPMPTY)
+            self.selectedIndex = 0
             return
         }
         if self.contentView?.isDiscriptionEmpty() == true {
             self.showAler(CommonMess.DISCRIPTION_EMPTY)
+            self.selectedIndex = 0
+
             return
         }
         if self.fileView?.isFilesUploadFinish() == false {
             self.showAlertFileUploading()
+            self.selectedIndex = 2
+
             return
         }
         if self.configView?.isConfig == false {
             self.showAler(CommonMess.CONFIG_TICKET)
+            self.selectedIndex = 1
+
             return
         }
         let alertController = UIAlertController(title: nil, message: "Please wait\n\n", preferredStyle: UIAlertControllerStyle.Alert)
