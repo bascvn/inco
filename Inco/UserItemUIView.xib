@@ -18,13 +18,14 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_default" translatesAutoresizingMaskIntoConstraints="NO" id="Rwg-oH-t2o">
                     <rect key="frame" x="0.0" y="11" width="50" height="32"/>
+                    <color key="tintColor" red="0.55294120311737061" green="0.7607843279838562" blue="0.23921568691730499" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="5Xy-x4-7CX"/>
                         <constraint firstAttribute="height" priority="250" constant="65" id="pjm-Zp-ipB"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pm6-7J-4Ut">
-                    <rect key="frame" x="70" y="16" width="42" height="21"/>
+                    <rect key="frame" x="50" y="16" width="205" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -32,9 +33,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Pm6-7J-4Ut" firstAttribute="leading" secondItem="Rwg-oH-t2o" secondAttribute="trailing" constant="20" id="HyW-dz-Jv2"/>
+                <constraint firstItem="Pm6-7J-4Ut" firstAttribute="leading" secondItem="Rwg-oH-t2o" secondAttribute="trailing" id="HyW-dz-Jv2"/>
                 <constraint firstItem="Rwg-oH-t2o" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="RGi-8h-3xp"/>
                 <constraint firstItem="Rwg-oH-t2o" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Yzt-fx-Bck"/>
+                <constraint firstAttribute="trailing" secondItem="Pm6-7J-4Ut" secondAttribute="trailing" constant="8" id="h94-6e-Kxq"/>
                 <constraint firstItem="Rwg-oH-t2o" firstAttribute="centerY" secondItem="Pm6-7J-4Ut" secondAttribute="centerY" id="toa-HU-dhj"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
