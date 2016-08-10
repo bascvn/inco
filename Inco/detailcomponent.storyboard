@@ -242,6 +242,7 @@
                         <outlet property="mCreateAT" destination="EbY-rf-Uka" id="j50-lE-td3"/>
                         <outlet property="mDeparmentName" destination="WBA-Ll-A5y" id="HWc-bI-Ess"/>
                         <outlet property="mDiscription" destination="SbS-nU-Kyy" id="DVG-Nr-uJQ"/>
+                        <outlet property="mFileContain" destination="Ybx-rL-4bJ" id="cZy-78-Mm6"/>
                         <outlet property="mId" destination="p8v-sU-V9X" id="no0-E9-vfA"/>
                         <outlet property="mName" destination="aAE-K1-GQJ" id="8jr-cq-afn"/>
                         <outlet property="mNameUserDeparment" destination="o0t-y1-X41" id="uaW-8R-OIa"/>
@@ -404,16 +405,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-FC-eHI">
-                                                    <rect key="frame" x="16" y="8" width="90" height="15"/>
+                                                    <rect key="frame" x="16" y="8" width="70" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="90" id="coe-hJ-8TA"/>
+                                                        <constraint firstAttribute="width" constant="70" id="coe-hJ-8TA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3h-wq-nFh">
-                                                    <rect key="frame" x="114" y="8" width="478" height="27"/>
+                                                    <rect key="frame" x="94" y="8" width="498" height="27"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -439,6 +440,7 @@
                         <outlet property="mAvatar" destination="gLM-1j-xUg" id="6EB-9j-NAI"/>
                         <outlet property="mCreateAt" destination="nXp-mi-Lyt" id="W5B-sp-WvE"/>
                         <outlet property="mDiscription" destination="Ffl-H7-bgo" id="QjT-hV-4Rb"/>
+                        <outlet property="mFileContain" destination="J6G-ai-YRg" id="gT5-Hc-x3i"/>
                         <outlet property="mId" destination="WDf-sn-hDd" id="4Vm-2v-gCb"/>
                         <outlet property="mName" destination="dhC-ZH-MSg" id="Dxn-es-xKA"/>
                         <outlet property="mStatus" destination="tF4-7i-7sy" id="YAi-IH-Tus"/>
@@ -494,7 +496,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="EPf-gj-vSk" secondAttribute="trailing" constant="8" id="DOZ-IP-Rqb"/>
                                                 <constraint firstAttribute="bottom" secondItem="B8G-TZ-S5c" secondAttribute="bottom" constant="7" id="HGa-zq-Jqu"/>
                                                 <constraint firstItem="EPf-gj-vSk" firstAttribute="top" secondItem="7AY-FG-m5e" secondAttribute="bottom" constant="8" id="KRv-le-wHR"/>
-                                                <constraint firstAttribute="trailing" secondItem="B8G-TZ-S5c" secondAttribute="trailing" constant="542" id="L5b-xd-phu"/>
                                                 <constraint firstAttribute="trailing" secondItem="7AY-FG-m5e" secondAttribute="trailing" constant="8" id="g9R-rG-Sdw"/>
                                                 <constraint firstItem="7AY-FG-m5e" firstAttribute="leading" secondItem="B8G-TZ-S5c" secondAttribute="trailing" constant="8" id="rwu-En-LlQ"/>
                                                 <constraint firstItem="B8G-TZ-S5c" firstAttribute="top" secondItem="Dr0-dJ-xln" secondAttribute="top" constant="8" id="tst-zx-eKm"/>
@@ -524,7 +525,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jt2-3b-PMJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="jt2-3b-PMJ">
                                         <rect key="frame" x="0.0" y="155" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jt2-3b-PMJ" id="dBy-BS-ZM3">
@@ -714,6 +715,7 @@
                         <outlet property="mAvatar" destination="miK-s9-H8j" id="Sr6-X4-twh"/>
                         <outlet property="mCreateAt" destination="G0X-N8-0ao" id="fVK-ZT-wg6"/>
                         <outlet property="mDiscription" destination="kaV-8f-ztq" id="bvN-eW-lFh"/>
+                        <outlet property="mFileContain" destination="dZM-Mv-f4M" id="6eL-uf-kVj"/>
                         <outlet property="mId" destination="eHf-0U-j1w" id="GEB-oy-MsC"/>
                         <outlet property="mName" destination="1DN-vB-oZr" id="JXZ-r2-uhI"/>
                         <outlet property="mStatus" destination="CGc-s3-cSM" id="yqX-SP-s97"/>
@@ -976,6 +978,7 @@
                         <outlet property="mAssignToContainer" destination="yjw-VG-yXh" id="Ufg-T2-Pg6"/>
                         <outlet property="mContainerCell" destination="2Wn-Xr-Md0" id="HWR-ca-ty0"/>
                         <outlet property="mDiscription" destination="MuJ-6L-7lP" id="Rp4-wZ-p2q"/>
+                        <outlet property="mFileContain" destination="b21-lu-Add" id="gvO-Gb-CRR"/>
                         <outlet property="mId" destination="4R5-4r-F9r" id="des-3L-Wkz"/>
                         <outlet property="mLabel" destination="ZVc-lD-byL" id="Nzx-JX-fle"/>
                         <outlet property="mPriority" destination="Nf7-WG-aaM" id="cOl-RN-0Zn"/>
@@ -987,6 +990,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="myY-RW-UQ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="275" y="279"/>
+        </scene>
+        <!--Comments Table View Controller-->
+        <scene sceneID="clZ-Ot-9W3">
+            <objects>
+                <tableViewController storyboardIdentifier="CommentsTableViewController" id="AKS-3e-ivx" customClass="CommentsTableViewController" customModule="Inco" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="nZH-dA-QGg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="AKS-3e-ivx" id="elu-NK-ALI"/>
+                            <outlet property="delegate" destination="AKS-3e-ivx" id="JCc-zt-yxK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yjP-u7-fBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312" y="979"/>
         </scene>
     </scenes>
     <resources>

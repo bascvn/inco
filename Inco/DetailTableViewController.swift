@@ -15,6 +15,7 @@ class DetailTableViewController: UITableViewController {
     var item:TaskCell?
     var detail:DetailTaskComponent?
     
+    @IBOutlet weak var mFileContain: UIView!
     @IBOutlet weak var mAssignToContainer: UIView!
     @IBOutlet weak var mAssignCell: UITableViewCell!
     @IBOutlet weak var mDiscription: UILabel!
@@ -155,6 +156,18 @@ class DetailTableViewController: UITableViewController {
         self.createBy.text = self.detail?.name
           let photo = NSURL(string: IncoApi.getAvatar(self.detail!.photo!))
         self.photoCreate.af_setImageWithURL(photo!)
+        var y = 0
+        print("attachments:\(self.detail!.attachments.count)")
+        for file in self.detail!.attachments {
+            let fileview = DownloadFileView(frame: CGRect(x: 0, y: y, width: 400, height: 49))
+            fileview.mFileName.text = file.file
+            fileview.mFileInfo.text = file.info
+            fileview.id = file.id!
+            
+            self.mFileContain.addSubview(fileview)
+            y = y + 49
+            
+        }
         if self.detail?.detail.assigendTo.count > 0 {
             var  count = 0
             var frame = self.mAssignToContainer.frame
@@ -217,6 +230,15 @@ class DetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 5 {
             return self.mAssignToContainer.frame.height + 16
+        }
+        if indexPath.section == 0 && indexPath.row == 0{
+            return 76
+        }
+        if indexPath.section == 0 && indexPath.row == 2{
+            if self.detail!.attachments.count != 0 {
+                print("attachments1:\(self.detail!.attachments.count)")
+                return CGFloat(self.detail!.attachments.count*49)
+            }
         }
         return UITableViewAutomaticDimension
     }

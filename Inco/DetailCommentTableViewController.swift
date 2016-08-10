@@ -42,6 +42,7 @@ class DetailCommentTableViewController: UITableViewController {
         self.mCreateBy.text = self.item.name
         self.mCreateAt.text = self.item.created_at
         var y = 0
+        print("attachments:\(self.item.attachments.count)")
         for file in self.item.attachments {
             let fileview = DownloadFileView(frame: CGRect(x: 0, y: y, width: 400, height: 49))
             fileview.mFileName.text = file.file
@@ -52,15 +53,18 @@ class DetailCommentTableViewController: UITableViewController {
             y = y + 49
             
         }
+        self.tableView.reloadData()
+        
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 2{
-            if self.item.attachments.count == 0 {
-
+        if indexPath.row == 2{
+            if self.item.attachments.count != 0 {
+                print("attachments1:\(self.item.attachments.count)")
+                return CGFloat(self.item.attachments.count*49)
             }
-            return CGFloat(self.item.attachments.count*49)
         }
+        
         return UITableViewAutomaticDimension
     }
     override func didReceiveMemoryWarning() {

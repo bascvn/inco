@@ -17,16 +17,21 @@ class DetailTabBarViewController: UITabBarController,RefreshProtocol{
     override func viewDidLoad() {
         super.viewDidLoad()
       //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
+                add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(DetailTabBarViewController.openAddComment))
+        add = UIBarButtonItem(image: UIImage(named: "ic_create_white_36pt"), style: .Plain, target: self, action:#selector(DetailTabBarViewController.openAddComment))
         
-        add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(DetailTabBarViewController.openAddComment))
       // navigationItem.rightBarButtonItem = add
         // Do any additional setup after loading the view.
     }
     func openAddComment() {
         let tabBarController = CommentTabBarViewController()
         tabBarController.refreshDelegate = self
-        let comment = CommentViewController(nibName: "CommentViewController", bundle: nil)
-        let file = FilesTableViewController(nibName: "FilesTableViewController", bundle: nil)
+        let projectStoryboard: UIStoryboard = UIStoryboard(name: "addcomment", bundle: nil)
+       
+        //let comment = CommentViewController(nibName: "CommentViewController", bundle: nil)
+        //let file = FilesTableViewController(nibName: "FilesTableViewController", bundle: nil)
+        let comment = projectStoryboard.instantiateViewControllerWithIdentifier("CommentViewController") as! CommentViewController
+        let file = projectStoryboard.instantiateViewControllerWithIdentifier("FilesTableViewController") as! FilesTableViewController
         file.type = self.type
 
         let controllers = [comment,file]

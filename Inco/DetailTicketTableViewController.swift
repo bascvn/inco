@@ -11,6 +11,7 @@ import Alamofire
 import AlamofireImage
 class DetailTicketTableViewController: UITableViewController {
 
+    @IBOutlet weak var mFileContain: UIView!
     @IBOutlet weak var mAvatar: UIImageView!
     @IBOutlet weak var mName: UILabel!
     @IBOutlet weak var mCreateAT: UILabel!
@@ -81,6 +82,18 @@ class DetailTicketTableViewController: UITableViewController {
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
          self.mDiscription.font = UIFont.systemFontOfSize(15.0)
+        var y = 0
+        print("attachments:\(self.detail!.attachments.count)")
+        for file in self.detail!.attachments {
+            let fileview = DownloadFileView(frame: CGRect(x: 0, y: y, width: 400, height: 49))
+            fileview.mFileName.text = file.file
+            fileview.mFileInfo.text = file.info
+            fileview.id = file.id!
+            
+            self.mFileContain.addSubview(fileview)
+            y = y + 49
+            
+        }
         
     }
     func loadDetailTicket() {
@@ -115,6 +128,15 @@ class DetailTicketTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 1{
             return 86
+        }
+        if indexPath.section == 0 && indexPath.row == 0{
+            return 76
+        }
+        if indexPath.section == 0 && indexPath.row == 2{
+            if self.detail!.attachments.count != 0 {
+                print("attachments1:\(self.detail!.attachments.count)")
+                return CGFloat(self.detail!.attachments.count*49)
+            }
         }
         return UITableViewAutomaticDimension
     }

@@ -13,6 +13,7 @@ class DetailProjectTableViewController: UITableViewController {
     var detail:DetailProjectComponent?
     var item:ProjectCell?
 
+    @IBOutlet weak var mFileContain: UIView!
     @IBOutlet weak var mType: UILabel!
     @IBOutlet weak var mStatus: UILabel!
     @IBOutlet weak var mId: UILabel!
@@ -70,6 +71,18 @@ class DetailProjectTableViewController: UITableViewController {
             documentAttributes: nil)
         self.mDiscription.attributedText = attrStr
         self.mDiscription.font = UIFont.systemFontOfSize(15.0)
+        var y = 0
+        print("attachments:\(self.detail!.attachments.count)")
+        for file in self.detail!.attachments {
+            let fileview = DownloadFileView(frame: CGRect(x: 0, y: y, width: 400, height: 49))
+            fileview.mFileName.text = file.file
+            fileview.mFileInfo.text = file.info
+            fileview.id = file.id!
+            
+            self.mFileContain.addSubview(fileview)
+            y = y + 49
+            
+        }
 
         if self.detail?.detail.team.count > 0 {
             var  count = 0
@@ -78,7 +91,7 @@ class DetailProjectTableViewController: UITableViewController {
             for userInfo in (self.detail?.detail.team)!
             {
                 y = count * 50
-                let user = UserItemUIView(frame: CGRect(x: 0, y: y, width: 200, height: 50))
+                let user = UserItemUIView(frame: CGRect(x: 0, y: y, width: Int(self.mTeam.frame.width), height: 50))
                 // user.translatesAutoresizingMaskIntoConstraints = false
                 user.nameUser = userInfo.name
                 let downloadURL = NSURL(string: IncoApi.getAvatar(userInfo.photo!))
@@ -136,6 +149,15 @@ class DetailProjectTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 && indexPath.row == 3{
             return self.mTeam.frame.height + 16
+        }
+        if indexPath.section == 0 && indexPath.row == 0{
+            return 76
+        }
+        if indexPath.section == 0 && indexPath.row == 2{
+            if self.detail!.attachments.count != 0 {
+                print("attachments1:\(self.detail!.attachments.count)")
+                return CGFloat(self.detail!.attachments.count*49)
+            }
         }
         return UITableViewAutomaticDimension
     }

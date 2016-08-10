@@ -73,6 +73,8 @@ class CommentsTableViewController: UITableViewController {
                 url = IncoApi.getApi(IncoApi.API_COMMENT_OF_TICKET)
             case ComponentType.DISCUSSTION:
                 url = IncoApi.getApi(IncoApi.API_COMMENT_OF_DISCUSSIONS)
+            default:break
+
         }
         return url!
 
@@ -92,6 +94,7 @@ class CommentsTableViewController: UITableViewController {
                parameters[IncoApi.TICKET_ID_PARAMETER] = id
             case ComponentType.DISCUSSTION:
                 parameters[IncoApi.DISCUSSION_ID_PARAMETER] = id
+            default:break
         }
         return parameters
     }
