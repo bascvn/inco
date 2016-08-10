@@ -21,11 +21,14 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
     @IBOutlet weak var mVersion: UILabel!
     
     @IBOutlet weak var mRemeber: UISwitch!
+    var isResize = false
+    var height:CGFloat  = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mEmail.delegate = self
         self.mCompany.delegate = self
         self.mPassword.delegate = self
+        self.title = "Inco"
         self.hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view, typically from a nib.
         if IncoCommon.isRemember() == true{
@@ -52,6 +55,7 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
 
     @IBAction func searchCompany(sender: UIButton) {
         print("searchCompany")
+        self.view.endEditing(true)
 
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -67,7 +71,7 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
         self.isLoging.startAnimating()
         let email = self.mEmail.text!
         let pass = self.mPassword.text!
-        let parameters:[String:AnyObject] = [IncoApi.LOGIN_DEVICE_ID:"ios device",IncoApi.LOGIN_DEVICE_TYPE:"2",
+        let parameters:[String:AnyObject] = [IncoApi.LOGIN_DEVICE_ID:"ios device 1",IncoApi.LOGIN_DEVICE_TYPE:"2",
                                              IncoApi.LOGIN_PASS:pass,IncoApi.LOGIN_EMAIL:email]
         Alamofire.request(.POST, IncoApi.getLogin(self.mCompany.text!),parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request
@@ -109,6 +113,31 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
         return
         
 
+    }
+    override func viewDidAppear(animated: Bool) {
+        height = self.view.frame.height
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+          
+                self.view.frame.size.height = height - keyboardSize.height
+            
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+           
+                self.view.frame.size.height = height
+            
+        }
     }
     func loginSucess()  {
         
