@@ -12,7 +12,7 @@ class IncoCommon {
     static let CLIENT_ID = "company"
     static let USER_INFO = "user_info"
     static let IS_REMEMBER = "remember"
-    static let NUMBER_ITEMS_LOADING = 5
+    static let NUMBER_ITEMS_LOADING = 20
     
     static func saveToken(token:String) {
         let userDefaults = NSUserDefaults.standardUserDefaults()

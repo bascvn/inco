@@ -10,7 +10,8 @@ import Foundation
 class IncoApi {
     static let PROTOCOL: String = "http://"
     static let DOMAIN:String    = "kiemtraduan.net"
-    static let API_GET_COMPANY  = "getcompanies.php"
+    static let API_GET_COMPANY = "gateway.php?controller=client.get_clients"
+    static let API_GET_COMPANY_STATUS = "gateway.php?controller=client.get_client_staus"
     
     static let LOGIN_API        = "/mobile_api/gateway.php?controller=auth.login"
     static let LOGIN_EMAIL      = "email"
@@ -90,19 +91,19 @@ class IncoApi {
     static let ADD_DISCUSS_DES = "discussions_comments[description]"
     // getlist project
     
-    
+    static let SEARCH_WORD = "SearchWord"
     
     static func getLogin(company:String) -> String {
-        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+company+IncoApi.LOGIN_API
+        return IncoApi.PROTOCOL + company + "." + IncoApi.DOMAIN+"/"+company+IncoApi.LOGIN_API
     }
     static func getApi(api: String) -> String {
-        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+api
+        return IncoApi.PROTOCOL+IncoCommon.getClientID()+"."+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+api
     }
     static func getAvatar(avatar:String) -> String  {
-        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+AVATAR_PATH+"/"+avatar
+        return IncoApi.PROTOCOL+IncoCommon.getClientID()+"."+IncoApi.DOMAIN+"/"+IncoCommon.getClientID()+AVATAR_PATH+"/"+avatar
     }
     static func getCompanies() -> String {
-        return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/"+IncoApi.API_GET_COMPANY
+        return IncoApi.PROTOCOL+"wwww."+IncoApi.DOMAIN+"/"+IncoApi.API_GET_COMPANY
     }
     static func getLogoCompany(logo:String) ->String {
         return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/logo/"+logo

@@ -15,4 +15,6 @@ class CommonMess {
     static let SUBJECT_EPMPTY = "Subjects empty"
     static let DISCRIPTION_EMPTY = "Discription empty"
     static let CONFIG_TICKET   = "Please config info ticket"
+    static let DISCARD_CHANGE   = "If you go back now, your draft will be discarded."
+
 }

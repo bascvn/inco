@@ -17,7 +17,11 @@ class IncoResponse  {
     static let M_TOKEN = "token"
     
     init(data :NSDictionary){
-        self.status = data.valueForKey("status") as! String
+        self.status = (data.valueForKey("status") as? String)!
+        if self.status == "" {
+        
+        
+        }
         if self.isOK() {
             self.data =   data.valueForKey("data") as? [NSDictionary]
             if self.data == nil{
