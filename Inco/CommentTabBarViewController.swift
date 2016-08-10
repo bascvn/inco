@@ -12,6 +12,7 @@ import AlamofireImage
 class CommentTabBarViewController: UITabBarController {
     var add:UIBarButtonItem? = nil
     var send:UIBarButtonItem?
+    var btnBack:UIBarButtonItem?
     var fileView:FilesTableViewController?
     var commentView:CommentViewController?
     var type = ComponentType.PROJECT
@@ -22,7 +23,12 @@ class CommentTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(CommentTabBarViewController.selectFile))
+       btnBack = UIBarButtonItem(image: UIImage(named: "ic_keyboard_arrow_left_white_48pt"), style: .Plain, target: self, action:#selector(CommentTabBarViewController.backButtonClick))
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem = btnBack
+
         send = UIBarButtonItem(image: UIImage(named: "ic_send_white"), style: .Plain, target: self, action:#selector(CommentTabBarViewController.sendComment))
+        
         navigationItem.rightBarButtonItems = [send!]
        
 
@@ -32,6 +38,19 @@ class CommentTabBarViewController: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func backButtonClick()  {
+        if self.commentView?.isEmptyData() == false || self.fileView?.isEmptyData() == false{
+        let callActionHandler = { (action:UIAlertAction!) -> Void in
+            self.navigationController?.popViewControllerAnimated(true)
+
+        }
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DISCARD_CHANGE, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler:callActionHandler ))
+        self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     func showAlertEmptyData() {
         let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DATA_EMPTY, preferredStyle: UIAlertControllerStyle.Alert)
@@ -54,6 +73,8 @@ class CommentTabBarViewController: UITabBarController {
                 url = IncoApi.getApi(IncoApi.API_ADD_COMMENT_OF_TICKET)
             case ComponentType.DISCUSSTION:
                 url = IncoApi.getApi(IncoApi.API_ADD_COMMENT_OF_DISCUSS)
+            default:break
+
         }
         return url
     }
@@ -92,6 +113,8 @@ class CommentTabBarViewController: UITabBarController {
             parameters[IncoApi.ADD_DISCUSS_ID] = id
             parameters[IncoApi.ADD_DISCUSS_DES] = commentView?.mComment.text
             parameters[IncoApi.ADD_COMMENT_PRO_ID] = projectID
+        default:break
+
         }
         for item  in (fileView?.uploadlist)! {
             if item.status == UploadStatus.OK {
@@ -159,6 +182,13 @@ class CommentTabBarViewController: UITabBarController {
         }else{
             navigationItem.rightBarButtonItems = [send!,add!]
         }
+    }
+    override func viewDidAppear(animated: Bool) {
+        if self.navigationController?.viewControllers.indexOf(self) == NSNotFound {
+        
+            return
+        }
+        super.viewDidAppear(animated)
     }
     /*
     // MARK: - Navigation

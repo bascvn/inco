@@ -39,7 +39,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         return 1
     }
     // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
-    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData) -> (URLRequestConvertible, NSData) {
+    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData,imageName:String) -> (URLRequestConvertible, NSData) {
         
         // create url request to send
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
@@ -59,8 +59,8 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         }
         // add image
         uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Disposition: form-data; name=\"Filedata\"; filename=\"file.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData("Content-Disposition: form-data; name=\"Filedata\"; filename=\"\(imageName)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData("Content-Type: image/jpg\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         uploadData.appendData(imageData)
         
         
@@ -91,7 +91,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
 
         }
 
-        let urlRequest = urlRequestWithComponents(IncoApi.getApi(IncoApi.API_UPLOAD_FILE), parameters: parameters, imageData: image)
+        let urlRequest = urlRequestWithComponents(IncoApi.getApi(IncoApi.API_UPLOAD_FILE), parameters: parameters, imageData: image,imageName: name)
         var preProgress:Float = 0.0
         Alamofire.upload(urlRequest.0, data: urlRequest.1)
             .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
@@ -135,7 +135,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
     }
     func isEmptyData() -> Bool {
         for file in self.uploadlist {
-            if file.status == UploadStatus.OK{
+            if file.status == UploadStatus.OK || file.status == UploadStatus.UPLOADING {
                 return false
             }
         }
@@ -170,18 +170,20 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         
         if image != nil {
             let imageUrl = info[UIImagePickerControllerReferenceURL] as! NSURL
-            let imagePickedData = UIImagePNGRepresentation(image!)!
+            let imagePickedData =  UIImagePNGRepresentation(image!)!
            
             let file = UploadFile()
             file.index = self.index
             file.status = UploadStatus.UPLOADING
+            file.fileName = "file_\(self.index).jpg"
+
             self.index += 1
-            file.fileName = imageUrl.path
+            print("path"+imageUrl.absoluteString)
             uploadlist.append( file)
             let index = NSIndexPath(forRow: self.uploadlist.count - 1 , inSection: 0)
             self.tableView.insertRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Fade)
             self.tableView.reloadData()
-            self.uploadFile(imagePickedData, index: file.index,name: "test")
+            self.uploadFile(imagePickedData, index: file.index,name: file.fileName!)
             
         }
         
@@ -197,8 +199,22 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         presentViewController(imagePicker, animated: true, completion: nil)
         
      }
-    func deleteFile()  {
-        
+    func updateInfo(input: UITextField)  {
+        let pos = self.getFileByIndex(input.tag)
+        self.uploadlist[pos].info = input.text!
+    }
+    func deleteFile(bnt: UIButton){
+            let callActionHandler = { (action:UIAlertAction!) -> Void in
+                let pos = self.getFileByIndex(bnt.tag)
+                self.uploadlist.removeAtIndex(pos)
+                let index = NSIndexPath(forRow: pos , inSection: 0)
+                self.tableView.deleteRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.reloadData()
+            }
+            let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DISCARD_CHANGE, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler:callActionHandler ))
+            self.presentViewController(alertController, animated: true, completion: nil)
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UploadFileCell", forIndexPath: indexPath) as! UploadFileCell
@@ -208,15 +224,20 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
             cell.mFileName.textColor = UIColor.greenColor()
             cell.mInfo.hidden = false
             cell.mInfo.tag = self.uploadlist[indexPath.row].index
-            cell.mBtnDelete.addTarget(self, action: #selector(FilesTableViewController.deleteFile), forControlEvents: .TouchUpInside)
-
+           
         }else if self.uploadlist[indexPath.row].status == UploadStatus.NG {
             cell.mFileName.textColor = UIColor.redColor()
             cell.mProgess.progressTintColor = UIColor.redColor()
             cell.mInfo.hidden = true
+            cell.mInfo.tag = uploadlist[indexPath.row].index
+            cell.mInfo.addTarget(self, action: #selector(FilesTableViewController.updateInfo(_:)), forControlEvents: .ValueChanged)
         }else{
           cell.mInfo.hidden = true
         }
+        
+        cell.mBtnDelete.tag = uploadlist[indexPath.row].index
+        cell.mBtnDelete.addTarget(self, action: #selector(FilesTableViewController.deleteFile(_:)), forControlEvents: .TouchUpInside)
+
         // Configure the cell...
 
         return cell

@@ -10,13 +10,23 @@ import UIKit
 
 class CommentViewController: UIViewController {
 
+    @IBOutlet weak var tvHeight: NSLayoutConstraint!
     @IBOutlet weak var mComment: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addDoneButtonOnKeyboard()
-        // Do any additional setup after loading the view.
-    }
+        self.mComment.textContainerInset = UIEdgeInsetsZero
+       
 
+              // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -26,6 +36,21 @@ class CommentViewController: UIViewController {
             return true
         }
         return false
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+           
+            self.view.frame.size.height -= keyboardSize.height
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.size.height += keyboardSize.height
+        }
     }
     func addDoneButtonOnKeyboard()
     {
