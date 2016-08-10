@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "Lable"; ObjectID = "0rE-ed-xtr"; */
+"0rE-ed-xtr.text" = "Lable";
+
+/* Class = "UILabel"; text = "Pham Duc Kien"; ObjectID = "3vl-NJ-7lX"; */
+"3vl-NJ-7lX.text" = "Pham Duc Kien";
+
+/* Class = "UILabel"; text = "Remember me"; ObjectID = "6eK-ha-ZWm"; */
+"6eK-ha-ZWm.text" = "Nhớ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ABr-Rk-ANd"; */
+"ABr-Rk-ANd.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Company"; ObjectID = "AEr-Tb-QTr"; */
+"AEr-Tb-QTr.placeholder" = "Công Ty";
+
+/* Class = "UIViewController"; title = "Login"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "Đăng Nhập";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "C7C-Sm-t5N"; */
+"C7C-Sm-t5N.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "EIp-8q-aUc"; */
+"EIp-8q-aUc.placeholder" = "Mật Khẩu";
+
+/* Class = "UILabel"; text = "Create at"; ObjectID = "EMS-qu-pke"; */
+"EMS-qu-pke.text" = "Create at";
+
+/* Class = "UILabel"; text = "20-08-2016"; ObjectID = "FIN-cS-GKG"; */
+"FIN-cS-GKG.text" = "20-08-2016";
+
+/* Class = "UIViewController"; title = "Inco"; ObjectID = "Kuo-0M-2Qh"; */
+"Kuo-0M-2Qh.title" = "Inco";
+
+/* Class = "UILabel"; text = "kienbk1910@gmail.com"; ObjectID = "Lk8-kJ-qF0"; */
+"Lk8-kJ-qF0.text" = "kienbk1910@gmail.com";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "ODF-Vy-y8i"; */
+"ODF-Vy-y8i.text" = "Open";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "S8r-MY-VrE"; */
+"S8r-MY-VrE.normalTitle" = "Button";
+
+/* Class = "UIViewController"; title = "Project"; ObjectID = "TYB-lR-8XT"; */
+"TYB-lR-8XT.title" = "Project";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "Tvz-UU-N1R"; */
+"Tvz-UU-N1R.text" = "Type";
+
+/* Class = "UILabel"; text = "Vesion Inco"; ObjectID = "UE4-4Y-QQh"; */
+"UE4-4Y-QQh.text" = "Vesion Inco";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "bjk-w5-NmK"; */
+"bjk-w5-NmK.text" = "Status";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "bsT-ib-tTc"; */
+"bsT-ib-tTc.normalTitle" = "Đăng Nhập";
+
+/* Class = "UILabel"; text = "Pham Duc Kien"; ObjectID = "dqr-E3-Bfp"; */
+"dqr-E3-Bfp.text" = "Pham Duc Kien";
+
+/* Class = "UILabel"; text = "Create by"; ObjectID = "g0s-dP-SDp"; */
+"g0s-dP-SDp.text" = "Create by";
+
+/* Class = "UILabel"; text = "Support"; ObjectID = "kE0-Fp-MQX"; */
+"kE0-Fp-MQX.text" = "Support";
+
+/* Class = "UILabel"; text = "Project Name"; ObjectID = "nXW-N1-6lk"; */
+"nXW-N1-6lk.text" = "Project Name";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "q9i-Il-47m"; */
+"q9i-Il-47m.text" = "Label";
+
+/* Class = "UILabel"; text = "Inco v1.10"; ObjectID = "yja-JQ-r9d"; */
+"yja-JQ-r9d.text" = "Inco v1.10";
