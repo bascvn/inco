@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AssetsLibrary
 import Alamofire
 import AlamofireImage
 class DownloadFileView: UIView {
@@ -21,8 +22,20 @@ class DownloadFileView: UIView {
     var view:UIView!
     var id:String = ""
     @IBAction func downloadFile(sender: AnyObject) {
-        let destination = Alamofire.Request.suggestedDownloadDestination(directory: .LibraryDirectory, domain: .UserDomainMask)
-        
+        self.mIndicator.startAnimating()
+        self.downloadBtn.hidden  = true
+        var localPath: NSURL?
+        let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
+            (temporaryURL, response) in
+            
+            let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+            let pathComponent = response.suggestedFilename
+            localPath = directoryURL.URLByAppendingPathComponent(pathComponent!)
+            if NSFileManager.defaultManager().fileExistsAtPath((localPath?.path)!) {
+                try! NSFileManager.defaultManager().removeItemAtPath((localPath?.path)!)
+            }
+            return localPath!
+        }
         Alamofire.download(.GET, IncoApi.getApi(IncoApi.API_DOWNLOAD_FILE)+"?id="+self.id+"&token="+IncoCommon.getToken(), destination: destination)
             .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                 print(totalBytesRead)
@@ -34,13 +47,23 @@ class DownloadFileView: UIView {
                 }
             }
             .response { _, _, data, error in
+                
                 if let error = error {
                     print("Failed with error: \(error)")
                 } else {
-                    //let image: UIImage = UIImage(data:data!,scale:1.0)!
-                    //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil );
+                    let photo = NSData(contentsOfURL: localPath!)
+                    let image = UIImage(data: photo!)
+                    if  image != nil {
+                        UIImageWriteToSavedPhotosAlbum(image!, nil,nil, nil)
+                    }
+                    if NSFileManager.defaultManager().fileExistsAtPath((localPath?.path)!) {
+                        try! NSFileManager.defaultManager().removeItemAtPath((localPath?.path)!)
+                    }
+
                     print("Downloaded file successfully")
                 }
+                self.downloadBtn.hidden  = false
+                self.mIndicator.stopAnimating()
         }
     }
     @IBOutlet weak var mFileInfo: UILabel!
@@ -50,6 +73,7 @@ class DownloadFileView: UIView {
         super.init(frame: frame)
         setup()
     }
+    @IBOutlet weak var mIndicator: UIActivityIndicatorView!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
