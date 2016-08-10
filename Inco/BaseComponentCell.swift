@@ -9,7 +9,7 @@
 import Foundation
 
 enum ComponentType {
-    case PROJECT, TASKS, TICKET , DISCUSSTION
+    case PROJECT, TASKS, TICKET , DISCUSSTION, NEW_TICKET
 }
 class BindTypeUpload{
     static let TASK_COMMENT = "comments"

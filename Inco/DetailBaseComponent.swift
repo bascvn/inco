@@ -24,7 +24,7 @@ class DetailBaseComponent {
         self.create_at = data.valueForKey("create_at") as? String
         self.name = data.valueForKey("name") as? String
         self.title = data.valueForKey("title") as? String
-        let files = data.valueForKey("data") as? [NSDictionary]
+        let files = data.valueForKey("attachments") as? [NSDictionary]
         if files != nil {
             for file in files! { // loop through data items
                 let att = file as NSDictionary
