@@ -24,8 +24,8 @@
 ?>
 
 <h3 class="page-title"><?php echo __('General Configuration') ?></h1>
-
-<h3 class="form-section"><?php echo __('Root Administrator'); ?></h3>
+<?php if ($sf_user->getAttribute('id')  == 0) { ?>
+  <h3 class="form-section"><?php echo __('Root Administrator'); ?></h3>
 
 <div class="form-group">
 	<label class="col-md-3 control-label" for="cfg_app_administrator_email"><?php echo __('Administrator Email'); ?></label>
@@ -43,7 +43,7 @@
 		</span>
   </div>			
 </div>
-
+<?php } ?>
 
 <h3 class="form-section"><?php echo __('Application'); ?></h3>
 
