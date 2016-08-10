@@ -147,7 +147,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     tabBarController.projectID = self.projects[indexPath.row].id!
                 }
               
-                let comment = CommentsTableViewController(nibName: "CommentsTableViewController", bundle: nil)
+                let comment =   projectStoryboard.instantiateViewControllerWithIdentifier("CommentsTableViewController") as! CommentsTableViewController 
                 comment.type = self.type
                 comment.id = self.projects[indexPath.row].id!
                 let controllers = [detail,comment]
@@ -282,6 +282,8 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.title = "Tickets"
         case ComponentType.DISCUSSTION:
             self.title = "Discussions"
+        default:break
+
         }
     }
     func addItemToList(item:NSDictionary)  {
@@ -294,6 +296,8 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.projects.append(TicketCell.createCell(item))
         case ComponentType.DISCUSSTION:
             self.projects.append(DiscussionCell.createCell(item))
+        default:break
+
         }
     }
     func getAPI(type: ComponentType) -> String {
@@ -307,6 +311,8 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                  url = IncoApi.getApi(IncoApi.API_TICKET_LIST)
             case ComponentType.DISCUSSTION:
                 url = IncoApi.getApi(IncoApi.API_DISCUSSION_LIST)
+        default:break
+
         }
         return url!
     }
@@ -338,7 +344,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             (cell as! TicketTableViewCell).mCreateBy.text = item.create_by
             (cell as! TicketTableViewCell).mDepartment.text = item.departments
             (cell as! TicketTableViewCell).mTicketName.text = item.name
-        case ComponentType.DISCUSSTION:
+        default :
             cell  = tableView.dequeueReusableCellWithIdentifier("DiscussionTableViewCell", forIndexPath: indexPath) as! DiscussionTableViewCell
             let item =  item as! DiscussionCell
             (cell as! DiscussionTableViewCell).mDiscussionName.text = item.name
@@ -346,7 +352,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             (cell as! DiscussionTableViewCell).mCreateBy.text = item.create_by
             (cell as! DiscussionTableViewCell).mStatusName.text = item.status
 
-            
+    
         }
         return cell
     }
