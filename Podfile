@@ -4,7 +4,7 @@
 target 'Inco' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod "TextFieldEffects"
+  pod 'KMPlaceholderTextView', '~> 1.2.2'
   pod 'Alamofire', '~> 3.4'
   pod 'AlamofireImage'
   # Pods for Inco
