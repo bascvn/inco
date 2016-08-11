@@ -30,6 +30,14 @@ class CommonMess {
     static let TYPE_YOUR_COMMENT = NSLocalizedString("type_your_comment",comment: "")
 
     static let SUBJECT = NSLocalizedString("subject",comment: "")
+    static let HAVE_NEW_VERSION = NSLocalizedString("have_new_version",comment: "")
+    static let OK = NSLocalizedString("ok",comment: "")
+    static let NO = NSLocalizedString("no",comment: "")
+    static let UPDATE = NSLocalizedString("update",comment: "")
+    static let SEARCH_COMPANY_TITLE = NSLocalizedString("search_company_title",comment: "")
+    static let NEW_TICKET = NSLocalizedString("new_ticket",comment: "")
+    static let NEW_COMMENT = NSLocalizedString("new_comment",comment: "")
+
 
 
 

@@ -20,7 +20,7 @@ class IncoCommon {
         userDefaults.synchronize() // don't forget this!!!!
     }
     static func logOut(){
-        
+        IncoCommon.setNumberBuild("")
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.removeObjectForKey( IncoResponse.M_TOKEN)
         userDefaults.synchronize()
