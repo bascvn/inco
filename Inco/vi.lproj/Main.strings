@@ -1,4 +1,3 @@
-
 /* Class = "UILabel"; text = "Lable"; ObjectID = "0rE-ed-xtr"; */
 "0rE-ed-xtr.text" = "Lable";
 
@@ -24,7 +23,7 @@
 "EIp-8q-aUc.placeholder" = "Mật Khẩu";
 
 /* Class = "UILabel"; text = "Create at"; ObjectID = "EMS-qu-pke"; */
-"EMS-qu-pke.text" = "Create at";
+"EMS-qu-pke.text" = "Ngày Tạo";
 
 /* Class = "UILabel"; text = "20-08-2016"; ObjectID = "FIN-cS-GKG"; */
 "FIN-cS-GKG.text" = "20-08-2016";
@@ -42,16 +41,16 @@
 "S8r-MY-VrE.normalTitle" = "Button";
 
 /* Class = "UIViewController"; title = "Project"; ObjectID = "TYB-lR-8XT"; */
-"TYB-lR-8XT.title" = "Project";
+"TYB-lR-8XT.title" = "Dự Án";
 
 /* Class = "UILabel"; text = "Type"; ObjectID = "Tvz-UU-N1R"; */
-"Tvz-UU-N1R.text" = "Type";
+"Tvz-UU-N1R.text" = "Loại";
 
 /* Class = "UILabel"; text = "Vesion Inco"; ObjectID = "UE4-4Y-QQh"; */
 "UE4-4Y-QQh.text" = "Vesion Inco";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "bjk-w5-NmK"; */
-"bjk-w5-NmK.text" = "Status";
+"bjk-w5-NmK.text" = "Trạng Thái";
 
 /* Class = "UIButton"; normalTitle = "Login"; ObjectID = "bsT-ib-tTc"; */
 "bsT-ib-tTc.normalTitle" = "Đăng Nhập";
@@ -60,7 +59,7 @@
 "dqr-E3-Bfp.text" = "Pham Duc Kien";
 
 /* Class = "UILabel"; text = "Create by"; ObjectID = "g0s-dP-SDp"; */
-"g0s-dP-SDp.text" = "Create by";
+"g0s-dP-SDp.text" = "Được Tạo Bởi";
 
 /* Class = "UILabel"; text = "Support"; ObjectID = "kE0-Fp-MQX"; */
 "kE0-Fp-MQX.text" = "Support";
@@ -73,3 +72,4 @@
 
 /* Class = "UILabel"; text = "Inco v1.10"; ObjectID = "yja-JQ-r9d"; */
 "yja-JQ-r9d.text" = "Inco v1.10";
+
