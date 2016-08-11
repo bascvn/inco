@@ -146,7 +146,7 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         let centerViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
-        
+        centerViewController.isCheckStatus = true
         let leftViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LeftSideViewController") as! LeftSideViewController
         
         let leftSideNav = UINavigationController(rootViewController: leftViewController)
