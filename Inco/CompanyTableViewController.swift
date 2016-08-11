@@ -19,6 +19,7 @@ class CompanyTableViewController: UITableViewController,UISearchResultsUpdating,
     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = CommonMess.SEARCH_COMPANY_TITLE
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
