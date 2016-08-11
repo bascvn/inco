@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "Assigned To"; ObjectID = "9Xd-Mh-9Ug"; */
+"9Xd-Mh-9Ug.text" = "Đã Giao Cho";
+
+/* Class = "UILabel"; text = "kienbk1910"; ObjectID = "HbM-9Z-bbA"; */
+"HbM-9Z-bbA.text" = "kienbk1910";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "Hlk-Nl-KXp"; */
+"Hlk-Nl-KXp.text" = "Open";
+
+/* Class = "UILabel"; text = "Priority"; ObjectID = "MPa-Xt-hOf"; */
+"MPa-Xt-hOf.text" = "Ưu Tiên";
+
+/* Class = "UILabel"; text = "Task Name"; ObjectID = "Wkn-ms-4TG"; */
+"Wkn-ms-4TG.text" = "Task Name";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "bQn-dv-btn"; */
+"bQn-dv-btn.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Inco"; ObjectID = "d6T-ay-o6V"; */
+"d6T-ay-o6V.text" = "Inco";
+
+/* Class = "UILabel"; text = "Project"; ObjectID = "dXr-fR-VaN"; */
+"dXr-fR-VaN.text" = "Dự Án";
+
+/* Class = "UILabel"; text = "Urgent"; ObjectID = "n7J-MT-WJK"; */
+"n7J-MT-WJK.text" = "Urgent";
