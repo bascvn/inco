@@ -18,12 +18,15 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
     @IBOutlet weak var mVersion: UILabel!
     @IBOutlet weak var mEmail: UILabel!
     @IBOutlet weak var mName: UILabel!
-    var menus:[[LeftMenuItem]] = [ [LeftMenuItem(icon: "project",subject: "Project"),
-                                         LeftMenuItem(icon: "task",subject: "Task"),
-                                         LeftMenuItem(icon: "ticket",subject: "Ticket"),
-                                         LeftMenuItem(icon: "disccustion",subject: "Disccustion")],
-                                         [ LeftMenuItem(icon: "profile",subject: "Profile"),
-                                         LeftMenuItem(icon: "logout",subject: "Logout")]]
+    var menus:[[LeftMenuItem]] =
+        [ [LeftMenuItem(icon: "project",subject: CommonMess.PROJECT),
+    
+            LeftMenuItem(icon: "task",subject: CommonMess.TASKS),
+            LeftMenuItem(icon: "ticket",subject: CommonMess.TICKETS),
+            LeftMenuItem(icon: "disccustion",subject: CommonMess.PROJECT)],
+          
+        [ LeftMenuItem(icon: "profile",subject: NSLocalizedString("Profile",comment: "")),
+        LeftMenuItem(icon: "logout",subject: NSLocalizedString("Logout",comment: ""))]]
 
 
     override func viewDidLoad() {
@@ -69,6 +72,27 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
         return cell
     }
     func logout() {
+        let token = IncoCommon.getToken() as String
+        print("token: \(token)")
+        
+        let parameters:[String:AnyObject] = [IncoApi.TOKEN_PARAMETER:token]
+        Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_LOGOUT),parameters: parameters) .responseJSON { response in // 1
+            print(response.request)  // original URL request
+            print(response.response) // URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+                let inco = IncoResponse(data: JSON as! NSDictionary)
+                if inco.isOK(){
+                   
+                }
+                
+            }
+            return
+        }
+
         IncoCommon.logOut()
         let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
             as! ViewController
@@ -97,6 +121,7 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
                     }
                     appDelegate.centerContainer?.centerViewController = mainNavContoller
                     appDelegate.centerContainer?.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
+               
                 default: break
                 
             }
@@ -111,6 +136,14 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
                 alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: nil))
                  alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler:callActionHandler ))
                 self.presentViewController(alertController, animated: true, completion: nil)
+            } else{
+                let profile = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileTableViewController")
+                    as! ProfileTableViewController
+                let mainNavContoller = UINavigationController(rootViewController: profile)
+                let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                
+                appDelegate.centerContainer?.centerViewController = mainNavContoller
+                appDelegate.centerContainer?.toggleDrawerSide(MMDrawerSide.Left, animated: true, completion: nil)
             }
             break
             

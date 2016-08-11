@@ -11,6 +11,7 @@ import Alamofire
 
 class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating, UISearchBarDelegate,UISearchDisplayDelegate,RefreshProtocol{
     var isSetTitle = true
+    var isCheckStatus = false
     var projects = [BaseComponentCell]()
     var loadingcell :LoadingMoreCell!
     var type:ComponentType = ComponentType.PROJECT
@@ -25,6 +26,10 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         // set title
         if self.isSetTitle == true {
             self.setTitleView(type)
+        }
+        if self.isCheckStatus == true {
+            self.checkCompanyStatus()
+        
         }
         //self.hideKeyboardWhenTappedAround()
         // loading state
@@ -275,13 +280,13 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func setTitleView(type:ComponentType)  {
         switch type {
         case ComponentType.PROJECT:
-            self.title = "Projects"
+            self.title = CommonMess.PROJECT
         case ComponentType.TASKS:
-            self.title = "Tasks"
+            self.title = CommonMess.TASKS
         case ComponentType.TICKET:
-            self.title = "Tickets"
+            self.title = CommonMess.TICKETS
         case ComponentType.DISCUSSTION:
-            self.title = "Discussions"
+            self.title = CommonMess.DISCUSSIONS
         default:break
 
         }
@@ -355,6 +360,61 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
         }
         return cell
+    }
+    func showErrorStatus(mess:String)  {
+        
+    }
+    func showUpdateVersion(version:String,url:String,build:String ){
+        let updateActionHandler = { (action:UIAlertAction!) -> Void in
+            let urlString  = NSURL(string: url)
+            if UIApplication.sharedApplication().canOpenURL(urlString!) {
+                UIApplication.sharedApplication().openURL(urlString!)
+            }
+        }
+        let cancelActionHandler = { (action:UIAlertAction!) -> Void in
+            IncoCommon.setNumberBuild(build)
+        }
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: version, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: cancelActionHandler))
+        alertController.addAction(UIAlertAction(title: "UPDATE", style:UIAlertActionStyle.Default, handler:updateActionHandler ))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func checkCompanyStatus(){
+        
+       let parameters = [IncoApi.CLIENT_CODE : IncoCommon.getClientID()]
+        Alamofire.request(.POST, IncoApi.getStatusCompany(),parameters: parameters ) .responseJSON { response in // 1
+            print(response.request)  // original URL request
+            print(response.response) // URL response
+            print(response.data)     // server data
+            print("getStatusCompany \(response.result.value)")   // result of response serialization
+            
+            if let JSON = response.result.value {
+                let status = JSON.valueForKey("status") as! Int
+                if status == 200 {
+                    let data = JSON.valueForKey("data") as! NSDictionary
+                    let cpnStatus = data.valueForKey("Status") as! String
+                    if  cpnStatus == "0" {
+                        self.showErrorStatus(data.valueForKey("msg") as! String )
+                        return
+                    }
+                    let buildNumber = data.valueForKey("BuildNumber") as! String
+                    let currentBuild = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
+                    if Int(buildNumber) > Int(currentBuild!)! && IncoCommon.getNumberBuild() != buildNumber{
+                        var version = data.valueForKey("ios_ver") as? String
+                        if version == nil {
+                            version = ""
+                        }
+                        var url = data.valueForKey("url_ios") as? String
+                        if url == nil {
+                            url = ""
+                        }
+                        self.showUpdateVersion(version!,url: url!,build: buildNumber)
+                    }
+                    
+                }
+                       
+            }
+        }
     }
     /*
     // MARK: - Navigation
