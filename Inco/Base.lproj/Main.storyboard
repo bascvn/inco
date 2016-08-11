@@ -373,7 +373,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bsT-ib-tTc">
                                                 <rect key="frame" x="0.0" y="144" width="300" height="40"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" title="Login"/>
+                                                <state key="normal" title="Login">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="loginAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y9m-0L-7gX"/>
                                                 </connections>
@@ -452,7 +454,7 @@
         <scene sceneID="5z9-XB-xBT">
             <objects>
                 <tableViewController storyboardIdentifier="ProfileTableViewController" id="Tbu-AB-Vc1" userLabel="Profile" customClass="ProfileTableViewController" customModule="Inco" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="doO-Z0-W5s">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="doO-Z0-W5s">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -701,7 +703,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avatar_default" width="32" height="32"/>
+        <image name="avatar_default" width="48" height="48"/>
         <image name="main_home" width="32" height="32"/>
         <image name="project" width="64" height="64"/>
         <image name="search_icon" width="64" height="64"/>
