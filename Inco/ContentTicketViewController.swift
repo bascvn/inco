@@ -7,20 +7,46 @@
 //
 
 import UIKit
+import KMPlaceholderTextView
 
 class ContentTicketViewController: UIViewController {
 
     @IBOutlet weak var mSubject: UITextField!
-    @IBOutlet weak var mDiscription: UITextView!
+    @IBOutlet weak var mDiscription: KMPlaceholderTextView!
+    var height:CGFloat  = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addDoneButtonOnKeyboard()
+        self.mSubject.placeholder = CommonMess.SUBJECT
+        self.mDiscription.placeholder = CommonMess.TYPE_YOUR_COMMENT
         // Do any additional setup after loading the view.
     }
-
+    override func viewDidAppear(animated: Bool) {
+        self.height = self.view.frame.height
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContentTicketViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ContentTicketViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            
+            self.view.frame.size.height =  self.height - keyboardSize.height
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.size.height  = self.height
+        }
     }
     func isSubjectEmpty() -> Bool {
         if self.mSubject.text?.characters.count == 0 {
