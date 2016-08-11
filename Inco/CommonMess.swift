@@ -8,13 +8,29 @@
 
 import Foundation
 class CommonMess {
-    static let ALERT: String = "ALERT"
-    static let LOGOUT_CONFIRM = "Do you want logout!"
-    static let DATA_EMPTY = "Data empty!"
-    static let FILE_UPLOADING = "File uploading"
-    static let SUBJECT_EPMPTY = "Subjects empty"
-    static let DISCRIPTION_EMPTY = "Discription empty"
-    static let CONFIG_TICKET   = "Please config info ticket"
-    static let DISCARD_CHANGE   = "If you go back now, your draft will be discarded."
+    static let ALERT: String = NSLocalizedString("ALERT",comment: "")
+    static let LOGOUT_CONFIRM = NSLocalizedString("Do_you_want_logout",comment: "")
+    static let DATA_EMPTY = NSLocalizedString("Data_empty",comment: "")
+    static let FILE_UPLOADING = NSLocalizedString("File_uploading",comment: "")
+    static let SUBJECT_EPMPTY = NSLocalizedString("Subjects_empty",comment: "")
+    static let DISCRIPTION_EMPTY = NSLocalizedString("Discription_empty",comment: "")
+    static let CONFIG_TICKET   = NSLocalizedString("Please_config_info_ticket",comment: "")
+    static let DISCARD_CHANGE   = NSLocalizedString("If_you_go_back_now",comment: "")
+    static let CLICK_REFRESH   = NSLocalizedString("Data_empty_please_click_for_reload",comment: "")
+
+    static let READ_MORE   = NSLocalizedString("Read_more",comment: "")
+    
+    static let PROJECT = NSLocalizedString("Projects",comment: "")
+    static let TASKS = NSLocalizedString("Tasks",comment: "")
+    static let TICKETS = NSLocalizedString("Tickets",comment: "")
+    static let DISCUSSIONS = NSLocalizedString("Discusssions",comment: "")
+    static let SEARCH_ERROR_MESS = NSLocalizedString("search_error_mess",comment: "")
+    static let DONE = NSLocalizedString("done",comment: "")
+    static let DELETE_FILE_MESS = NSLocalizedString("do_you_delete_file",comment: "")
+    static let TYPE_YOUR_COMMENT = NSLocalizedString("type_your_comment",comment: "")
+
+    static let SUBJECT = NSLocalizedString("subject",comment: "")
+
+
 
 }

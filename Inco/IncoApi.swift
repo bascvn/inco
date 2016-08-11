@@ -12,7 +12,8 @@ class IncoApi {
     static let DOMAIN:String    = "kiemtraduan.net"
     static let API_GET_COMPANY = "gateway.php?controller=client.get_clients"
     static let API_GET_COMPANY_STATUS = "gateway.php?controller=client.get_client_staus"
-    
+    static let API_LOGOUT = "/index.php/mobile/logout"
+
     static let LOGIN_API        = "/mobile_api/gateway.php?controller=auth.login"
     static let LOGIN_EMAIL      = "email"
     static let LOGIN_PASS       = "password"
@@ -92,7 +93,7 @@ class IncoApi {
     // getlist project
     
     static let SEARCH_WORD = "SearchWord"
-    
+
     static func getLogin(company:String) -> String {
         return IncoApi.PROTOCOL + company + "." + IncoApi.DOMAIN+"/"+company+IncoApi.LOGIN_API
     }
@@ -104,6 +105,10 @@ class IncoApi {
     }
     static func getCompanies() -> String {
         return IncoApi.PROTOCOL+"wwww."+IncoApi.DOMAIN+"/"+IncoApi.API_GET_COMPANY
+    }
+    static func getStatusCompany() -> String{
+        return IncoApi.PROTOCOL+"wwww."+IncoApi.DOMAIN+"/"+IncoApi.API_GET_COMPANY_STATUS
+
     }
     static func getLogoCompany(logo:String) ->String {
         return IncoApi.PROTOCOL+IncoApi.DOMAIN+"/logo/"+logo

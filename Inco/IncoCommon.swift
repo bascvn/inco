@@ -20,9 +20,10 @@ class IncoCommon {
         userDefaults.synchronize() // don't forget this!!!!
     }
     static func logOut(){
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.removeObjectForKey( IncoResponse.M_TOKEN)
-          userDefaults.synchronize() 
+        userDefaults.synchronize()
     }
     static func getToken()->String{
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -61,6 +62,19 @@ class IncoCommon {
             return false
         }
         return remember!
+    }
+    static func setNumberBuild(build:String){
+         let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setValue(build, forKey: "BuildNumber")
+        userDefaults.synchronize()
+    }
+    static func getNumberBuild() -> String {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var build =  userDefaults.valueForKey("BuildNumber") as? String
+        if build == nil{
+            build = ""
+        }
+        return build!
     }
     static func saveUserInfo(user:NSDictionary){
         let userDefaults = NSUserDefaults.standardUserDefaults()
