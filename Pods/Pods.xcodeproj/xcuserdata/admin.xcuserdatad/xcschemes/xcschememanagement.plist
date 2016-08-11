@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KMPlaceholderTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Inco.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,15 +34,15 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>TextFieldEffects.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>05094CC4A047119F7ADC14EE74C4881C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1DAAFE6F474E1CBA13D4813AFBF39286</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,17 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A0C5AA095ABD46C4BC9B4ED2EDDC09ED</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B916DC195F4FF98FB49D0251948A88D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E84DF8267014ADB1372C6031C91DF804</key>
+		<key>EC25B770E2E786F47106EE8F013163EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

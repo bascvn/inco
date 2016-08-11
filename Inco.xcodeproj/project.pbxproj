@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8431100B1D5D476200CD558B /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431100A1D5D476200CD558B /* RefreshProtocol.swift */; };
 		845A73921D48D89E00E95A71 /* DetailTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73901D48D89E00E95A71 /* DetailTabBarViewController.swift */; };
 		845A73961D48D9DB00E95A71 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */; };
 		845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */; };
@@ -79,7 +80,6 @@
 		84B91A961D4DBACF00122245 /* ProjectTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */; };
 		84B91A9B1D4DC76200122245 /* DetailDiscussionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */; };
 		84B91A9D1D4DCA4400122245 /* DetailProjectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */; };
-		84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */; };
 		84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */; };
 		84B91AAB1D4DF6F100122245 /* CommentTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */; };
 		84B91AB01D4DFFB200122245 /* UploadFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */; };
@@ -128,6 +128,7 @@
 		6EB910AAD84334FA20D8DCD3 /* Pods-Inco.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inco.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Inco/Pods-Inco.debug.xcconfig"; sourceTree = "<group>"; };
 		79BAA288602D22EBF747F872 /* Pods-IncoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IncoUITests/Pods-IncoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C187C2B21BBE80532735970 /* Pods-IncoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-IncoUITests/Pods-IncoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8431100A1D5D476200CD558B /* RefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshProtocol.swift; sourceTree = "<group>"; };
 		845A73901D48D89E00E95A71 /* DetailTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTabBarViewController.swift; sourceTree = "<group>"; };
 		845A73941D48D9DB00E95A71 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		845A73981D48DA0200E95A71 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
@@ -220,7 +221,6 @@
 		84B91A941D4DBACF00122245 /* ProjectTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTabBarViewController.swift; sourceTree = "<group>"; };
 		84B91A9A1D4DC76200122245 /* DetailDiscussionComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiscussionComponent.swift; sourceTree = "<group>"; };
 		84B91A9C1D4DCA4400122245 /* DetailProjectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProjectComponent.swift; sourceTree = "<group>"; };
-		84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshProtocol.swift; path = ../../../RefreshProtocol.swift; sourceTree = "<group>"; };
 		84B91AA51D4DF6AE00122245 /* FilesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesTableViewController.swift; sourceTree = "<group>"; };
 		84B91AA91D4DF6F100122245 /* CommentTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTabBarViewController.swift; sourceTree = "<group>"; };
 		84B91AAE1D4DFFB200122245 /* UploadFileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileCell.swift; sourceTree = "<group>"; };
@@ -364,11 +364,11 @@
 		84743B011D3CFCE400270587 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8431100A1D5D476200CD558B /* RefreshProtocol.swift */,
 				84743B111D3D00C800270587 /* MainViewController.swift */,
 				84743B171D3D15C200270587 /* LeftMenuItemTableViewCell.swift */,
 				849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */,
 				84743B151D3D038600270587 /* LeftSideViewController.swift */,
-				84B91A9E1D4DE5B400122245 /* RefreshProtocol.swift */,
 				84D7FA681D5C797E0092380B /* ProfileTableViewController.swift */,
 			);
 			name = MainViewController;
@@ -890,6 +890,7 @@
 				84916DAB1D55B8AC000D8A68 /* GroupUser.swift in Sources */,
 				84AF2B7D1D47A53400F31080 /* DiscussionTableViewCell.swift in Sources */,
 				84E855FB1D4CDAB0007F6B6C /* CommentCell.swift in Sources */,
+				8431100B1D5D476200CD558B /* RefreshProtocol.swift in Sources */,
 				848806171D4B78660081E740 /* UserItemUIView.swift in Sources */,
 				84C2982F1D4F7F8800D36886 /* ViewController.swift in Sources */,
 				846DAFEA1D44EDA6008D8D5F /* TaskCellTableViewCell.swift in Sources */,
@@ -910,7 +911,6 @@
 				845A73A51D48F4D800E95A71 /* DetailBaseComponent.swift in Sources */,
 				84743B0F1D3D003400270587 /* MMDrawerVisualState.m in Sources */,
 				84916DA91D559764000D8A68 /* BaseItem.swift in Sources */,
-				84B91A9F1D4DE5B400122245 /* RefreshProtocol.swift in Sources */,
 				84B91A8D1D4D85BD00122245 /* DetailTicketTableViewController.swift in Sources */,
 				845A739A1D48DA0200E95A71 /* CommentsTableViewController.swift in Sources */,
 				84B91AA71D4DF6AE00122245 /* FilesTableViewController.swift in Sources */,
