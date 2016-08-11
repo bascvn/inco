@@ -34,4 +34,9 @@
 "do_you_delete_file" = "Do you delete file";
 "type_your_comment" = "type your comment";
 "subject" = "Subject";
+"have_new_version" = "New version %@ available.";
 
+"no" = "NO";
+"ok" = "OK";
+"update" = "UPDATE";
+"search_company_title" = "Search company";

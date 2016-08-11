@@ -28,4 +28,9 @@
 "do_you_delete_file" = "Bạn muốn xoá file";
 "type_your_comment" = "Nhập bình luận của bạn";
 "subject" = "Tiêu đề";
+"have_new_version" = "Đã có phiên bản %@ mới.";
 
+"no" = "Không";
+"ok" = "Đồng ý";
+"update" = "Cập Nhật";
+"search_company_title" = "Tìm kiếm công ty";
