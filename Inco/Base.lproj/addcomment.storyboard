@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Files Table View Controller-->
+        <scene sceneID="cqy-Jw-SKn">
+            <objects>
+                <tableViewController storyboardIdentifier="FilesTableViewController" id="ZAH-Fd-0ao" customClass="FilesTableViewController" customModule="Inco" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="IZC-su-qJV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZAH-Fd-0ao" id="4ua-Fi-MyZ"/>
+                            <outlet property="delegate" destination="ZAH-Fd-0ao" id="1n3-q7-Vg2"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Qo-gr-ZBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="548" y="-821"/>
+        </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="diu-YG-dzE">
+            <objects>
+                <viewController storyboardIdentifier="CommentViewController" id="qy6-Ao-DL3" customClass="CommentViewController" customModule="Inco" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z5a-YP-yBK"/>
+                        <viewControllerLayoutGuide type="bottom" id="GNv-Tz-QfK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rYC-Kc-8Pr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kbU-p4-gLc" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                                <rect key="frame" x="8" y="102" width="584" height="441"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Type your comment"/>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kbU-p4-gLc" firstAttribute="top" secondItem="Z5a-YP-yBK" secondAttribute="bottom" constant="8" id="AQU-Pa-fFh"/>
+                            <constraint firstAttribute="bottom" secondItem="kbU-p4-gLc" secondAttribute="bottom" constant="8" id="I4M-5V-llw"/>
+                            <constraint firstItem="GNv-Tz-QfK" firstAttribute="top" secondItem="kbU-p4-gLc" secondAttribute="bottom" constant="8" id="N6k-yr-ota"/>
+                            <constraint firstAttribute="trailing" secondItem="kbU-p4-gLc" secondAttribute="trailing" constant="8" id="TPQ-aP-KJm"/>
+                            <constraint firstItem="kbU-p4-gLc" firstAttribute="leading" secondItem="rYC-Kc-8Pr" secondAttribute="leading" constant="8" id="Vyn-4S-ab8"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="I4M-5V-llw"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mComment" destination="kbU-p4-gLc" id="5rg-ub-SiB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xLB-C7-kvM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="569" y="-192"/>
+        </scene>
+    </scenes>
+</document>
