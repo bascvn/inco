@@ -79,7 +79,7 @@ class CompanyTableViewController: UITableViewController,UISearchResultsUpdating,
          
             
             let messageLabel = UILabel(frame: CGRect(x: 0,y: 0,width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-            messageLabel.text = "No data is currently available. Please search more 3 characters."
+            messageLabel.text = CommonMess.SEARCH_ERROR_MESS
             messageLabel.textColor = UIColor.blackColor()
             messageLabel.textAlignment = NSTextAlignment.Center
             messageLabel.font = UIFont(name: "Palatino-Italic", size: 20)
