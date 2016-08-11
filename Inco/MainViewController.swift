@@ -18,19 +18,21 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var projectId:String = ""
     var refreshControl = UIRefreshControl()
     let indicator:UIActivityIndicatorView = UIActivityIndicatorView  (activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-    
+    var leftBarButton: ENMBadgedBarButtonItem?
+
+    var count = 10
     @IBOutlet weak var mSearchBar: UISearchBar!
     @IBOutlet weak var mTableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // set title
-        if self.isSetTitle == true {
-            self.setTitleView(type)
-        }
+        
         if self.isCheckStatus == true {
             self.checkCompanyStatus()
         
+        
         }
+        self.setUpLeftBarButton()
         //self.hideKeyboardWhenTappedAround()
         // loading state
         indicator.color = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
@@ -58,6 +60,14 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
        // self.mTableview.estimatedRowHeight = 200
         getProjectList()
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(animated: Bool) {
+        if self.isSetTitle == true {
+            self.setTitleView(type)
+        }
+    }
+    override func viewDidDisappear(animated: Bool) {
+        self.title = ""
     }
     @IBAction func refreshClick(sender: AnyObject) {
         refresh()
@@ -362,7 +372,39 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         return cell
     }
     func showErrorStatus(mess:String)  {
-        
+        let updateActionHandler = { (action:UIAlertAction!) -> Void in
+            let token = IncoCommon.getToken() as String
+            print("token: \(token)")
+            
+            let parameters:[String:AnyObject] = [IncoApi.TOKEN_PARAMETER:token]
+            Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_LOGOUT),parameters: parameters) .responseJSON { response in // 1
+                print(response.request)  // original URL request
+                print(response.response) // URL response
+                print(response.data)     // server data
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                    let inco = IncoResponse(data: JSON as! NSDictionary)
+                    if inco.isOK(){
+                        
+                    }
+                    
+                }
+                return
+            }
+            
+            IncoCommon.logOut()
+            let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
+                as! ViewController
+            let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let mainNavContoller = UINavigationController(rootViewController: loginViewController)
+            appDelegate.window?.rootViewController = mainNavContoller
+        }
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: mess, preferredStyle: UIAlertControllerStyle.Alert)
+
+        alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler:updateActionHandler ))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     func showUpdateVersion(version:String,url:String,build:String ){
         let updateActionHandler = { (action:UIAlertAction!) -> Void in
@@ -374,9 +416,10 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cancelActionHandler = { (action:UIAlertAction!) -> Void in
             IncoCommon.setNumberBuild(build)
         }
-        let alertController = UIAlertController(title: CommonMess.ALERT, message: version, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: cancelActionHandler))
-        alertController.addAction(UIAlertAction(title: "UPDATE", style:UIAlertActionStyle.Default, handler:updateActionHandler ))
+        let mess = String(format: CommonMess.HAVE_NEW_VERSION, arguments: [version])
+        let alertController = UIAlertController(title: CommonMess.ALERT, message: mess, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: CommonMess.NO, style:UIAlertActionStyle.Cancel, handler: cancelActionHandler))
+        alertController.addAction(UIAlertAction(title: CommonMess.UPDATE, style:UIAlertActionStyle.Default, handler:updateActionHandler ))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     func checkCompanyStatus(){
@@ -394,7 +437,11 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     let data = JSON.valueForKey("data") as! NSDictionary
                     let cpnStatus = data.valueForKey("Status") as! String
                     if  cpnStatus == "0" {
-                        self.showErrorStatus(data.valueForKey("msg") as! String )
+                        var mess = data.valueForKey("msg") as? String
+                        if mess == nil {
+                            mess = ""
+                        }
+                        self.showErrorStatus(mess!)
                         return
                     }
                     let buildNumber = data.valueForKey("BuildNumber") as! String
@@ -427,3 +474,42 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     */
 
 }
+
+extension MainViewController {
+    
+    func setUpLeftBarButton() {
+        let image = UIImage(named: "ic_public_white")
+        let button = UIButton(type: .Custom)
+        if let knownImage = image {
+            button.frame = CGRectMake(0.0, 0.0, knownImage.size.width, knownImage.size.height)
+        } else {
+            button.frame = CGRectZero;
+        }
+        
+        button.setBackgroundImage(image, forState: UIControlState.Normal)
+        button.addTarget(self,
+                         action: #selector(MainViewController.leftButtonPressed(_:)),
+                         forControlEvents: UIControlEvents.TouchUpInside)
+        
+        let newBarButton = ENMBadgedBarButtonItem(customView: button, value: "\(count)")
+        leftBarButton = newBarButton
+        leftBarButton?.badgeValue = "\(count)"
+        var menus = navigationItem.rightBarButtonItems
+         menus?.insert(leftBarButton!, atIndex: 0)
+        navigationItem.rightBarButtonItems = menus
+    }
+}
+
+extension MainViewController {
+    
+    func leftButtonPressed(_sender: UIButton) {
+        count = count + 1
+        leftBarButton?.badgeValue = "\(count)"
+    }
+    
+    func rightButtonPressed(_sender: UIButton) {
+        count = 0
+        leftBarButton?.badgeValue = "0"
+    }
+}
+

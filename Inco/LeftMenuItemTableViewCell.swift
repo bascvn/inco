@@ -20,6 +20,10 @@ class LeftMenuItemTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        print("setSelected")
+        self.mIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
+        mIcon.tintColor = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+        
 
         // Configure the view for the selected state
     }
