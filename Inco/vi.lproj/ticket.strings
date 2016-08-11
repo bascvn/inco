@@ -1,0 +1,23 @@
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "0z7-Gn-XZk"; */
+"0z7-Gn-XZk.text" = "Loại";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "JqY-cu-YyG"; */
+"JqY-cu-YyG.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "KwQ-Jn-6ud"; */
+"KwQ-Jn-6ud.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Create By"; ObjectID = "O6M-Bd-NDE"; */
+"O6M-Bd-NDE.text" = "Được Tạo Bởi";
+
+/* Class = "UILabel"; text = "Deparment"; ObjectID = "QhG-Ko-Pcx"; */
+"QhG-Ko-Pcx.text" = "Bộ Phận";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "UmQ-jE-eLR"; */
+"UmQ-jE-eLR.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Notify"; ObjectID = "sSR-Wc-831"; */
+"sSR-Wc-831.text" = "Thông Báo";
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "xcC-a4-vYT"; */
+"xcC-a4-vYT.normalTitle" = "Button";
