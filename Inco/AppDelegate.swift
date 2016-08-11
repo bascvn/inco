@@ -22,12 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         UITabBar.appearance().barTintColor = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
         UITabBar.appearance().tintColor = UIColor.whiteColor()
+        window?.tintColor = UIColor(red: 141.0/255.0, green: 184.0/255.0, blue: 61.0/255.0, alpha: 1.0)
+
        // UITabBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         if(IncoCommon.isLogin()){
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         let centerViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
-        
+        centerViewController.isCheckStatus = true
         let leftViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LeftSideViewController") as! LeftSideViewController
         
         let leftSideNav = UINavigationController(rootViewController: leftViewController)
