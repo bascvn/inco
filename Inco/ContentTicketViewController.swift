@@ -34,6 +34,12 @@ class ContentTicketViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func isEmptyData() -> Bool {
+        if self.mSubject.text?.characters.count > 0 || self.mDiscription.text.characters.count > 0 {
+            return false
+        }
+        return true
+    }
     func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {

@@ -13,16 +13,22 @@ import AlamofireImage
 class AddTicketTabBarViewController: UITabBarController {
     var add:UIBarButtonItem? = nil
     var send:UIBarButtonItem?
+    var btnBack:UIBarButtonItem?
+
     var contentView:ContentTicketViewController?
     var configView:ConfigTicketTableViewController?
     var fileView:FilesTableViewController?
-    
+    var refreshDelegate:RefreshProtocol?
     var projectID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = CommonMess.NEW_TICKET
         add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(AddTicketTabBarViewController.selectFile))
         send = UIBarButtonItem(image: UIImage(named: "ic_send_white"), style: .Plain, target: self, action:#selector(AddTicketTabBarViewController.sendTicket))
         navigationItem.rightBarButtonItems = [send!]
+        btnBack = UIBarButtonItem(image: UIImage(named: "ic_clear_white"), style: .Plain, target: self, action:#selector(AddTicketTabBarViewController.backButtonClick))
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem = btnBack
         // Do any additional setup after loading the view.
     }
 
@@ -40,6 +46,19 @@ class AddTicketTabBarViewController: UITabBarController {
         }else{
             navigationItem.rightBarButtonItems = [send!]
         }
+    }
+    func backButtonClick()  {
+        if self.fileView?.isEmptyData() == false || self.contentView?.isEmptyData() == false {
+            let callActionHandler = { (action:UIAlertAction!) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+                
+            }
+            let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DISCARD_CHANGE, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: CommonMess.NO, style:UIAlertActionStyle.Cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler:callActionHandler ))
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     func showAler(mess: String ) {
         let alertController = UIAlertController(title: CommonMess.ALERT, message: mess, preferredStyle: UIAlertControllerStyle.Alert)
@@ -111,7 +130,18 @@ class AddTicketTabBarViewController: UITabBarController {
         self.presentViewController(alertController, animated: false, completion: nil)
         
         let parameters = self.getParameterApi()
-        Alamofire.request(.POST, IncoApi.getApi(IncoApi.API_NEW_TICKET),parameters: parameters) .responseJSON { response in // 1
+        var url = IncoApi.getApi(IncoApi.API_NEW_TICKET)
+        var count = 0
+        for item in (self.configView?.getNotifyID())! {
+            if count  == 0 {
+                url = url + "?" + IncoApi.EXTRA_NOTIFY + "=" + item
+            }else{
+                url = url+"&" + IncoApi.EXTRA_NOTIFY + "=" + item
+
+            }
+            count  = count+1
+        }
+        Alamofire.request(.POST, url ,parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request
             print(response.response) // URL response
             print(response.data)     // server data
@@ -126,7 +156,9 @@ class AddTicketTabBarViewController: UITabBarController {
                 
             }
              alertController.dismissViewControllerAnimated(false, completion: nil)
+            self.refreshDelegate?.refresh()
             self.navigationController?.popViewControllerAnimated(true)
+            
             return
         }
 
