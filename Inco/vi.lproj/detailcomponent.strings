@@ -1,0 +1,156 @@
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "1DN-vB-oZr"; */
+"1DN-vB-oZr.text" = "Name";
+
+/* Class = "UILabel"; text = "54"; ObjectID = "4R5-4r-F9r"; */
+"4R5-4r-F9r.text" = "54";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "4qk-vs-mKW"; */
+"4qk-vs-mKW.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "7AY-FG-m5e"; */
+"7AY-FG-m5e.text" = "Label";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "7Fq-RZ-Edn"; */
+"7Fq-RZ-Edn.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Priority"; ObjectID = "7t4-Ka-fwA"; */
+"7t4-Ka-fwA.text" = "Ưu Tiên";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "8X4-M1-gCt"; */
+"8X4-M1-gCt.text" = "Trạng Thái";
+
+/* Class = "UITableViewSection"; headerTitle = "Detail"; ObjectID = "Agi-S5-x6p"; */
+"Agi-S5-x6p.headerTitle" = "Chi Tiết";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "CGc-s3-cSM"; */
+"CGc-s3-cSM.text" = "Open";
+
+/* Class = "UITableViewSection"; headerTitle = "Deail"; ObjectID = "Dpa-QH-If3"; */
+"Dpa-QH-If3.headerTitle" = "Chi Tiết";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "EPf-gj-vSk"; */
+"EPf-gj-vSk.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "EbY-rf-Uka"; */
+"EbY-rf-Uka.text" = "Label";
+
+/* Class = "UILabel"; text = "Team"; ObjectID = "FYC-FC-eHI"; */
+"FYC-FC-eHI.text" = "Đội Ngũ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Ffl-H7-bgo"; */
+"Ffl-H7-bgo.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "G0X-N8-0ao"; */
+"G0X-N8-0ao.text" = "Label";
+
+/* Class = "UILabel"; text = "Assigned To"; ObjectID = "IG2-Sb-yBm"; */
+"IG2-Sb-yBm.text" = "Được Giao Cho";
+
+/* Class = "UILabel"; text = "ID"; ObjectID = "Ixy-3n-Bpc"; */
+"Ixy-3n-Bpc.text" = "ID";
+
+/* Class = "UILabel"; text = "ID"; ObjectID = "JLU-Ah-4j0"; */
+"JLU-Ah-4j0.text" = "ID";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "MuJ-6L-7lP"; */
+"MuJ-6L-7lP.text" = "Label";
+
+/* Class = "UILabel"; text = "Medium"; ObjectID = "Nf7-WG-aaM"; */
+"Nf7-WG-aaM.text" = "Medium";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "SbS-nU-Kyy"; */
+"SbS-nU-Kyy.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Sdn-u0-oWY"; */
+"Sdn-u0-oWY.text" = "Nhãn";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "TTm-RA-BF9"; */
+"TTm-RA-BF9.text" = "Open";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "UNl-wN-3L9"; */
+"UNl-wN-3L9.text" = "Loại";
+
+/* Class = "UILabel"; text = "Depamentbname"; ObjectID = "WBA-Ll-A5y"; */
+"WBA-Ll-A5y.text" = "Depamentbname";
+
+/* Class = "UILabel"; text = "Deparment"; ObjectID = "WCF-E0-HJX"; */
+"WCF-E0-HJX.text" = "Bộ Phận";
+
+/* Class = "UILabel"; text = "11"; ObjectID = "WDf-sn-hDd"; */
+"WDf-sn-hDd.text" = "11";
+
+/* Class = "UITableViewSection"; headerTitle = "Detail"; ObjectID = "X6g-pR-TMg"; */
+"X6g-pR-TMg.headerTitle" = "Chi Tiết";
+
+/* Class = "UILabel"; text = "Bug"; ObjectID = "ZVc-lD-byL"; */
+"ZVc-lD-byL.text" = "Bug";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "a2y-pw-9tg"; */
+"a2y-pw-9tg.text" = "Loại";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "aAE-K1-GQJ"; */
+"aAE-K1-GQJ.text" = "Label";
+
+/* Class = "UILabel"; text = "Change request"; ObjectID = "bE2-ga-IVq"; */
+"bE2-ga-IVq.text" = "Change request";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dhC-ZH-MSg"; */
+"dhC-ZH-MSg.text" = "Label";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "eHf-0U-j1w"; */
+"eHf-0U-j1w.text" = "1";
+
+/* Class = "UILabel"; text = "Assign To"; ObjectID = "fEs-B2-52X"; */
+"fEs-B2-52X.text" = "Được Giao Cho";
+
+/* Class = "UILabel"; text = "ID"; ObjectID = "hf5-e6-pQs"; */
+"hf5-e6-pQs.text" = "ID";
+
+/* Class = "UILabel"; text = "2016-07-23  12:32:43"; ObjectID = "jVN-uQ-Ike"; */
+"jVN-uQ-Ike.text" = "2016-07-23  12:32:43";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kaV-8f-ztq"; */
+"kaV-8f-ztq.text" = "Label";
+
+/* Class = "UILabel"; text = "Support"; ObjectID = "kfr-df-cp2"; */
+"kfr-df-cp2.text" = "Support";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "kiM-1h-ovB"; */
+"kiM-1h-ovB.text" = "Open";
+
+/* Class = "UILabel"; text = "Small Funcition"; ObjectID = "mLF-uZ-WgJ"; */
+"mLF-uZ-WgJ.text" = "Small Funcition";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "mmf-Rz-0vu"; */
+"mmf-Rz-0vu.text" = "Loại";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nXp-mi-Lyt"; */
+"nXp-mi-Lyt.text" = "Label";
+
+/* Class = "UILabel"; text = "Name "; ObjectID = "o0t-y1-X41"; */
+"o0t-y1-X41.text" = "Name ";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "p8v-sU-V9X"; */
+"p8v-sU-V9X.text" = "10";
+
+/* Class = "UITableViewSection"; headerTitle = "Detail"; ObjectID = "rdP-OY-Dub"; */
+"rdP-OY-Dub.headerTitle" = "Chi Tiết";
+
+/* Class = "UILabel"; text = "ID"; ObjectID = "sKR-BU-SWU"; */
+"sKR-BU-SWU.text" = "ID";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "tF4-7i-7sy"; */
+"tF4-7i-7sy.text" = "Open";
+
+/* Class = "UILabel"; text = "Pham Duc Kien"; ObjectID = "v6E-CT-TOf"; */
+"v6E-CT-TOf.text" = "Pham Duc Kien";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "xEj-4W-H0R"; */
+"xEj-4W-H0R.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xYb-D2-s76"; */
+"xYb-D2-s76.text" = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = " "; ObjectID = "zM9-DZ-tu0"; */
+"zM9-DZ-tu0.headerTitle" = " ";
