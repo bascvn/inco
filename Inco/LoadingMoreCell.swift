@@ -27,9 +27,9 @@ class LoadingMoreCell: UITableViewCell {
     }
     func setEmptyState(empty: Bool)  {
         if empty == true {
-            self.mLoadingLabel.text = "Data empty, please click for reload"
+            self.mLoadingLabel.text = CommonMess.CLICK_REFRESH
         }else{
-            self.mLoadingLabel.text = "Read more"
+            self.mLoadingLabel.text = CommonMess.READ_MORE
 
         }
     }
