@@ -503,8 +503,11 @@ extension MainViewController {
 extension MainViewController {
     
     func leftButtonPressed(_sender: UIButton) {
-        count = count + 1
-        leftBarButton?.badgeValue = "\(count)"
+        let notification = self.storyboard?.instantiateViewControllerWithIdentifier("NotificationsTableViewController")
+            as! NotificationsTableViewController
+        self.navigationController?.pushViewController(notification, animated: true)
+        //count = count + 1
+        //leftBarButton?.badgeValue = "\(count)"
     }
     
     func rightButtonPressed(_sender: UIButton) {
