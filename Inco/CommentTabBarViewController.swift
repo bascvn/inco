@@ -21,9 +21,9 @@ class CommentTabBarViewController: UITabBarController {
     var refreshDelegate:RefreshProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = CommonMess.NEW_COMMENT
         add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action: #selector(CommentTabBarViewController.selectFile))
-       btnBack = UIBarButtonItem(image: UIImage(named: "ic_keyboard_arrow_left_white_48pt"), style: .Plain, target: self, action:#selector(CommentTabBarViewController.backButtonClick))
+       btnBack = UIBarButtonItem(image: UIImage(named: "ic_clear_white"), style: .Plain, target: self, action:#selector(CommentTabBarViewController.backButtonClick))
         self.navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem = btnBack
 
@@ -46,20 +46,20 @@ class CommentTabBarViewController: UITabBarController {
 
         }
         let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DISCARD_CHANGE, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler:callActionHandler ))
+        alertController.addAction(UIAlertAction(title: CommonMess.NO, style:UIAlertActionStyle.Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler:callActionHandler ))
         self.presentViewController(alertController, animated: true, completion: nil)
         }
         self.navigationController?.popViewControllerAnimated(true)
     }
     func showAlertEmptyData() {
         let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DATA_EMPTY, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler: nil))
+        alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     func showAlertFileUploading()  {
         let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.FILE_UPLOADING, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler: nil))
+        alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     func getCommentApi(type:ComponentType) -> String {
