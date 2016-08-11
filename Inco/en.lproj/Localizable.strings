@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  Inco
+
+  Created by admin on 8/11/16.
+  Copyright © 2016 Ban Sac. All rights reserved.
+*/
+"Projects" = "Projects";
+"Tasks" = "Tasks";
+"Tickets" = "Tickets";
+"Discussions" = "Discussions";
+"Profile" = "Profile";
+"Logout" = "Logout";
+
+"Email_Empty" = "Email Empty";
+"Email_Error" = "Email Error";
+"Password_Empty" = "Password Empty";
+"Company_Empty" = "Company Empty";
+"Cant_login" = "Can't login";
+
+"ALERT" = "ALERT";
+"Do_you_want_logout" = "Do you want logout!";
+"Data_empty" = "Data empty!";
+"File_uploading" = "File uploading!";
+"Subjects_empty" = "Subjects empty!";
+"Discription_empty" = "Discription empty!";
+"Please_config_info_ticket" = "Please config info ticket";
+"If_you_go_back_now" = "Ifyou go back now, your draft will be discarded.";
+
+"Data_empty_please_click_for_reload" = "Data empty, please click for reload";
+"Read_more" = "Read more";
+"search_error_mess" = "No data is currently available. Please search more 3 characters.";
+"done" = "Done";
+"do_you_delete_file" = "Do you delete file";
+"type_your_comment" = "type your comment";
+"subject" = "Subject";
+

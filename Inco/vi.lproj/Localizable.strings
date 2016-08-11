@@ -1,0 +1,31 @@
+/* Projects left nav title */
+"Projects" = "Dự án";
+"Tasks" = "Tác Vụ";
+"Tickets" = "Thẻ";
+"Discussions" = "Thảo Luận";
+"Profile" = "Tài Khoản";
+"Logout" = "Thoát";
+
+"Email_Empty" = "Email trống";
+"Email_Error" = "Email lỗi";
+"Password_Empty" = "Mật khẩu trống";
+"Company_Empty" = "Công ty trống";
+"Cant_login" = "Không thể login";
+
+"ALERT" = "Thông Báo";
+"Do_you_want_logout" = "Bạn muốn đăng xuất!";
+"Data_empty" = "Dữ Liệu Trống!";
+"File_uploading" = "File đang upload!";
+"Subjects_empty" = "Tiêu đề empty!";
+"Discription_empty" = "Discription empty!";
+"Please_config_info_ticket" = "Hay thêm thông tin cấu hình của thẻ";
+"If_you_go_back_now" = "Dữ liệu sẽ bị mất";
+
+"Data_empty_please_click_for_reload" = "Không có dữ liệu, nhấn vào để tải lại";
+"Read_more" = "Xem thêm";
+"search_error_mess" = "Không có dữ liêu, Hãy nhập tối hiếu 3 kí tự khi tìm kiếm";
+"done" = "Xong";
+"do_you_delete_file" = "Bạn muốn xoá file";
+"type_your_comment" = "Nhập bình luận của bạn";
+"subject" = "Tiêu đề";
+
