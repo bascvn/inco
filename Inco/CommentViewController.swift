@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import KMPlaceholderTextView
 
 class CommentViewController: UIViewController {
 
     @IBOutlet weak var tvHeight: NSLayoutConstraint!
-    @IBOutlet weak var mComment: UITextView!
+    @IBOutlet weak var mComment: KMPlaceholderTextView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addDoneButtonOnKeyboard()
         self.mComment.textContainerInset = UIEdgeInsetsZero
+        self.mComment.placeholder = CommonMess.TYPE_YOUR_COMMENT
        
 
               // Do any additional setup after loading the view.
@@ -58,7 +61,7 @@ class CommentViewController: UIViewController {
         doneToolbar.barStyle = UIBarStyle.BlackTranslucent
         
         let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(ContentTicketViewController.doneButtonAction))
+        let done: UIBarButtonItem = UIBarButtonItem(title: CommonMess.DONE, style: UIBarButtonItemStyle.Done, target: self, action: #selector(ContentTicketViewController.doneButtonAction))
         
         
         doneToolbar.items = [flexSpace,done]

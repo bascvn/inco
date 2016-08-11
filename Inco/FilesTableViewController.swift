@@ -14,8 +14,10 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
     let imagePicker = UIImagePickerController()
     var uploadlist = [UploadFile]()
        var index = 1
+    var doneToolbar: UIToolbar? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addDoneButtonOnKeyboard()
         imagePicker.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -200,6 +202,8 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         
      }
     func updateInfo(input: UITextField)  {
+        print("updateInfo")
+        
         let pos = self.getFileByIndex(input.tag)
         self.uploadlist[pos].info = input.text!
     }
@@ -211,7 +215,7 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
                 self.tableView.deleteRowsAtIndexPaths([index], withRowAnimation: UITableViewRowAnimation.Fade)
                 self.tableView.reloadData()
             }
-            let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DISCARD_CHANGE, preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.DELETE_FILE_MESS, preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "NO", style:UIAlertActionStyle.Cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "OK", style:UIAlertActionStyle.Default, handler:callActionHandler ))
             self.presentViewController(alertController, animated: true, completion: nil)
@@ -222,19 +226,18 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
         cell.mProgess.progress = self.uploadlist[indexPath.row].progress
         if self.uploadlist[indexPath.row].status == UploadStatus.OK {
             cell.mFileName.textColor = UIColor.greenColor()
-            cell.mInfo.hidden = false
-            cell.mInfo.tag = self.uploadlist[indexPath.row].index
+           // cell.mInfo.hidden = false
            
         }else if self.uploadlist[indexPath.row].status == UploadStatus.NG {
             cell.mFileName.textColor = UIColor.redColor()
             cell.mProgess.progressTintColor = UIColor.redColor()
-            cell.mInfo.hidden = true
-            cell.mInfo.tag = uploadlist[indexPath.row].index
-            cell.mInfo.addTarget(self, action: #selector(FilesTableViewController.updateInfo(_:)), forControlEvents: .ValueChanged)
+            //cell.mInfo.hidden = true
         }else{
-          cell.mInfo.hidden = true
+          //  scell.mInfo.hidden = true
         }
-        
+        cell.mInfo.tag = self.uploadlist[indexPath.row].index
+        cell.mInfo.addTarget(self, action: #selector(FilesTableViewController.updateInfo(_:)), forControlEvents: .EditingChanged)
+        cell.mInfo.inputAccessoryView = self.doneToolbar
         cell.mBtnDelete.tag = uploadlist[indexPath.row].index
         cell.mBtnDelete.addTarget(self, action: #selector(FilesTableViewController.deleteFile(_:)), forControlEvents: .TouchUpInside)
 
@@ -242,7 +245,25 @@ class FilesTableViewController: UITableViewController,UIImagePickerControllerDel
 
         return cell
     }
+    func addDoneButtonOnKeyboard()
+    {
+         self.doneToolbar = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        doneToolbar!.barStyle = UIBarStyle.BlackTranslucent
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: CommonMess.DONE, style: UIBarButtonItemStyle.Done, target: self, action: #selector(FilesTableViewController.doneButtonAction))
+        
+        
+        doneToolbar!.items = [flexSpace,done]
+        doneToolbar!.sizeToFit()
+        
+    }
     
+    func doneButtonAction()
+    {
+        self.view.endEditing(true)
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
