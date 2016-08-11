@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "2Jd-Nt-O6C"; */
+"2Jd-Nt-O6C.text" = "Trạng Thái";
+
+/* Class = "UILabel"; text = "Project"; ObjectID = "8Kd-Pm-tIv"; */
+"8Kd-Pm-tIv.text" = "Dự Án";
+
+/* Class = "UILabel"; text = "Open"; ObjectID = "CDf-sl-UPK"; */
+"CDf-sl-UPK.text" = "Open";
+
+/* Class = "UILabel"; text = "Create by"; ObjectID = "G7S-Kj-E8t"; */
+"G7S-Kj-E8t.text" = "Được Tạo Bởi";
+
+/* Class = "UILabel"; text = "Inco"; ObjectID = "iqh-Hw-vke"; */
+"iqh-Hw-vke.text" = "Inco";
+
+/* Class = "UILabel"; text = "Kienbk1910"; ObjectID = "jRM-za-hg1"; */
+"jRM-za-hg1.text" = "Kienbk1910";
+
+/* Class = "UILabel"; text = "Discussion name"; ObjectID = "yIL-vx-U3E"; */
+"yIL-vx-U3E.text" = "Discussion name";
