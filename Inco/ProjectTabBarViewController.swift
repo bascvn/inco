@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ProjectTabBarViewController: UITabBarController {
-    var refresh:UIBarButtonItem? = nil
+class ProjectTabBarViewController: UITabBarController,RefreshProtocol{
+    var btnrefresh:UIBarButtonItem? = nil
     var detail:UIBarButtonItem? = nil
     var addTicketBtn:UIBarButtonItem? = nil
     var item:ProjectCell?
@@ -18,13 +18,14 @@ class ProjectTabBarViewController: UITabBarController {
     var discussionView:MainViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        refresh = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh,target:self,action:#selector(ProjectTabBarViewController.refreshView))
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        btnrefresh = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh,target:self,action:#selector(ProjectTabBarViewController.refreshView))
         detail = UIBarButtonItem(image: UIImage(named: "ic_description"), style: .Plain, target: self, action: #selector(ProjectTabBarViewController.showDetailProject))
        // addTicketBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit,target:self,action:#selector(ProjectTabBarViewController.addTicket));
           addTicketBtn = UIBarButtonItem(image: UIImage(named: "ic_create_white_36pt"), style: .Plain, target: self, action:#selector(ProjectTabBarViewController.addTicket))
      //   detail = UIBarButtonItem(title: "Detail", style: .Plain, target: self, action: nil)
      //   detail.
-        navigationItem.rightBarButtonItems = [refresh!,detail!]
+        navigationItem.rightBarButtonItems = [btnrefresh!,detail!]
 
         // Do any additional setup after loading the view.
     }
@@ -54,6 +55,7 @@ class ProjectTabBarViewController: UITabBarController {
         let controllers = [content,config,file]
         tabBarController.configView = config
         tabBarController.contentView = content
+        tabBarController.refreshDelegate = self
         tabBarController.fileView = file
         file.type = ComponentType.NEW_TICKET
         tabBarController.projectID = (self.item?.id)!
@@ -105,11 +107,17 @@ class ProjectTabBarViewController: UITabBarController {
         //tabBarController.title = (self.projects[indexPath.row] ).name
 
     }
+    func refresh() {
+        if self.tabBar.selectedItem?.tag == 2 {
+            self.ticketView!.refresh()
+        }
+        
+    }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.tag == 2 {
-            navigationItem.rightBarButtonItems = [refresh!,addTicketBtn!,detail!]
+            navigationItem.rightBarButtonItems = [btnrefresh!,addTicketBtn!,detail!]
         }else{
-            navigationItem.rightBarButtonItems = [refresh!,detail!]
+            navigationItem.rightBarButtonItems = [btnrefresh!,detail!]
         }
     }
     /*
