@@ -7,7 +7,6 @@ target 'Inco' do
   pod 'KMPlaceholderTextView', '~> 1.2.2'
   pod 'Alamofire', '~> 3.4'
   pod 'AlamofireImage'
-  pod 'BBBadgeBarButtonItem'
   # Pods for Inco
 
   target 'IncoTests' do
