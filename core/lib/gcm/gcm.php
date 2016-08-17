@@ -30,11 +30,19 @@ class GCM {
 
     // sending push message to multiple users by gcm registration ids
     public function sendMultiple($registration_ids, $message) {
+       // var_dump($registration_ids);
+        if( count($registration_ids['ios']) >0){
+            $inco = new IncoAPNS();
+            $inco->cm_push_ios($registration_ids['ios'],json_encode($message),$message['parent'],1);
+        }
+        if (count($registration_ids['android']) == 0 ){
+            return;
+        }
         $fields = array(
-            'registration_ids' => $registration_ids,
+            'registration_ids' => $registration_ids['android'],
             'data' => $message,
         );
-          echo json_encode($fields);
+       // echo json_encode($fields);
         return $this->sendPushNotification($fields);
     }
 

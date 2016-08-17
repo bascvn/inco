@@ -17,18 +17,33 @@ class Tokens extends BaseTokens
      	->createQuery()
      	->addWhere("user_id =?",$id)  
      	->fetchArray();
-    	 $array_token = array();
+    	 $array_token['android'] = array();
+    	 $array_token['ios'] = array();
      	foreach ($mobiles as $comments){
-        	array_push($array_token,$comments['device_id']);
-     	}
+     		//echo "<br>";
+     		//var_dump($comments);
+     		if ($comments['device_type'] == "1"){
+     			array_push($array_token['android'],$comments['device_id']);
 
+     		}else{
+     			array_push($array_token['ios'],$comments['device_id']);
+     		}
+     	}
+     	//echo "<br>";
+     	//var_dump($array_token);
       	return $array_token;
 	}
 	public static function arrayMergeTokens($tokens){
-		$result= array();
+		$result['android']= array();
+		$result['ios']= array();
 		foreach ($tokens as $key => $value) {
+			//echo "<br>";
+			//echo "key:".$key;
+			//echo "<br>";
+
 			var_dump($value);
-			$result =array_merge($result,$value);
+				$result['android'] =array_merge($result['android'],$value['android']);
+				$result['ios'] =array_merge($result['ios'],$value['ios']);
 		}
 		return $result;
 	}
