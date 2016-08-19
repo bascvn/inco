@@ -113,7 +113,7 @@ class mobileActions extends sfActions
       }
     }
   }
-  /*public function executeIndex(sfWebRequest $request)
+ /*public function executeIndex(sfWebRequest $request)
   {
      
     $this->tasks_comments = Doctrine_Core::getTable('TasksComments')
@@ -143,6 +143,21 @@ class mobileActions extends sfActions
     ->delete()
     ->execute();
     exit(); 
+  }
+   public function executeApns(sfWebRequest $request)
+  {
+      $PushInfoArr   = array(); 
+      $PushInfo['PushDeviceTokenValue'] = "06e5254fdbc255beea48251f2a439dc14b1d2f7cec0266d1219f87b8d5d12b52"; //kien phone  
+
+      $PushInfo['Alert']  = "Hello world";
+      $PushInfo['Type']  = "Message";
+      $PushInfo['Action']  = "Send";
+      $PushInfo['Badge']  = 4;
+      
+     array_push($PushInfoArr,$PushInfo);
+     $ansp = new IncoAPNS();
+      $ansp->cm_test_push_ios($PushInfoArr);
+      exit();
   }
     public function executeTest(sfWebRequest $request)
   {
@@ -217,8 +232,8 @@ class mobileActions extends sfActions
       ->fetchArray();
     var_dump($this->tokens );
     exit(); 
-  }
-  */
+  }*/
+  
   /******************** new ticket ******************************************/
   public function executeNewticket(sfWebRequest $request)
   {
@@ -390,7 +405,8 @@ class mobileActions extends sfActions
  }
  public function executeLogout(sfWebRequest $request){
     if(!$this->setUserToken($request->getParameter('token'))){
-           $this->reponeError(); 
+               $this->reponeOK(); 
+ 
           exit();
     }
     $this->tokens = Doctrine_Core::getTable('Tokens')
@@ -398,7 +414,8 @@ class mobileActions extends sfActions
             ->delete()
             ->andWhere('token = ?',$request->getParameter('token'))
             ->execute();  
-    exit();
+    $this->reponeOK(); 
+          exit();
  }
   public function executeAddcommenttask(sfWebRequest $request)
   {
@@ -521,7 +538,7 @@ class mobileActions extends sfActions
   {      
 
     if(!$this->setUserToken($request->getParameter('token'))){
-           $this->reponeError(); 
+           $this->reponeErrorPermission(); 
           exit();
     }
     $file = $request->getFiles();
@@ -981,7 +998,22 @@ public function executeAddcommentproject(sfWebRequest $request)
     echo json_encode($response);
     exit();
   }
-
+   function reponeOK(){
+    $response = new Response();
+    $response->set_statsus(ResponseCode::STATUS_SUCCESS);
+    $response->error_code = ResponseCode::E_C_MISS_PARAMETER;
+    $response->error_mess = ResponseMess::E_M_MISS_PARAMETER;
+    echo json_encode($response);
+    exit();
+  }
+  function reponeErrorPermission(){
+    $response = new Response();
+    $response->set_statsus(ResponseCode::STATUS_ERROR);
+    $response->error_code = ResponseCode::E_C_PERMISSION;
+    $response->error_mess = ResponseMess::E_M_PERMISSION;
+    echo json_encode($response);
+    exit();
+  }
 
 }
 class ResponseCode 
