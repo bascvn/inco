@@ -36,3 +36,6 @@
 "search_company_title" = "Tìm kiếm công ty";
 "new_ticket" = "Tạo Thẻ";
 "new_comment" = "Tạo Bình Luận";
+"notifications" = "Thông Báo";
+"can_logout" = "Không Thể Đăng Xuất";
+

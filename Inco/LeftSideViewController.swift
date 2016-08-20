@@ -86,20 +86,24 @@ class LeftSideViewController: UIViewController ,UITableViewDelegate,UITableViewD
                 print("JSON: \(JSON)")
                 let inco = IncoResponse(data: JSON as! NSDictionary)
                 if inco.isOK(){
-                   
+                    IncoCommon.logOut()
+                    let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
+                        as! ViewController
+                    let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let mainNavContoller = UINavigationController(rootViewController: loginViewController)
+                    appDelegate.window?.rootViewController = mainNavContoller
+                    return
                 }
+               
                 
             }
+            let alertController = UIAlertController(title: CommonMess.ALERT, message: CommonMess.CANOT_LOGOUT, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: CommonMess.OK, style:UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
 
-        IncoCommon.logOut()
-        let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController")
-            as! ViewController
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-          let mainNavContoller = UINavigationController(rootViewController: loginViewController)
-        appDelegate.window?.rootViewController = mainNavContoller
-    
+        
     }
     internal  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         switch indexPath.section {

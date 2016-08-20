@@ -14,14 +14,26 @@ class DetailTabBarViewController: UITabBarController,RefreshProtocol{
     var projectID = ""
     var iD = ""
     var commentView:CommentsTableViewController?
+    var isNotificaiton = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+     
       //  add = UIBarButtonItem(title: "Refresh", style: .Plain, target: self, action: nil)
-                add = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add,target:self,action:#selector(DetailTabBarViewController.openAddComment))
+        
         add = UIBarButtonItem(image: UIImage(named: "ic_create_white_36pt"), style: .Plain, target: self, action:#selector(DetailTabBarViewController.openAddComment))
         
       // navigationItem.rightBarButtonItem = add
         // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(animated: Bool) {
+        if isNotificaiton == true{
+            self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(named: "ic_clear_white"), style: .Plain, target: self, action:#selector(DetailTabBarViewController.closeNotifications(_:)))
+            
+        }
+    }
+    func closeNotifications(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     func openAddComment() {
         let tabBarController = CommentTabBarViewController()

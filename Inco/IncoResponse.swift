@@ -26,6 +26,9 @@ class IncoResponse  {
             self.data =   data.valueForKey("data") as? [NSDictionary]
             if self.data == nil{
                 let tmp =   data.valueForKey("data") as? NSDictionary
+                if tmp == nil {
+                    return
+                }
                 self.data =  [NSDictionary]()
                 self.data.append(tmp!)
             }

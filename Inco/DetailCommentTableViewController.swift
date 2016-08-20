@@ -23,7 +23,9 @@ class DetailCommentTableViewController: UITableViewController {
     
     var item:CommentCell!
     override func viewDidLoad() {
+    
         super.viewDidLoad()
+        
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         // Uncomment the following line to preserve selection between presentations

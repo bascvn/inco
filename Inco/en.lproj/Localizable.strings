@@ -42,3 +42,5 @@
 "search_company_title" = "Search company";
 "new_ticket" = "New Ticket";
 "new_comment" = "New Comment";
+"notifications" = "Notifications";
+"can_logout" = "Can't logout";

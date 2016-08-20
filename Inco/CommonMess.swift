@@ -37,6 +37,8 @@ class CommonMess {
     static let SEARCH_COMPANY_TITLE = NSLocalizedString("search_company_title",comment: "")
     static let NEW_TICKET = NSLocalizedString("new_ticket",comment: "")
     static let NEW_COMMENT = NSLocalizedString("new_comment",comment: "")
+    static let CANOT_LOGOUT = NSLocalizedString("can_logout",comment: "")
+    static let NOTIFICATIONS = NSLocalizedString("notifications",comment: "")
 
 
 

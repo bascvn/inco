@@ -7,9 +7,10 @@
 //
 
 import UIKit
-
+import Alamofire
+import AlamofireImage
 class NotificationsTableViewController: UITableViewController {
-    var notifications:[Push]?
+    var notifications = [Push]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.estimatedRowHeight = 44
@@ -17,11 +18,13 @@ class NotificationsTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.notifications = appDelegate.notifications
+        self.notifications.appendContentsOf( appDelegate.notifications)
+        appDelegate.notifications.removeAll()
+        self.title = CommonMess.NOTIFICATIONS
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,22 +39,24 @@ class NotificationsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (self.notifications?.count)!
+        return (self.notifications.count)
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("notificationcell", forIndexPath: indexPath) as! NotificationsTableViewCell
-        cell.mDate.text = self.notifications![indexPath.row].date
-        cell.mName.text = self.notifications![indexPath.row].title
-        cell.mContent.text = self.notifications![indexPath.row].message
-        cell.mParent.text = self.notifications![indexPath.row].parent
-        if self.notifications![indexPath.row].attach?.characters.count > 0 {
+        cell.mDate.text = self.notifications[indexPath.row].date
+        cell.mName.text = self.notifications[indexPath.row].title
+        cell.mContent.text = self.notifications[indexPath.row].message
+        cell.mParent.text = self.notifications[indexPath.row].parent
+        let photo = NSURL(string: IncoApi.getAvatar((self.notifications[indexPath.row].photo)!))
+        cell.mAvatar.af_setImageWithURL(photo!)
+        if self.notifications[indexPath.row].attach?.characters.count > 0 {
             cell.attachFile.hidden = false
         }else{
             cell.attachFile.hidden = true
         }
-        let type = self.notifications![indexPath.row].type
+        let type = self.notifications[indexPath.row].type
         if type ==  ComponentType.PROJECT {
            cell.mType.image = UIImage(named: "project")
         
@@ -72,7 +77,7 @@ class NotificationsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let tabBarController = DetailTabBarViewController()
-        let item = self.notifications![indexPath.row]
+        let item = self.notifications[indexPath.row]
         tabBarController.type = item.type!
         tabBarController.iD = item.id!
         let projectStoryboard: UIStoryboard = UIStoryboard(name: "detailcomponent", bundle: nil)

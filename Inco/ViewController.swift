@@ -68,10 +68,12 @@ class ViewController: UIViewController,CompanyTableDelegate,UITextFieldDelegate{
         if(!self.validateForm()){
             return
         }
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let token = appDelegate.deviceToken
         self.isLoging.startAnimating()
         let email = self.mEmail.text!
         let pass = self.mPassword.text!
-        let parameters:[String:AnyObject] = [IncoApi.LOGIN_DEVICE_ID:"ios device 1",IncoApi.LOGIN_DEVICE_TYPE:"2",
+        let parameters:[String:AnyObject] = [IncoApi.LOGIN_DEVICE_ID:token!,IncoApi.LOGIN_DEVICE_TYPE:"2",
                                              IncoApi.LOGIN_PASS:pass,IncoApi.LOGIN_EMAIL:email]
         Alamofire.request(.POST, IncoApi.getLogin(self.mCompany.text!),parameters: parameters) .responseJSON { response in // 1
             print(response.request)  // original URL request

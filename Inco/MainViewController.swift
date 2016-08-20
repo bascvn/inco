@@ -65,10 +65,16 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if self.isSetTitle == true {
             self.setTitleView(type)
         }
+        self.updateBadge()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainViewController.haveNofifications(_:)), name: "didReceiveRemoteNotification", object: nil)
+        
     }
     override func viewDidDisappear(animated: Bool) {
         self.title = ""
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
     }
+
     @IBAction func refreshClick(sender: AnyObject) {
         refresh()
     }
@@ -444,7 +450,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         self.showErrorStatus(mess!)
                         return
                     }
-                    let buildNumber = data.valueForKey("BuildNumber") as! String
+                    let buildNumber = data.valueForKey("iOSBuildNumber") as! String
                     let currentBuild = NSBundle.mainBundle().infoDictionary?["CFBundleVersion"] as? String
                     if Int(buildNumber) > Int(currentBuild!)! && IncoCommon.getNumberBuild() != buildNumber{
                         var version = data.valueForKey("ios_ver") as? String
@@ -463,6 +469,24 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
+    func updateBadge()  {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        leftBarButton?.badgeValue = "\(appDelegate.notifications.count)"
+        var menus = navigationItem.rightBarButtonItems
+        if appDelegate.notifications.count > 0 && menus?.count == 1{
+            menus?.insert(leftBarButton!, atIndex: 0)
+            navigationItem.rightBarButtonItems = menus
+        }else if appDelegate.notifications.count == 0 && menus?.count == 2{
+            menus?.removeAtIndex(0)
+            navigationItem.rightBarButtonItems = menus
+        }
+    }
+    func haveNofifications(notification: NSNotification) {
+       
+        updateBadge()
+        
+    }
+
     /*
     // MARK: - Navigation
 
@@ -478,6 +502,7 @@ class MainViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 extension MainViewController {
     
     func setUpLeftBarButton() {
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let image = UIImage(named: "ic_public_white")
         let button = UIButton(type: .Custom)
         if let knownImage = image {
@@ -493,9 +518,11 @@ extension MainViewController {
         
         let newBarButton = ENMBadgedBarButtonItem(customView: button, value: "\(count)")
         leftBarButton = newBarButton
-        leftBarButton?.badgeValue = "\(count)"
+        leftBarButton?.badgeValue = "\(appDelegate.notifications.count)"
         var menus = navigationItem.rightBarButtonItems
-         menus?.insert(leftBarButton!, atIndex: 0)
+        if appDelegate.notifications.count > 0 {
+           menus?.insert(leftBarButton!, atIndex: 0)
+        }
         navigationItem.rightBarButtonItems = menus
     }
 }

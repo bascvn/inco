@@ -647,7 +647,7 @@
 				TargetAttributes = {
 					848CE74C1D3BB64500558E9E = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 9MWGGVH93Y;
+						DevelopmentTeam = TR2D64ML34;
 					};
 					848CE7631D3BB64500558E9E = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1150,12 +1150,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Long Long (86HZ5222YC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Inco/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.bansac.Inco;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.bansac.inco.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Inco/Inco-Bridging-Header.h";
@@ -1169,12 +1169,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Long Long (86HZ5222YC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Inco/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.bansac.Inco;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.bansac.inco.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Inco/Inco-Bridging-Header.h";
