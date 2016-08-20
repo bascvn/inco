@@ -1038,6 +1038,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avatar_default" width="32" height="32"/>
+        <image name="avatar_default" width="48" height="48"/>
     </resources>
 </document>

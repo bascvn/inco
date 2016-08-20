@@ -692,7 +692,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notificationcell" rowHeight="175" id="O5a-78-PRV">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notificationcell" rowHeight="175" id="O5a-78-PRV" customClass="NotificationsTableViewCell" customModule="Inco" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="600" height="175"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O5a-78-PRV" id="4aZ-jm-QVK">
@@ -718,12 +718,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-Rq-HVr">
-                                            <rect key="frame" x="8" y="76" width="584" height="52"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5W-6D-Pvu">
                                             <rect key="frame" x="46" y="140" width="546" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -737,9 +731,24 @@
                                                 <constraint firstAttribute="height" constant="30" id="u6N-8Q-3Xm"/>
                                             </constraints>
                                         </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_attachment_48pt" translatesAutoresizingMaskIntoConstraints="NO" id="MBp-TM-zbM">
+                                            <rect key="frame" x="552" y="8" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="7jo-JZ-jig"/>
+                                                <constraint firstAttribute="height" constant="40" id="oSj-zA-vr2"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sav-Rq-HVr">
+                                            <rect key="frame" x="8" y="76" width="584" height="52"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="U5W-6D-Pvu" firstAttribute="leading" secondItem="EV8-Vr-5SN" secondAttribute="trailing" constant="8" id="0ML-bA-hR2"/>
+                                        <constraint firstAttribute="trailing" secondItem="MBp-TM-zbM" secondAttribute="trailing" constant="8" id="1r9-V8-fay"/>
+                                        <constraint firstItem="MBp-TM-zbM" firstAttribute="top" secondItem="4aZ-jm-QVK" secondAttribute="top" constant="8" id="9xI-ZA-Q8Y"/>
                                         <constraint firstAttribute="bottom" secondItem="EV8-Vr-5SN" secondAttribute="bottom" constant="8" id="Di6-Ym-RFn"/>
                                         <constraint firstAttribute="trailing" secondItem="U5W-6D-Pvu" secondAttribute="trailing" constant="8" id="FNS-sS-SDu"/>
                                         <constraint firstItem="0cf-qL-dfJ" firstAttribute="leading" secondItem="4aZ-jm-QVK" secondAttribute="leading" constant="8" id="Fyo-qB-ESH"/>
@@ -759,6 +768,14 @@
                                         <constraint firstItem="Sav-Rq-HVr" firstAttribute="top" secondItem="0cf-qL-dfJ" secondAttribute="bottom" constant="8" id="tXH-LI-Qhk"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="attachFile" destination="MBp-TM-zbM" id="CdW-1c-tj4"/>
+                                    <outlet property="mAvatar" destination="0cf-qL-dfJ" id="MAd-pe-rDK"/>
+                                    <outlet property="mContent" destination="Sav-Rq-HVr" id="O9u-tn-LCN"/>
+                                    <outlet property="mDate" destination="xHw-Xk-4m5" id="pEM-S5-V2b"/>
+                                    <outlet property="mName" destination="mgJ-qN-OTz" id="zL9-hF-jTv"/>
+                                    <outlet property="mParent" destination="U5W-6D-Pvu" id="Uf8-J8-3kD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -792,6 +809,7 @@
     </scenes>
     <resources>
         <image name="avatar_default" width="48" height="48"/>
+        <image name="ic_attachment_48pt" width="48" height="48"/>
         <image name="main_home" width="32" height="32"/>
         <image name="project" width="64" height="64"/>
         <image name="search_icon" width="64" height="64"/>

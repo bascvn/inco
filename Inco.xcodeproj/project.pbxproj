@@ -63,6 +63,8 @@
 		8497488C1D56EE2300C27CD6 /* DetailCommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497488B1D56EE2300C27CD6 /* DetailCommentTableViewController.swift */; };
 		8497488F1D56FAFC00C27CD6 /* DownloadFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8497488E1D56FAFC00C27CD6 /* DownloadFileView.swift */; };
 		849748911D56FB1A00C27CD6 /* DownloadFileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849748901D56FB1A00C27CD6 /* DownloadFileView.xib */; };
+		849A9DFC1D67C76500965CD1 /* Push.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A9DFB1D67C76500965CD1 /* Push.swift */; };
+		849A9DFE1D67CBF100965CD1 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849A9DFD1D67CBF100965CD1 /* NotificationsTableViewCell.swift */; };
 		849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */; };
 		849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C1A5E1D4103E30097A933 /* ProjectCell.swift */; };
 		84A199A01D51A5C300635992 /* ContentTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */; };
@@ -204,6 +206,8 @@
 		8497488B1D56EE2300C27CD6 /* DetailCommentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentTableViewController.swift; sourceTree = "<group>"; };
 		8497488E1D56FAFC00C27CD6 /* DownloadFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadFileView.swift; sourceTree = "<group>"; };
 		849748901D56FB1A00C27CD6 /* DownloadFileView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadFileView.xib; sourceTree = "<group>"; };
+		849A9DFB1D67C76500965CD1 /* Push.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Push.swift; sourceTree = "<group>"; };
+		849A9DFD1D67CBF100965CD1 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		849C1A5C1D40FFFB0097A933 /* ProjectViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewCell.swift; sourceTree = "<group>"; };
 		849C1A5E1D4103E30097A933 /* ProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		84A1999E1D51A5C300635992 /* ContentTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentTicketViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +340,7 @@
 				8478B0171D5C4223001F121D /* TicketTableViewCell.xib */,
 				84AF2B7B1D47A53400F31080 /* DiscussionTableViewCell.swift */,
 				8478B0121D5C3F20001F121D /* DiscussionTableViewCell.xib */,
+				849A9DFD1D67CBF100965CD1 /* NotificationsTableViewCell.swift */,
 			);
 			name = TableCell;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				84916DA61D559138000D8A68 /* TicketForm.swift */,
 				84916DA81D559764000D8A68 /* BaseItem.swift */,
 				84916DAA1D55B8AC000D8A68 /* GroupUser.swift */,
+				849A9DFB1D67C76500965CD1 /* Push.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -861,7 +867,9 @@
 				84833AAE1D508E14003AA10C /* CommentViewController.swift in Sources */,
 				846A662C1D3E7C560015CCFB /* IncoResponse.swift in Sources */,
 				849C1A5D1D40FFFB0097A933 /* ProjectViewCell.swift in Sources */,
+				849A9DFE1D67CBF100965CD1 /* NotificationsTableViewCell.swift in Sources */,
 				84AF2B781D47A10400F31080 /* TicketCell.swift in Sources */,
+				849A9DFC1D67C76500965CD1 /* Push.swift in Sources */,
 				849C1A5F1D4103E30097A933 /* ProjectCell.swift in Sources */,
 				846A662A1D3E6A4E0015CCFB /* IncoApi.swift in Sources */,
 				846DAF581D445B65008D8D5F /* LoadingMoreCell.swift in Sources */,
